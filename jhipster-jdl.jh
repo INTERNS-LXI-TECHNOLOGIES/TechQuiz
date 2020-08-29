@@ -1,0 +1,51 @@
+
+
+entity Question {
+	question String,
+    questionlevel QuestionLevel
+}
+
+entity Answer {
+	answer String
+    
+}
+
+entity AttendedExam {
+    total Integer,
+    result Boolean
+}
+
+entity QnOption {
+	option String
+}
+
+entity Exam {
+    count Integer,
+	name String
+	level ExamLevel
+}
+
+relationship OneToMany {
+	Question to QnOption
+    }
+    
+relationship OneToOne {
+	Question to Answer
+}
+
+relationship ManyToMany {
+	Exam to Question
+}
+
+relationship ManyToOne {
+	Exam to AttendedExam{exam}
+}
+
+enum ExamLevel {
+    EASY, MEDIUM, HARD
+}
+enum QuestionLevel{
+	EASY, MEDIUM, HARD
+}
+
+
