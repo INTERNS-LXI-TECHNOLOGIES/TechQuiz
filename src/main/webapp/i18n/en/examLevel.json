@@ -1,0 +1,10 @@
+{
+  "techQuizApp": {
+    "ExamLevel": {
+      "null": "",
+      "EASY": "EASY",
+      "MEDIUM": "MEDIUM",
+      "HARD": "HARD"
+    }
+  }
+}

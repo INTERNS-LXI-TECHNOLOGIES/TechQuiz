@@ -1,0 +1,32 @@
+{
+  "name": "AttendedExam",
+  "fields": [
+    {
+      "fieldName": "total",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "result",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "exam",
+      "otherEntityRelationshipName": "attendedExam",
+      "relationshipName": "exam"
+    }
+  ],
+  "changelogDate": "20200829144317",
+  "entityTableName": "attended_exam",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

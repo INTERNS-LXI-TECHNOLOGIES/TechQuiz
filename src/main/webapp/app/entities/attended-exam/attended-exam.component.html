@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="techQuizApp.attendedExam.home.title">Attended Exams</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-attended-exam" [routerLink]="['/attended-exam/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="techQuizApp.attendedExam.home.createLabel">
+            Create a new Attended Exam
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="attendedExams?.length === 0">
+        <span jhiTranslate="techQuizApp.attendedExam.home.notFound">No attendedExams found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="attendedExams && attendedExams.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="techQuizApp.attendedExam.total">Total</span></th>
+                    <th scope="col" ><span jhiTranslate="techQuizApp.attendedExam.result">Result</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let attendedExam of attendedExams ;trackBy: trackId">
+                    <td><a [routerLink]="['/attended-exam', attendedExam.id, 'view']">{{ attendedExam.id }}</a></td>
+                    <td>{{ attendedExam.total }}</td>
+                    <td>{{ attendedExam.result }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/attended-exam', attendedExam.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/attended-exam', attendedExam.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(attendedExam)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

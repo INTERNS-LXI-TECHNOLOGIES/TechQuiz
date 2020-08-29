@@ -1,0 +1,24 @@
+{
+  "techQuizApp": {
+    "attendedExam": {
+      "home": {
+        "title": "Attended Exams",
+        "createLabel": "Create a new Attended Exam",
+        "createOrEditLabel": "Create or edit a Attended Exam",
+        "notFound": "No Attended Exams found"
+      },
+      "created": "A new Attended Exam is created with identifier {{ param }}",
+      "updated": "A Attended Exam is updated with identifier {{ param }}",
+      "deleted": "A Attended Exam is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Attended Exam {{ id }}?"
+      },
+      "detail": {
+        "title": "Attended Exam"
+      },
+      "total": "Total",
+      "result": "Result",
+      "exam": "Exam"
+    }
+  }
+}

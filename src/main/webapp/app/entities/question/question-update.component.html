@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-question-heading" jhiTranslate="techQuizApp.question.home.createOrEditLabel">Create or edit a Question</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.question.question" for="field_question">Question</label>
+                    <input type="text" class="form-control" name="question" id="field_question"
+                           formControlName="question"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.question.questionlevel" for="field_questionlevel">Questionlevel</label>
+                    <select class="form-control" name="questionlevel" formControlName="questionlevel" id="field_questionlevel">
+                        <option value="EASY">{{ 'techQuizApp.QuestionLevel.EASY' | translate }}</option>
+                        <option value="MEDIUM">{{ 'techQuizApp.QuestionLevel.MEDIUM' | translate }}</option>
+                        <option value="HARD">{{ 'techQuizApp.QuestionLevel.HARD' | translate }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.question.answer" for="field_answer">Answer</label>
+                    <select class="form-control" id="field_answer" name="answer" formControlName="answer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="answerOption.id === editForm.get('answer')!.value?.id ? editForm.get('answer')!.value : answerOption" *ngFor="let answerOption of answers; trackBy: trackById">{{ answerOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

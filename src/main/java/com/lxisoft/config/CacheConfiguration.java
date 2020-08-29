@@ -50,6 +50,15 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.User.class.getName() + ".authorities");
             createCache(cm, com.lxisoft.domain.PersistentToken.class.getName());
             createCache(cm, com.lxisoft.domain.User.class.getName() + ".persistentTokens");
+            createCache(cm, com.lxisoft.domain.Question.class.getName());
+            createCache(cm, com.lxisoft.domain.Question.class.getName() + ".qnOptions");
+            createCache(cm, com.lxisoft.domain.Question.class.getName() + ".exams");
+            createCache(cm, com.lxisoft.domain.Answer.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".exams");
+            createCache(cm, com.lxisoft.domain.QnOption.class.getName());
+            createCache(cm, com.lxisoft.domain.Exam.class.getName());
+            createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".questions");
             // jhipster-needle-ehcache-add-entry
         };
     }

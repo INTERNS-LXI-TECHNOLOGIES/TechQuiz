@@ -1,0 +1,34 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="attendedExam">
+            <h2><span jhiTranslate="techQuizApp.attendedExam.detail.title">Attended Exam</span> {{ attendedExam.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="techQuizApp.attendedExam.total">Total</span></dt>
+                <dd>
+                    <span>{{ attendedExam.total }}</span>
+                </dd>
+                <dt><span jhiTranslate="techQuizApp.attendedExam.result">Result</span></dt>
+                <dd>
+                    <span>{{ attendedExam.result }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/attended-exam', attendedExam.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

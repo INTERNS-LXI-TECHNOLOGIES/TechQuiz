@@ -1,0 +1,23 @@
+{
+  "techQuizApp": {
+    "qnOption": {
+      "home": {
+        "title": "Qn Options",
+        "createLabel": "Create a new Qn Option",
+        "createOrEditLabel": "Create or edit a Qn Option",
+        "notFound": "No Qn Options found"
+      },
+      "created": "A new Qn Option is created with identifier {{ param }}",
+      "updated": "A Qn Option is updated with identifier {{ param }}",
+      "deleted": "A Qn Option is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Qn Option {{ id }}?"
+      },
+      "detail": {
+        "title": "Qn Option"
+      },
+      "option": "Option",
+      "question": "Question"
+    }
+  }
+}

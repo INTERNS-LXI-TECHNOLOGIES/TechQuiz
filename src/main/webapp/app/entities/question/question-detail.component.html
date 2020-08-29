@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="question">
+            <h2><span jhiTranslate="techQuizApp.question.detail.title">Question</span> {{ question.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="techQuizApp.question.question">Question</span></dt>
+                <dd>
+                    <span>{{ question.question }}</span>
+                </dd>
+                <dt><span jhiTranslate="techQuizApp.question.questionlevel">Questionlevel</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'techQuizApp.QuestionLevel.' + question.questionlevel }}">{{ question.questionlevel }}</span>
+                </dd>
+                <dt><span jhiTranslate="techQuizApp.question.answer">Answer</span></dt>
+                <dd>
+                    <div *ngIf="question.answer">
+                        <a [routerLink]="['/answer', question.answer?.id, 'view']">{{ question.answer?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/question', question.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

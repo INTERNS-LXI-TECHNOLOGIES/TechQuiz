@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-exam-heading" jhiTranslate="techQuizApp.exam.home.createOrEditLabel">Create or edit a Exam</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.exam.count" for="field_count">Count</label>
+                    <input type="number" class="form-control" name="count" id="field_count"
+                           formControlName="count"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.exam.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.exam.level" for="field_level">Level</label>
+                    <select class="form-control" name="level" formControlName="level" id="field_level">
+                        <option value="EASY">{{ 'techQuizApp.ExamLevel.EASY' | translate }}</option>
+                        <option value="MEDIUM">{{ 'techQuizApp.ExamLevel.MEDIUM' | translate }}</option>
+                        <option value="HARD">{{ 'techQuizApp.ExamLevel.HARD' | translate }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="techQuizApp.exam.attendedExam" for="field_attendedExam">Attended Exam</label>
+                    <select class="form-control" id="field_attendedExam" name="attendedExam" formControlName="attendedExam">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="attendedExamOption.id === editForm.get('attendedExam')!.value?.id ? editForm.get('attendedExam')!.value : attendedExamOption" *ngFor="let attendedExamOption of attendedexams; trackBy: trackById">{{ attendedExamOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="techQuizApp.exam.question" for="field_questions">Question</label>
+                    <select class="form-control" id="field_questions" multiple name="questions" formControlName="questions">
+                        <option [ngValue]="getSelected(editForm.get('questions')!.value, questionOption)" *ngFor="let questionOption of questions; trackBy: trackById">{{ questionOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

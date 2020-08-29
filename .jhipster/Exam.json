@@ -1,0 +1,44 @@
+{
+  "name": "Exam",
+  "fields": [
+    {
+      "fieldName": "count",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "ExamLevel",
+      "fieldValues": "EASY,MEDIUM,HARD"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "attendedExam",
+      "otherEntityRelationshipName": "exam"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "exam",
+      "relationshipName": "question",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20200829144517",
+  "entityTableName": "exam",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

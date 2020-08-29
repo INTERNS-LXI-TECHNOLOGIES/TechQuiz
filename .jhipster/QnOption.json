@@ -1,0 +1,29 @@
+{
+  "name": "QnOption",
+  "fields": [
+    {
+      "fieldName": "option",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "qnOption",
+      "relationshipName": "question",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200829144417",
+  "entityTableName": "qn_option",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

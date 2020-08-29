@@ -1,0 +1,49 @@
+{
+  "name": "Question",
+  "fields": [
+    {
+      "fieldName": "question",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "questionlevel",
+      "fieldType": "QuestionLevel",
+      "fieldValues": "EASY,MEDIUM,HARD"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "answer",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "answer",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "qnOption",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "qnOption"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "exam",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "exam",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20200829144117",
+  "entityTableName": "question",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
