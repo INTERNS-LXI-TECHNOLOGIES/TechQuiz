@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create</title>
+    <style>
+	.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff0080;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #ff0040}
+
+.button:active {
+  background-color: #ff0040;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+	div
+	{
+		padding-top: 40px;
+		padding-right: 30px;
+		padding-left: 80px;
+		padding-bottom: 20px;
+	}
+
+	.header {
+  background-color: #ff0080;
+  padding: 20px;
+  text-align: center;
+}
+  </style>
+</head>
+<body>
+<div class="header">
+    <h1 align="center">TECHQUIZ</h1>
+    <h3 align="center">Create Exam</h3>
+</div>
+<form action="#" th:action="@{/createxam}"
+						th:object="${exam}" method="GET">
+
+					<div class="row">
+							<div class="form-group col-md-8">
+								<label for="question" class="col-form-label">Name of exam</label> <input
+									type="text" th:field="*{name}" class="form-control" 
+									placeholder="Name of Exam"> 
+							</div>
+							
+							<div class="form-group col-md-8">
+								<label for="question" class="col-form-label">Number of questions in exam</label> <input
+									type="text" th:field="*{count}" class="form-control" 
+									placeholder="Number of question"> 
+							</div>
+
+							<div class="form-group col-md-8">
+							<label for="question" class="col-form-label">Level of exam</label>
+							<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
+								<option th:value="easy">EASY</option>
+								<option th:value="medium">MEDIUM</option>
+								<option th:value="hard">HARD</option>
+							</select>
+							</div>
+			
+							<center><input type="submit" class="button" value=Submit></a></center>
+					</div>
+	</div>
+</body>
+</html>
