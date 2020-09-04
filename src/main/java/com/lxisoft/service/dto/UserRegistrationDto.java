@@ -1,4 +1,4 @@
-package com.lxisoft.web.dto;
+package com.lxisoft.service.dto;
 public class UserRegistrationDto {
 	private String firstName;
 	private String lastName;
