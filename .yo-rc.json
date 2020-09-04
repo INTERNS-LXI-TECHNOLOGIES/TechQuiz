@@ -9,7 +9,7 @@
     "baseName": "TechQuiz",
     "packageName": "com.lxisoft",
     "packageFolder": "com/lxisoft",
-    "serverPort": "8080",
+    "serverPort": "8081",
     "authenticationType": "session",
     "cacheProvider": "ehcache",
     "enableHibernateCache": true,
