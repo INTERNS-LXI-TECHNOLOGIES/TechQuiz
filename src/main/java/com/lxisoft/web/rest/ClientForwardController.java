@@ -24,11 +24,13 @@ public class ClientForwardController {
 
     @GetMapping(value="/instruction")
     public String root() {return "instruction";}
-    
+
     @RequestMapping(value = "/createxam")
     public String newContact(Model model) {
     	Exam exam=new Exam();
-    	model.addAttribute("exam",exam);	 
+    	model.addAttribute("exam",exam);
 		return "createxam";
 	}
+
+
     }
