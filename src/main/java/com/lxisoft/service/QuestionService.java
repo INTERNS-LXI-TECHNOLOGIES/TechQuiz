@@ -2,6 +2,9 @@ package com.lxisoft.service;
 
 import com.lxisoft.domain.Question;
 import com.lxisoft.repository.QuestionRepository;
+
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +41,9 @@ public class QuestionService {
         return id;
     }
 */
+    
+    public List<Question> findAll() {
+		List<Question> question=questionRepository.findAll();
+		return question;
+	}
 }

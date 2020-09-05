@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
-
+import com.lxisoft.service.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +23,9 @@ import java.util.List;
 public class ClientForwardController {
     @Autowired
     private QuestionService questionService;
+    
+    @Autowired
+    private ExamService examService;
 
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
@@ -42,6 +45,16 @@ public class ClientForwardController {
     	model.addAttribute("exam",exam);
 		return "createxam";
 	}
+    
+    
+    @RequestMapping ("saveexam")
+    public String saveExam(Exam exam,Model model)
+	{
+		examService.saveExam(exam);
+			
+		return "createxam";
+	}
+    
     @GetMapping(value = "/createxam")
     public String addNewQuestion(@ModelAttribute ExamModel examModel){
         List<QnOption> qnOptions = new ArrayList<>();
