@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head  th:replace="fragments/head :: headerFragment">
+<head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -30,7 +30,7 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-	
+
 	.header {
   background-color: #ff0080;
   padding: 20px;
@@ -43,19 +43,18 @@
         <br><h1> Add Question</h1><br>
 		</div>
 	<div class="container my-5">
-	
+
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-10">
-					<form action="#" th:action="@{/add}"
-						th:object="${exam}" method="GET">
+					<form action="#" th:action="@{/add}" th:object="${exam}" method="GET">
 						<div class="row">
 							<div class="form-group col-md-8">
 								<label for="question" class="col-form-label">Question</label> <input
-									type="text" th:field="*{question}" class="form-control" 
-									placeholder="Question"> 
+									type="text" th:field="*{question.question}" class="form-control"
+									placeholder="Question">
 							</div>
-			
+
 							<div class="form-group col-md-8">
 							<label for="level" class="col-form-label">Level</label>
 							<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
@@ -64,32 +63,32 @@
 								<option th:value="hard">HARD</option>
 							</select>
 							</div>
-			
-			
+
+
 							<div class="form-group col-md-8">
 								<label for="answer" class="col-form-label">Option1</label> <input
-									type="text" th:field="*{option1}" class="form-control" 
-									placeholder="Option1"> 
+									type="text" th:field="*{option1}" class="form-control"
+									placeholder="Option1">
 							</div>
 							<div class="form-group col-md-8">
 								<label for="option1" class="col-form-label">Option2</label> <input
-									type="text" th:field="*{option2}" class="form-control" 
-									placeholder="Option2"> 
+									type="text" th:field="*{option2}" class="form-control"
+									placeholder="Option2">
 							</div>
 							<div class="form-group col-md-8">
-								<label for="answer" class="col-form-label">Option3</label> <input
-									type="text" th:field="*{option3}" class="form-control" 
-									placeholder="Option3"> 
+								<label for="option2" class="col-form-label">Option3</label> <input
+									type="text" th:field="*{option3}" class="form-control"
+									placeholder="Option3">
 							</div>
 							<div class="form-group col-md-8">
-								<label for="answer" class="col-form-label">Option4</label> <input
-									type="text" th:field="*{option4}" class="form-control" 
-									placeholder="Option4"> 
+								<label for="option3" class="col-form-label">Option4</label> <input
+									type="text" th:field="*{option4}" class="form-control"
+									placeholder="Option4">
 							</div>
 							<div class="form-group col-md-8">
-								<label for="answer" class="col-form-label">Answer</label> <input
-									type="text" th:field="*{answer}" class="form-control" 
-									placeholder="Answer"> 
+								<label for="option4" class="col-form-label">Answer</label> <input
+									type="text" th:field="*{answer}" class="form-control"
+									placeholder="Answer">
 							</div>
 							<div class="col-md-6">
 								<input type="submit" class="button" value=Add></button></center>
