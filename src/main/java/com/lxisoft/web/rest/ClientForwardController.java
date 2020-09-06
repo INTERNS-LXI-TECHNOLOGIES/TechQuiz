@@ -4,7 +4,6 @@ import com.lxisoft.domain.Answer;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.model.ExamModel;
-import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,15 +38,17 @@ import org.springframework.validation.BindingResult;
 public class ClientForwardController {
     @Autowired
     private QuestionService questionService;
-    
+
     @Autowired
     private ExamService examService;
 
-    @Autowired
-    private OptionService optService;
     
     int i=0;
-    
+    @Autowired
+    private QnOptionService optService;
+
+
+
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
@@ -68,15 +69,14 @@ public class ClientForwardController {
     	model.addAttribute("exam",exam);
 		return "createxam";
 	}
-    
-    
+
     @RequestMapping ("saveexam")
     public String saveExam(Exam exam,Model model)
 	{
 		examService.saveExam(exam);
-			
 		return "createxam";
 	}
+
     
     @GetMapping(value="viewQuestion")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
@@ -110,8 +110,28 @@ public class ClientForwardController {
         model.addObject("question", question);
         model.setViewName("add");
         return model;
+   }
+
+    @GetMapping(value="/viewQuestion")
+    public String viewQuestion(HttpServletRequest request) {
+    	HttpSession session = request.getSession(true);
+
+    	List<Question> listQuestion = questionService.getAll();
+    	Question question=listQuestion.get(0);
+    	question.getQuestion();
+
+    	session.setAttribute("listExam", listQuestion);
+    	return "redirect:/view";
     }
-    @GetMapping(value = "/add")
+
+    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    public String question(Model model)
+    {
+        Question question=new Question();
+        model.addAttribute("question",question);
+        return "add";
+    }
+   /* @GetMapping(value = "/add")
     public String addNewQuestion(@ModelAttribute Question question){
         List<QnOption> qnOptions = new ArrayList<>();
         Answer answer = question.getAnswer();
@@ -137,6 +157,17 @@ public class ClientForwardController {
         questionService.saveQuestion(question);
 
         return "add";
-    }
+    }*/
+   @RequestMapping(value="/add")
+   public String createExam( Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3,Model model)
+   {
 
+       if (!bindingResult.hasErrors()) {
+           questionService.saveQuestion(question);
+           optService.saveQnOption(question,opt1,opt2,opt3);
+           model.addAttribute("success",true);
+           return "redirect:/";}
+       else model.addAttribute("err",true);
+       return "add";
+   }
     }
