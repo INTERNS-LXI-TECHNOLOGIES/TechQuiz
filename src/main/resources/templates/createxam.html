@@ -61,15 +61,18 @@
 									type="text" th:field="*{count}" class="form-control" 
 									placeholder="Number of question"> 
 							</div>
-
+							
 							<div class="form-group col-md-8">
 							<label for="question" class="col-form-label">Level of exam</label>
-							<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
-								<option th:value="easy">EASY</option>
-								<option th:value="medium">MEDIUM</option>
-								<option th:value="hard">HARD</option>
+							<select name="level">
+    						<option th:each="levelOpt : ${T(com.lxisoft.domain.enumeration.ExamLevel).values()}" 
+        					th:value="${levelOpt}" th:text="${levelOpt}"></option>
 							</select>
 							</div>
+							
+
+							
+							
 			
 							<center><input type="submit" class="button" value=Submit></a></center>
 					</div>

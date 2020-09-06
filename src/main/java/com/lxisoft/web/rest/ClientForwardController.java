@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
@@ -17,6 +18,11 @@ import com.lxisoft.domain.Exam;
 import com.lxisoft.service.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.validation.BindingResult;
 
 
 @Controller
@@ -35,6 +41,8 @@ public class ClientForwardController {
     public String forward() {
         return "forward:/";
     }
+    @GetMapping(value="/techquiz")
+    public String first() {return "techquiz";}
 
     @GetMapping(value="/instruction")
     public String root() {return "instruction";}
@@ -54,6 +62,20 @@ public class ClientForwardController {
 			
 		return "createxam";
 	}
+    
+    @GetMapping(value="/viewQuestion")
+    public String viewQuestion(HttpServletRequest request) {
+    	HttpSession session = request.getSession(true);
+    	
+    	List<Question> listQuestion = questionService.getAll();
+    	Question question=listQuestion.get(0);
+    	question.getQuestion();
+	    
+    	session.setAttribute("listExam", listQuestion); 
+    	return "redirect:/view";
+    }
+    
+    
     
     @GetMapping(value = "/createxam")
     public String addNewQuestion(@ModelAttribute ExamModel examModel){
@@ -79,7 +101,7 @@ public class ClientForwardController {
         qnOptions.add(option2);
         qnOptions.add(option3);
         qnOptions.add(option4);
-       // question.setOptions(qnOptions);
+//        question.setOptions(qnOptions);
         questionService.saveQuestion(question);
         return "home";
     }

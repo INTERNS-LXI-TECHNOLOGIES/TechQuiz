@@ -42,8 +42,15 @@ public class QuestionService {
     }
 */
     
-    public List<Question> findAll() {
-		List<Question> question=questionRepository.findAll();
-		return question;
-	}
+    public List<Question> getAll()
+    {
+
+        return  questionRepository.findAll();
+    }
+
+    
+//    public List<Question> findAll() {
+//		List<Question> question=questionRepository.findAll();
+//		return question;
+//	}
 }
