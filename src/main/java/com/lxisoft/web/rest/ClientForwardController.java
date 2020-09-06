@@ -23,7 +23,10 @@ import com.lxisoft.domain.Exam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,6 +45,9 @@ public class ClientForwardController {
 
     @Autowired
     private OptionService optService;
+    
+    int i=0;
+    
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
@@ -72,17 +78,30 @@ public class ClientForwardController {
 		return "createxam";
 	}
     
-    @GetMapping(value="/viewQuestion")
-    public String viewQuestion(HttpServletRequest request) {
-    	HttpSession session = request.getSession(true);
-    	
+    @GetMapping(value="viewQuestion")
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	List<Question> listQuestion = questionService.getAll();
-    	Question question=listQuestion.get(0);
-    	question.getQuestion();
-	    
-    	session.setAttribute("listExam", listQuestion); 
-    	return "redirect:/view";
+    	if(i<listQuestion.size())
+    	{
+	    	Question question=listQuestion.get(i);       
+	    	question.getQuestion();
+	    	question.getAnswer();
+	    	
+	    	
+	        model.addObject("question", question); 	
+	        model.setViewName("questionview");
+	        i++;
+	        return model;
+    		}
+    		else
+    		{
+    			model.setViewName("examresult");
+    			return model;
+    		}
     }
+    
+    @GetMapping(value="/examresult")
+    public String result() {return "examresult";}
     
     
    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
