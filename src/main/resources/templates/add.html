@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
 <meta charset="utf-8">
+=======
+<meta charset="ISO-8859-1">
+>>>>>>> 538053f0b7cefcabbb51bcf7d1b371fb1388352a
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -34,7 +38,7 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-	
+
 	.header {
   background-color: #ff0080;
   padding: 20px;
@@ -47,10 +51,11 @@
         <br><h1> Add Question</h1><br>
 		</div>
 	<div class="container my-5">
-	
+
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-10">
+<<<<<<< HEAD
 					<form 
 						th:object="${question}" method="GET">
 						<div class="row">
@@ -58,8 +63,16 @@
 								<label for="question" class="col-form-label">Question</label> <input
 									type="text" id="quest" th:field="*{question}" class="form-control" 
 									placeholder="Question"> 
+=======
+					<form action="#" th:action="@{/add}" th:object="${exam}" method="GET">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<label for="question" class="col-form-label">Question</label> <input
+									type="text" th:field="*{question.question}" class="form-control"
+									placeholder="Question">
+>>>>>>> 538053f0b7cefcabbb51bcf7d1b371fb1388352a
 							</div>
-			
+
 							<div class="form-group col-md-8">
 							<label for="question" class="col-form-label">Level of Question</label>
 							<select name="questionlevel">
@@ -67,10 +80,11 @@
         					th:value="${levelOp}" th:text="${levelOp}"></option>
 							</select>
 							</div>
-			
-			
+
+
 							<div class="form-group col-md-8">
 								<label for="answer" class="col-form-label">Option1</label> <input
+<<<<<<< HEAD
 									type="text" id="opt1" th:field="*{qnOptions}" class="form-control" 
 									placeholder="Option1"> 
 							</div>
@@ -88,11 +102,30 @@
 								<label for="answer" class="col-form-label">Option4</label> <input
 									type="text" id="opt2" th:field="*{qnOptions}" class="form-control" 
 									placeholder="Option4"> 
+=======
+									type="text" th:field="*{option1}" class="form-control"
+									placeholder="Option1">
 							</div>
 							<div class="form-group col-md-8">
-								<label for="answer" class="col-form-label">Answer</label> <input
-									type="text" th:field="*{answer}" class="form-control" 
-									placeholder="Answer"> 
+								<label for="option1" class="col-form-label">Option2</label> <input
+									type="text" th:field="*{option2}" class="form-control"
+									placeholder="Option2">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="option2" class="col-form-label">Option3</label> <input
+									type="text" th:field="*{option3}" class="form-control"
+									placeholder="Option3">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="option3" class="col-form-label">Option4</label> <input
+									type="text" th:field="*{option4}" class="form-control"
+									placeholder="Option4">
+>>>>>>> 538053f0b7cefcabbb51bcf7d1b371fb1388352a
+							</div>
+							<div class="form-group col-md-8">
+								<label for="option4" class="col-form-label">Answer</label> <input
+									type="text" th:field="*{answer}" class="form-control"
+									placeholder="Answer">
 							</div>
 							<div class="col-md-6">
 								<input type="submit" class="button" value=Add></button></center>
