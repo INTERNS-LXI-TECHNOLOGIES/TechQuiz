@@ -3,6 +3,7 @@ package com.lxisoft.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
@@ -16,7 +17,8 @@ public class QnOptionService {
     private final Logger log = LoggerFactory.getLogger(QnOptionService.class);
 
     @Autowired
-    private QnOptionService optionService;
+    private QnOptionRepository optionRepository;
+
     @Autowired
     private QuestionService questionService;
 
