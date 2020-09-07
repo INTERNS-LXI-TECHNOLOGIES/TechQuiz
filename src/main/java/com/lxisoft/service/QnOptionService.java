@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.repository.*;
@@ -27,9 +30,8 @@ public class QnOptionService {
         optionRepository.save(qnOption);
 
     }
-    public Question saveQnOption( Question question,String ...options)
+    public Question saveQnOption( Question question,String[] options)
     {
-        log.debug("options saving {} "+options[0],options[1],options[2]);
         for(int i=0;i<options.length;i++)
         {
             QnOption opt=new QnOption();
@@ -40,5 +42,23 @@ public class QnOptionService {
         }
         return question;
     }
+    
+    public List<QnOption> getAll()
+    {
+
+        return  optionRepository.findAll();
+    }
+    
+    
+	public QnOption findById(String opt_Id) {
+		long id=Integer.parseInt(opt_Id);
+		QnOption option=null;
+			Optional<QnOption> optional=optionRepository.findById(id);
+			if(optional.isPresent())
+			{
+				option=optional.get();
+			}
+		return option;
+	}
 
 }
