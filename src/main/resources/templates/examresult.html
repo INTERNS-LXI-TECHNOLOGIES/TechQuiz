@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>RESULT</title>
+<style>
+	.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff0080;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+</style>
+</head>
+<body>
+		<div  align="center" style="background: linear-gradient(to left, #ff0080,  #ff0080);">
+			<br>
+			<h1><font color="white">RESULT</font></h1>
+			<br>
+		</div>
+		<br>
+		<div style = "padding-left: 100px;">
+    		<h1 align="center">Total Mark : <a th:text = "${mark}"></a> </h1>
+    	</div> 
+        <center><a href="instruction"><input type="submit" class="button" value=Back></a></center>
+</body>
+</html>

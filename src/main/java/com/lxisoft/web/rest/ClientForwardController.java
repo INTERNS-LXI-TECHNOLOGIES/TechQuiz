@@ -22,7 +22,10 @@ import com.lxisoft.domain.Exam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,8 +42,11 @@ public class ClientForwardController {
     @Autowired
     private ExamService examService;
 
+
+    int i=0;
     @Autowired
     private QnOptionService optService;
+
 
 
     /**
@@ -71,7 +77,41 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
-    @GetMapping(value="/viewQuestion")
+
+    @GetMapping(value="viewQuestion")
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+    	List<Question> listQuestion = questionService.getAll();
+    	if(i<listQuestion.size())
+    	{
+	    	Question question=listQuestion.get(i);
+	    	question.getQuestion();
+	    	question.getAnswer();
+
+	        model.addObject("question", question);
+	        model.setViewName("questionview");
+	        i++;
+	        return model;
+    		}
+    		else
+    		{
+    			model.setViewName("examresult");
+    			return model;
+    		}
+    }
+
+   // @GetMapping(value="/examresult")
+   // public String result() {return "examresult";}
+
+
+  /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    public ModelAndView newQuestion(ModelAndView model) {
+        Question question = new Question();
+        model.addObject("question", question);
+        model.setViewName("add");
+        return model;
+   }*/
+
+  /*  @GetMapping(value="/viewQuestion")
     public String viewQuestion(HttpServletRequest request) {
     	HttpSession session = request.getSession(true);
 
@@ -81,7 +121,7 @@ public class ClientForwardController {
 
     	session.setAttribute("listExam", listQuestion);
     	return "redirect:/view";
-    }
+    }*/
 
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public String question(Model model)
@@ -126,5 +166,6 @@ public class ClientForwardController {
            return "redirect:/";}
        else model.addAttribute("err",true);
        return "add";
+
    }
 }
