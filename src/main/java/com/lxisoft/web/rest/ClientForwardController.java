@@ -112,15 +112,13 @@ public class ClientForwardController {
         qnOptions.add(option2);
         qnOptions.add(option3);
         qnOptions.add(option4);
-//        question.setOptions(qnOptions);
+        question.setOptions(qnOptions);
         questionService.saveQuestion(question);
-
         return "add";
     }*/
    @RequestMapping(value="/add")
    public String createExam( Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3,Model model)
    {
-
        if (!bindingResult.hasErrors()) {
            questionService.saveQuestion(question);
            optService.saveQnOption(question,opt1,opt2,opt3);
@@ -129,4 +127,4 @@ public class ClientForwardController {
        else model.addAttribute("err",true);
        return "add";
    }
-    }
+}
