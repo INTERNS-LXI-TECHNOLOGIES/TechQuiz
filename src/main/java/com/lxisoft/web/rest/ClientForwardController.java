@@ -3,7 +3,6 @@ package com.lxisoft.web.rest;
 import com.lxisoft.domain.Answer;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
-import com.lxisoft.model.ExamModel;
 import com.lxisoft.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +41,6 @@ public class ClientForwardController {
     @Autowired
     private ExamService examService;
 
-
     int i=0;
     @Autowired
     private QnOptionService optService;
@@ -77,17 +75,22 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
-
     @GetMapping(value="viewQuestion")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request,QnOption qnoption) {
     	List<Question> listQuestion = questionService.getAll();
     	if(i<listQuestion.size())
     	{
 	    	Question question=listQuestion.get(i);
 	    	question.getQuestion();
+	    	//qnoption.getOption();
 	    	question.getAnswer();
 
 	        model.addObject("question", question);
+
+
+	    	model.addObject("question", question);
+	       // model.addObject("question", qnoption);
+
 	        model.setViewName("questionview");
 	        i++;
 	        return model;
@@ -98,10 +101,6 @@ public class ClientForwardController {
     			return model;
     		}
     }
-
-   // @GetMapping(value="/examresult")
-   // public String result() {return "examresult";}
-
 
   /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
@@ -123,12 +122,39 @@ public class ClientForwardController {
     	return "redirect:/view";
     }*/
 
+
+    @GetMapping(value="/examresult")
+    public String result() {return "examresult";}
+
+
+//   @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+//    public ModelAndView newQuestion(ModelAndView model) {
+//        Question question = new Question();
+//        model.addObject("question", question);
+//        model.setViewName("add");
+//        return model;
+//   }
+
+//    @GetMapping(value="/viewQuestion")
+//    public String viewQuestion(HttpServletRequest request) {
+//    	HttpSession session = request.getSession(true);
+//
+//    	List<Question> listQuestion = questionService.getAll();
+//    	Question question=listQuestion.get(0);
+//    	question.getQuestion();
+//
+//    	session.setAttribute("listExam", listQuestion);
+//    	return "redirect:/view";
+//    }
+
+
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public String question(Model model)
+    public ModelAndView question(ModelAndView model)
     {
         Question question=new Question();
-        model.addAttribute("question",question);
-        return "add";
+        model.addObject("question",question);
+        model.setViewName("add");
+        return model;
     }
    /* @GetMapping(value = "/add")
     public String addNewQuestion(@ModelAttribute Question question){
@@ -157,15 +183,14 @@ public class ClientForwardController {
         return "add";
     }*/
    @RequestMapping(value="/add")
-   public String createExam( Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3,Model model)
+   public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
    {
-       if (!bindingResult.hasErrors()) {
-           questionService.saveQuestion(question);
-           optService.saveQnOption(question,opt1,opt2,opt3);
-           model.addAttribute("success",true);
-           return "redirect:/";}
-       else model.addAttribute("err",true);
-       return "add";
 
+           questionService.saveQuestion(question);
+           optService.saveQnOption(question, options);
+           model.addAttribute("success", true);
+           return "add";
+       }
    }
-}
+
+
