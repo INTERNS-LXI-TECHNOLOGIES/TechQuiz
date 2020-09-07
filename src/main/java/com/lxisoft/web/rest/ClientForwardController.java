@@ -78,17 +78,15 @@ public class ClientForwardController {
 
     
     @GetMapping(value="viewQuestion")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request,QnOption qnoption) {
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	List<Question> listQuestion = questionService.getAll();
     	if(i<listQuestion.size())
     	{
 	    	Question question=listQuestion.get(i);       
 	    	question.getQuestion();
-	    	//qnoption.getOption();
 	    	question.getAnswer();
 	    	
-	    	model.addObject("question", question);
-	       // model.addObject("question", qnoption); 	
+	    	model.addObject("question", question);	
 	        model.setViewName("questionview");
 	        i++;
 	        return model;
