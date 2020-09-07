@@ -68,6 +68,18 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
+     /*@GetMapping("/login")
+    public String login1(Model model)
+    {
+        return "login";
+    }*/
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public String adminpage(Model model)
+    {
+        return "instruction";
+    }
+
     @RequestMapping ("saveexam")
     public String saveExam(Exam exam,Model model)
 	{
