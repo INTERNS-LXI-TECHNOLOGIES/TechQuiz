@@ -48,12 +48,9 @@
 <br>
 <form th:object="${question}">   
 <a th:text = "${question.question}"></a><br>
-
-	            <th:each="q_option : ${question.qstnOptions}">
-	            	<th:text="${q_option.option}">option<br>
-	            	<br>
-	            	
-	            	  <div align = "center"><button class="button">NEXT</button></div>
+	 <br>
+	 <br>         	
+	     <div align = "center"><button class="button">NEXT</button></div>
 </form>
 </body>
 </html>
