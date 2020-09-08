@@ -102,25 +102,7 @@ public class ClientForwardController {
     		}
     }
 
-  /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public ModelAndView newQuestion(ModelAndView model) {
-        Question question = new Question();
-        model.addObject("question", question);
-        model.setViewName("add");
-        return model;
-   }*/
 
-  /*  @GetMapping(value="/viewQuestion")
-    public String viewQuestion(HttpServletRequest request) {
-    	HttpSession session = request.getSession(true);
-
-    	List<Question> listQuestion = questionService.getAll();
-    	Question question=listQuestion.get(0);
-    	question.getQuestion();
-
-    	session.setAttribute("listExam", listQuestion);
-    	return "redirect:/view";
-    }*/
 
 
     @GetMapping(value="/examresult")
@@ -185,7 +167,6 @@ public class ClientForwardController {
    @RequestMapping(value="/add")
    public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
    {
-
            questionService.saveQuestion(question);
            optService.saveQnOption(question, options);
            model.addAttribute("success", true);
