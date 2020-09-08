@@ -41,7 +41,6 @@ public class ClientForwardController {
     @Autowired
     private ExamService examService;
 
-    
     int i=0;
     @Autowired
     private QnOptionService optService;
@@ -69,6 +68,18 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
+     /*@GetMapping("/login")
+    public String login1(Model model)
+    {
+        return "login";
+    }*/
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public String adminpage(Model model)
+    {
+        return "instruction";
+    }
+
     @RequestMapping ("saveexam")
     public String saveExam(Exam exam,Model model)
 	{
@@ -76,17 +87,20 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
-    
     @GetMapping(value="viewQuestion")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	List<Question> listQuestion = questionService.getAll();
     	if(i<listQuestion.size())
     	{
-	    	Question question=listQuestion.get(i);       
+	    	Question question=listQuestion.get(i);
 	    	question.getQuestion();
 	    	question.getAnswer();
-	    	
-	    	model.addObject("question", question);	
+
+	        model.addObject("question", question);
+
+
+	    	model.addObject("question", question);
+	       // model.addObject("question", qnoption);
 	        model.setViewName("questionview");
 	        i++;
 	        return model;
@@ -97,11 +111,32 @@ public class ClientForwardController {
     			return model;
     		}
     }
-    
+
+  /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    public ModelAndView newQuestion(ModelAndView model) {
+        Question question = new Question();
+        model.addObject("question", question);
+        model.setViewName("add");
+        return model;
+   }*/
+
+  /*  @GetMapping(value="/viewQuestion")
+    public String viewQuestion(HttpServletRequest request) {
+    	HttpSession session = request.getSession(true);
+
+    	List<Question> listQuestion = questionService.getAll();
+    	Question question=listQuestion.get(0);
+    	question.getQuestion();
+
+    	session.setAttribute("listExam", listQuestion);
+    	return "redirect:/view";
+    }*/
+
+
     @GetMapping(value="/examresult")
     public String result() {return "examresult";}
-    
-    
+
+
 //   @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
 //    public ModelAndView newQuestion(ModelAndView model) {
 //        Question question = new Question();
@@ -121,6 +156,7 @@ public class ClientForwardController {
 //    	session.setAttribute("listExam", listQuestion);
 //    	return "redirect:/view";
 //    }
+
 
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView question(ModelAndView model)
@@ -152,9 +188,8 @@ public class ClientForwardController {
         qnOptions.add(option2);
         qnOptions.add(option3);
         qnOptions.add(option4);
-//        question.setOptions(qnOptions);
+        question.setOptions(qnOptions);
         questionService.saveQuestion(question);
-
         return "add";
     }*/
    @RequestMapping(value="/add")
@@ -162,9 +197,10 @@ public class ClientForwardController {
    {
 
            questionService.saveQuestion(question);
-           optService.saveQnOption(question,options);
-           model.addAttribute("success",true);
-  
-       return "add";
+           optService.saveQnOption(question, options);
+           model.addAttribute("success", true);
+           return "add";
+       }
    }
-    }
+
+

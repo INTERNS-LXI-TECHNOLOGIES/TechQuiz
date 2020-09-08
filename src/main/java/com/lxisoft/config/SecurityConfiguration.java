@@ -1,13 +1,18 @@
 package com.lxisoft.config;
 
 import com.lxisoft.security.*;
+import com.lxisoft.service.UserService;
 
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.security.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -21,7 +26,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
-
+@Order(2)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
@@ -30,7 +35,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JHipsterProperties jHipsterProperties;
 
     private final RememberMeServices rememberMeServices;
-
+/*    @Autowired
+	private UserService userService;*/
+    
     private final CorsFilter corsFilter;
     private final SecurityProblemSupport problemSupport;
 
@@ -50,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
         return new AjaxAuthenticationFailureHandler();
     }
+    @Autowired CustomLoginSuccessHandler customLoginSuccessHandler;
 
     @Bean
     public AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler() {
@@ -111,16 +119,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .deny()
         .and()
             .authorizeRequests()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
+				
+				 .antMatchers("/api/authenticate").permitAll()
+				 .antMatchers("/api/register").permitAll()
+				 .antMatchers("/api/activate").permitAll()
+				 
+				 .antMatchers("/api/account/reset-password/init").permitAll()
+				 .antMatchers("/api/account/reset-password/finish").permitAll()
+				 .antMatchers("/api/**").authenticated()
+				 .antMatchers("/management/health").permitAll()
+				 .antMatchers("/management/info").permitAll()
+				 .antMatchers("/management/prometheus").permitAll()
+				 .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
+				 
         // @formatter:on
     }
 }
