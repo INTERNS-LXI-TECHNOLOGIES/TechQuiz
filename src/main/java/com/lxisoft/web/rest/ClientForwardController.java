@@ -68,6 +68,18 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
+     /*@GetMapping("/login")
+    public String login1(Model model)
+    {
+        return "login";
+    }*/
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public String adminpage(Model model)
+    {
+        return "instruction";
+    }
+
     @RequestMapping ("saveexam")
     public String saveExam(Exam exam,Model model)
 	{
@@ -76,13 +88,12 @@ public class ClientForwardController {
 	}
 
     @GetMapping(value="viewQuestion")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request,QnOption qnoption) {
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	List<Question> listQuestion = questionService.getAll();
     	if(i<listQuestion.size())
     	{
 	    	Question question=listQuestion.get(i);
 	    	question.getQuestion();
-	    	//qnoption.getOption();
 	    	question.getAnswer();
 
 	        model.addObject("question", question);
@@ -90,7 +101,6 @@ public class ClientForwardController {
 
 	    	model.addObject("question", question);
 	       // model.addObject("question", qnoption);
-
 	        model.setViewName("questionview");
 	        i++;
 	        return model;

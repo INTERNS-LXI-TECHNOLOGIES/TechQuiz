@@ -46,36 +46,35 @@
     <h1 align="center">TECHQUIZ</h1>
     <h3 align="center">Create Exam</h3>
 </div>
-<form action="#" th:action="@{/saveexam}"
-						th:object="${exam}" method="GET">
+<form action="#" th:action="@{/saveexam}"  th:object="${exam}" method="GET">
 
-					<div class="row">
-							<div class="form-group col-md-8">
-								<label for="question" class="col-form-label">Name of exam</label> <input
-									type="text" th:field="*{name}" class="form-control" 
-									placeholder="Name of Exam"> 
-							</div>
-							
-							<div class="form-group col-md-8">
-								<label for="question" class="col-form-label">Number of questions in exam</label> <input
-									type="text" th:field="*{count}" class="form-control" 
-									placeholder="Number of question"> 
-							</div>
-							
-							<div class="form-group col-md-8">
-							<label for="question" class="col-form-label">Level of exam</label>
-							<select name="level">
-    						<option th:each="levelOpt : ${T(com.lxisoft.domain.enumeration.ExamLevel).values()}" 
-        					th:value="${levelOpt}" th:text="${levelOpt}"></option>
-							</select>
-							</div>
-							
-
-							
-							
+	<div class="row">
+			<div class="form-group col-md-8">
+				<label for="question" class="col-form-label">Name of exam</label> <input
+					type="text" th:field="*{name}" class="form-control" 
+					placeholder="Name of Exam"> 
+			</div>
 			
-							<center><a href="techquiz"><input type="submit" class="button" value=Submit></a></center>
-					</div>
+			<div class="form-group col-md-8">
+				<label for="question" class="col-form-label">Number of questions in exam</label> <input
+					type="text" th:field="*{count}" class="form-control" 
+					placeholder="Number of question"> 
+			</div>
+			
+			<div class="form-group col-md-8">
+			<label for="question" class="col-form-label">Level of exam</label>
+			<select name="level">
+			<option th:each="levelOpt : ${T(com.lxisoft.domain.enumeration.ExamLevel).values()}" 
+			th:value="${levelOpt}" th:text="${levelOpt}"></option>
+			</select>
+			</div>
+			<tr><div class="form-group col-md-8">
+			<center><input type="submit" class="button" value=Submit></form>
+						
+	<form action="http://localhost:8081/techquiz">
+	<input type="submit" class="button" value=Back></tr>
+	</form>
 	</div>
+</div>
 </body>
 </html>
