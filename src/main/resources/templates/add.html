@@ -43,7 +43,46 @@
     <br><h1> Add Question</h1><br>
 </div>
 <div class="container my-5">
+<div class="card">
+<div class="card-body">
+<div class="col-md-10">
+                <form th:object="${question}" method="GET">  
+        <div class="row">
+            <div class="form-group col-md-8">
+                <label for="question" class="col-form-label">Question</label> <input
+                type="text" id="quest" th:field="*{question}" class="form-control"
+                placeholder="Question">
+            </div>
 
+<<<<<<< HEAD
+            <div class="form-group col-md-8">
+                <label for="question" class="col-form-label">Level of Question</label>
+                <select name="questionlevel">
+                    <option th:each="levelOp : ${T(com.lxisoft.domain.enumeration.QuestionLevel).values()}"
+                            th:value="${levelOp}" th:text="${levelOp}"></option>
+                </select>
+            </div>
+
+
+            <div class="form-group col-md-8">
+                <label for="answer" class="col-form-label">Option1</label> <input
+                type="text" id="opt1" th:field="*{qnOptions}" class="form-control"
+                placeholder="Option1">
+            </div>
+            <div class="form-group col-md-8">
+                <label for="option1" class="col-form-label">Option2</label> <input
+                type="text" id="opt2" th:field="*{qnOptions}" class="form-control"
+                placeholder="Option2">
+            </div>
+            <div class="form-group col-md-8">
+                <label for="answer" class="col-form-label">Option3</label> <input
+                type="text" id="opt3" th:field="*{qnOptions}" class="form-control"
+                placeholder="Option3">
+            </div>
+            <div class="form-group col-md-8">
+                <label for="answer" class="col-form-label">Option4</label> <input
+                type="text" id="opt2" th:field="*{qnOptions}" class="form-control"
+                placeholder="Option4">
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
@@ -97,8 +136,26 @@
                     </div>
                 </form>
             </div>
+            <div class="form-group col-md-8">
+                <label for="answer" class="col-form-label">Answer</label> <input
+                type="text" th:field="*{answer}" class="form-control"
+                placeholder="Answer">
+            </div>
+            <div class="col-md-6">
+            <br>
+            <br>
+            <br>
+                <input type="submit" class="button" value=Add></button></center>
+            </div>
+           
         </div>
-    </div>
+    </form>
+    <div class="col-md-6">
+                <center><a href="http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>
+            </div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
