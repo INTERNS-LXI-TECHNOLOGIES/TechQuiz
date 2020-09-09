@@ -25,8 +25,18 @@ public class ExamService {
     
     public void saveExam(Exam exam) 
 	{
-		
-			examRepository.save(exam);
+    	Question qn=new Question();
+    	Set<Question> qstns = new HashSet<Question>(); 
+    	List<Question> listQuestion = questionService.getAll();
+    	int count=exam.getCount();
+    	int c=0;
+		ExamLevel level=exam.getLevel();
+		for(int i=0;i<listQuestion.size();i++)
+		{
+			if(qn.getQuestionlevel().equals(level))
+				c++;
+		}
+//			examRepository.save(exam);
 		
 	}
 
