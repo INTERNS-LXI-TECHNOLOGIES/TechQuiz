@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.lxisoft.service.UserService;
-import com.lxisoft.service.dto.UserRegistrationDto;
+//import com.lxisoft.service.dto.UserRegistrationDto;
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
@@ -16,18 +16,18 @@ public class UserRegistrationController {
 		super();
 		this.userService = userService;
 	}
-		
-	@ModelAttribute("user")
-	public UserRegistrationDto userRegistrationDto() {
-		return new UserRegistrationDto();
-	}
-	
+
+	//@ModelAttribute("user")
+	//public UserRegistrationDto userRegistrationDto() {
+	//	return new UserRegistrationDto();
+	//}
+
 	@GetMapping
 	public String showRegistrationForm() {
-		
+
 			return "registration";
 	}
-	
+
 //	@PostMapping
 //	public String registerUserAccount(@ModelAttribute("user")UserRegistrationDto registrationDto){
 //		userService.registerUser(registrationDto);

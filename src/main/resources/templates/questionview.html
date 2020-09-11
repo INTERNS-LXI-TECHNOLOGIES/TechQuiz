@@ -47,35 +47,32 @@
 	<h1 align="center">Questions</h1>
 </div>
 <script>
-// Set the date we're counting down to
-var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get today's date and time
-  var now = new Date().getTime();
-
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-
-  // If the count down is over, write some text
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
+<!--
+<%
+String clock = "10";
+%>
+var timeout = <%=clock%>;
+function timer()
+{
+if( --timeout > 0 )
+{
+document.getElementById("clock").innerHTML=timeout;
+window.setTimeout( "timer()", 1000 );
+}
+else
+{
+document.getElementById("clock").innerHTML = "Time over";
+document.qform.submit();
+///disable submit-button etc
+}
+}
+//-->
 </script>
+
+<form action="<%=request.getRequestURL()%>" name="forma">
+    Seconds remaining: <span id="clock"><%=clock%></span>
+
+</form>
 <br>
 
 
