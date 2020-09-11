@@ -30,13 +30,26 @@ public class ExamService {
     	List<Question> listQuestion = questionService.getAll();
     	int count=exam.getCount();
     	int c=0;
+    	int ct=0;
 		ExamLevel level=exam.getLevel();
 		for(int i=0;i<listQuestion.size();i++)
 		{
 			if(qn.getQuestionlevel().equals(level))
 				c++;
 		}
-//			examRepository.save(exam);
+		
+		if(c>=count)
+		{
+			for(Question qns:qstns)
+			{
+				if(qns.getQuestionlevel().equals(level) && (ct<count))
+				{
+					ct++;
+					qstns.add(qns);
+				}
+			}
+		}
+			examRepository.save(exam);
 		
 	}
 
