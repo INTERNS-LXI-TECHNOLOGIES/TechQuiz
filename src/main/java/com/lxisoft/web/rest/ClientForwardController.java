@@ -3,7 +3,7 @@ package com.lxisoft.web.rest;
 import com.lxisoft.domain.Answer;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
-import com.lxisoft.service.QuestionService;
+//import com.lxisoft.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,15 +35,15 @@ import org.springframework.validation.BindingResult;
 
 @Controller
 public class ClientForwardController {
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private ExamService examService;
-
-    int i=0;
-    @Autowired
-    private QnOptionService optService;
+//    @Autowired
+//    private QuestionService questionService;
+//
+//    @Autowired
+//    private ExamService examService;
+//
+//    int i=0;
+//    @Autowired
+//    private QnOptionService optService;
 
 
 
@@ -83,35 +83,35 @@ public class ClientForwardController {
     @RequestMapping ("saveexam")
     public String saveExam(Exam exam,Model model)
 	{
-		examService.saveExam(exam);
+//		examService.saveExam(exam);
 		return "createxam";
 	}
 
-    @GetMapping(value="viewQuestion")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-    	List<Question> listQuestion = questionService.getAll();
-    	if(i<listQuestion.size())
-    	{
-	    	Question question=listQuestion.get(i);
-	    	question.getQuestion();
-	    	question.getAnswer();
-
-	        model.addObject("question", question);
-
-
-	    	model.addObject("question", question);
-	       // model.addObject("question", qnoption);
-	        model.setViewName("questionview");
-	        i++;
-	        return model;
-    		}
-    		else
-    		{
-    			model.setViewName("examresult");
-    			return model;
-    		}
-    }
-
+//    @GetMapping(value="viewQuestion")
+//    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+//    	List<Question> listQuestion = questionService.getAll();
+//    	if(i<listQuestion.size())
+//    	{
+//	    	Question question=listQuestion.get(i);
+//	    	question.getQuestion();
+//	    	question.getAnswer();
+//
+//	        model.addObject("question", question);
+//
+//
+//	    	model.addObject("question", question);
+//	       // model.addObject("question", qnoption);
+//	        model.setViewName("questionview");
+//	        i++;
+//	        return model;
+//    		}
+//    		else
+//    		{
+//    			model.setViewName("examresult");
+//    			return model;
+//    		}
+//    }
+//
 
 
 
@@ -174,14 +174,14 @@ public class ClientForwardController {
         questionService.saveQuestion(question);
         return "add";
     }*/
-   @RequestMapping(value="/add")
-   public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
-   {
-           questionService.saveQuestion(question);
-           optService.saveQnOption(question, options);
-           model.addAttribute("success", true);
-           return "add";
-       }
+//   @RequestMapping(value="/add")
+//   public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
+//   {
+//           questionService.saveQuestion(question);
+//           optService.saveQnOption(question, options);
+//           model.addAttribute("success", true);
+//           return "add";
+//       }
    }
 
 
