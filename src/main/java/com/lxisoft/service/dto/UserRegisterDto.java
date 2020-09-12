@@ -1,13 +1,13 @@
 package com.lxisoft.service.dto;
-public class UserRegistrationDto {
+public class UserRegisterDto {
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	public UserRegistrationDto(){
+	public UserRegisterDto(){
 	}
 	
-	public UserRegistrationDto(String firstName, String lastName, String email, String password) {
+	public UserRegisterDto(String firstName, String lastName, String email, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -38,4 +38,15 @@ public class UserRegistrationDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	 public String toString() {
+	        return "UserDTO{" +
+	           
+	            ", firstName='" + firstName + '\'' +
+	            ", lastName='" + lastName + '\'' +
+	            ", email='" + email + '\'' +
+	            ", password=" + password +
+	            "}";
+	    }
+	
 }

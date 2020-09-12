@@ -1,5 +1,3 @@
-
-
 entity Question {
 	question String,
     questionlevel QuestionLevel

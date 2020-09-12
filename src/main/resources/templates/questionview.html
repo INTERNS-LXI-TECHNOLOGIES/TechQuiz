@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>viewQuestion</title>
+
      <style>
 	.button {
   display: inline-block;
@@ -33,7 +34,7 @@
 		padding-left: 80px;
 		padding-bottom: 20px;
 	}
-	
+
 	.header {
   background-color: #ff0080;
   padding: 20px;
@@ -45,12 +46,49 @@
 <div class="header">
 	<h1 align="center">Questions</h1>
 </div>
+<script>
+<!--
+<%
+String clock = "10";
+%>
+var timeout = <%=clock%>;
+function timer()
+{
+if( --timeout > 0 )
+{
+document.getElementById("clock").innerHTML=timeout;
+window.setTimeout( "timer()", 1000 );
+}
+else
+{
+document.getElementById("clock").innerHTML = "Time over";
+document.qform.submit();
+///disable submit-button etc
+}
+}
+//-->
+</script>
+
+<form action="<%=request.getRequestURL()%>" name="forma">
+    Seconds remaining: <span id="clock"><%=clock%></span>
+
+</form>
 <br>
-<form th:object="${question}">   
+
+
+<form th:object="${question}">
+
 <a th:text = "${question.question}"></a><br>
 	 <br>
 	 <br>         	
 	     <div align = "center"><button class="button">NEXT</button></div>
+
+
+	            <th:each="q_option : ${question.qstnOptions}">
+	            	<th:text="${q_option.option}">option<br>
+	            	<br>
+
+	            	  <div align = "center"><button class="button">NEXT</button></div>
 </form>
 </body>
 </html>
