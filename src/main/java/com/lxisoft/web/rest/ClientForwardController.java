@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.service.*;
+import com.lxisoft.service.dto.ExamDTO;
+import com.lxisoft.service.impl.ExamServiceImpl;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
@@ -35,15 +38,15 @@ import org.springframework.validation.BindingResult;
 
 @Controller
 public class ClientForwardController {
-//    @Autowired
-//    private QuestionService questionService;
-//
-//    @Autowired
-//    private ExamService examService;
-//
-//    int i=0;
-//    @Autowired
-//    private QnOptionService optService;
+    @Autowired
+    private QuestionService questionService;
+
+    @Autowired
+    private ExamServiceImpl examServiceImpl;
+
+    int i=0;
+    @Autowired
+    private QnOptionService optService;
 
 
 
@@ -81,9 +84,9 @@ public class ClientForwardController {
     }
 
     @RequestMapping ("saveexam")
-    public String saveExam(Exam exam,Model model)
+    public String saveExam(ExamDTO examDto,Model model)
 	{
-//		examService.saveExam(exam);
+		examServiceImpl.save(examDto);
 		return "createxam";
 	}
 
