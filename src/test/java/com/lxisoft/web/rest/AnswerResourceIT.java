@@ -3,6 +3,9 @@ package com.lxisoft.web.rest;
 import com.lxisoft.TechQuizApp;
 import com.lxisoft.domain.Answer;
 import com.lxisoft.repository.AnswerRepository;
+import com.lxisoft.service.AnswerService;
+import com.lxisoft.service.dto.AnswerDTO;
+import com.lxisoft.service.mapper.AnswerMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +38,12 @@ public class AnswerResourceIT {
 
     @Autowired
     private AnswerRepository answerRepository;
+
+    @Autowired
+    private AnswerMapper answerMapper;
+
+    @Autowired
+    private AnswerService answerService;
 
     @Autowired
     private EntityManager em;
@@ -77,9 +86,10 @@ public class AnswerResourceIT {
     public void createAnswer() throws Exception {
         int databaseSizeBeforeCreate = answerRepository.findAll().size();
         // Create the Answer
+        AnswerDTO answerDTO = answerMapper.toDto(answer);
         restAnswerMockMvc.perform(post("/api/answers").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(answer)))
+            .content(TestUtil.convertObjectToJsonBytes(answerDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Answer in the database
@@ -96,11 +106,12 @@ public class AnswerResourceIT {
 
         // Create the Answer with an existing ID
         answer.setId(1L);
+        AnswerDTO answerDTO = answerMapper.toDto(answer);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAnswerMockMvc.perform(post("/api/answers").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(answer)))
+            .content(TestUtil.convertObjectToJsonBytes(answerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Answer in the database
@@ -158,10 +169,11 @@ public class AnswerResourceIT {
         em.detach(updatedAnswer);
         updatedAnswer
             .answer(UPDATED_ANSWER);
+        AnswerDTO answerDTO = answerMapper.toDto(updatedAnswer);
 
         restAnswerMockMvc.perform(put("/api/answers").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAnswer)))
+            .content(TestUtil.convertObjectToJsonBytes(answerDTO)))
             .andExpect(status().isOk());
 
         // Validate the Answer in the database
@@ -176,10 +188,13 @@ public class AnswerResourceIT {
     public void updateNonExistingAnswer() throws Exception {
         int databaseSizeBeforeUpdate = answerRepository.findAll().size();
 
+        // Create the Answer
+        AnswerDTO answerDTO = answerMapper.toDto(answer);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAnswerMockMvc.perform(put("/api/answers").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(answer)))
+            .content(TestUtil.convertObjectToJsonBytes(answerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Answer in the database

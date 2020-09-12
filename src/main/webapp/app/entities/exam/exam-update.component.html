@@ -34,9 +34,9 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="techQuizApp.exam.attendedExam" for="field_attendedExam">Attended Exam</label>
-                    <select class="form-control" id="field_attendedExam" name="attendedExam" formControlName="attendedExam">
+                    <select class="form-control" id="field_attendedExam" name="attendedExam" formControlName="attendedExamId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="attendedExamOption.id === editForm.get('attendedExam')!.value?.id ? editForm.get('attendedExam')!.value : attendedExamOption" *ngFor="let attendedExamOption of attendedexams; trackBy: trackById">{{ attendedExamOption.id }}</option>
+                        <option [ngValue]="attendedExamOption.id" *ngFor="let attendedExamOption of attendedexams; trackBy: trackById">{{ attendedExamOption.id }}</option>
                     </select>
                 </div>
 

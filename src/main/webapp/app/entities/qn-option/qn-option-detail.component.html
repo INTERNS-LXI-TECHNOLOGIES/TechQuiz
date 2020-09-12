@@ -14,8 +14,8 @@
                 </dd>
                 <dt><span jhiTranslate="techQuizApp.qnOption.question">Question</span></dt>
                 <dd>
-                    <div *ngIf="qnOption.question">
-                        <a [routerLink]="['/question', qnOption.question?.id, 'view']">{{ qnOption.question?.id }}</a>
+                    <div *ngIf="qnOption.questionId">
+                        <a [routerLink]="['/question', qnOption.questionId, 'view']">{{ qnOption.questionId }}</a>
                     </div>
                 </dd>
             </dl>

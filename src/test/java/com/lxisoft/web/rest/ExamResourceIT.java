@@ -3,6 +3,9 @@ package com.lxisoft.web.rest;
 import com.lxisoft.TechQuizApp;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.repository.ExamRepository;
+import com.lxisoft.service.ExamService;
+import com.lxisoft.service.dto.ExamDTO;
+import com.lxisoft.service.mapper.ExamMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,6 +58,15 @@ public class ExamResourceIT {
     private ExamRepository examRepositoryMock;
 
     @Autowired
+    private ExamMapper examMapper;
+
+    @Mock
+    private ExamService examServiceMock;
+
+    @Autowired
+    private ExamService examService;
+
+    @Autowired
     private EntityManager em;
 
     @Autowired
@@ -99,9 +111,10 @@ public class ExamResourceIT {
     public void createExam() throws Exception {
         int databaseSizeBeforeCreate = examRepository.findAll().size();
         // Create the Exam
+        ExamDTO examDTO = examMapper.toDto(exam);
         restExamMockMvc.perform(post("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(exam)))
+            .content(TestUtil.convertObjectToJsonBytes(examDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Exam in the database
@@ -120,11 +133,12 @@ public class ExamResourceIT {
 
         // Create the Exam with an existing ID
         exam.setId(1L);
+        ExamDTO examDTO = examMapper.toDto(exam);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restExamMockMvc.perform(post("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(exam)))
+            .content(TestUtil.convertObjectToJsonBytes(examDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Exam in the database
@@ -151,22 +165,22 @@ public class ExamResourceIT {
     
     @SuppressWarnings({"unchecked"})
     public void getAllExamsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(examRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(examServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         restExamMockMvc.perform(get("/api/exams?eagerload=true"))
             .andExpect(status().isOk());
 
-        verify(examRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+        verify(examServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllExamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(examRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(examServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         restExamMockMvc.perform(get("/api/exams?eagerload=true"))
             .andExpect(status().isOk());
 
-        verify(examRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+        verify(examServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -208,10 +222,11 @@ public class ExamResourceIT {
             .count(UPDATED_COUNT)
             .name(UPDATED_NAME)
             .level(UPDATED_LEVEL);
+        ExamDTO examDTO = examMapper.toDto(updatedExam);
 
         restExamMockMvc.perform(put("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedExam)))
+            .content(TestUtil.convertObjectToJsonBytes(examDTO)))
             .andExpect(status().isOk());
 
         // Validate the Exam in the database
@@ -228,10 +243,13 @@ public class ExamResourceIT {
     public void updateNonExistingExam() throws Exception {
         int databaseSizeBeforeUpdate = examRepository.findAll().size();
 
+        // Create the Exam
+        ExamDTO examDTO = examMapper.toDto(exam);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restExamMockMvc.perform(put("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(exam)))
+            .content(TestUtil.convertObjectToJsonBytes(examDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Exam in the database

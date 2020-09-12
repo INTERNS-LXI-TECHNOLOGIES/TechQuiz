@@ -28,7 +28,7 @@ export class ExamUpdateComponent implements OnInit {
     count: [],
     name: [],
     level: [],
-    attendedExam: [],
+    attendedExamId: [],
     questions: [],
   });
 
@@ -56,7 +56,7 @@ export class ExamUpdateComponent implements OnInit {
       count: exam.count,
       name: exam.name,
       level: exam.level,
-      attendedExam: exam.attendedExam,
+      attendedExamId: exam.attendedExamId,
       questions: exam.questions,
     });
   }
@@ -82,7 +82,7 @@ export class ExamUpdateComponent implements OnInit {
       count: this.editForm.get(['count'])!.value,
       name: this.editForm.get(['name'])!.value,
       level: this.editForm.get(['level'])!.value,
-      attendedExam: this.editForm.get(['attendedExam'])!.value,
+      attendedExamId: this.editForm.get(['attendedExamId'])!.value,
       questions: this.editForm.get(['questions'])!.value,
     };
   }

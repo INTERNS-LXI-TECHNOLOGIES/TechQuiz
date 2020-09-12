@@ -3,6 +3,9 @@ package com.lxisoft.web.rest;
 import com.lxisoft.TechQuizApp;
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.repository.AttendedExamRepository;
+import com.lxisoft.service.AttendedExamService;
+import com.lxisoft.service.dto.AttendedExamDTO;
+import com.lxisoft.service.mapper.AttendedExamMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +41,12 @@ public class AttendedExamResourceIT {
 
     @Autowired
     private AttendedExamRepository attendedExamRepository;
+
+    @Autowired
+    private AttendedExamMapper attendedExamMapper;
+
+    @Autowired
+    private AttendedExamService attendedExamService;
 
     @Autowired
     private EntityManager em;
@@ -82,9 +91,10 @@ public class AttendedExamResourceIT {
     public void createAttendedExam() throws Exception {
         int databaseSizeBeforeCreate = attendedExamRepository.findAll().size();
         // Create the AttendedExam
+        AttendedExamDTO attendedExamDTO = attendedExamMapper.toDto(attendedExam);
         restAttendedExamMockMvc.perform(post("/api/attended-exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(attendedExam)))
+            .content(TestUtil.convertObjectToJsonBytes(attendedExamDTO)))
             .andExpect(status().isCreated());
 
         // Validate the AttendedExam in the database
@@ -102,11 +112,12 @@ public class AttendedExamResourceIT {
 
         // Create the AttendedExam with an existing ID
         attendedExam.setId(1L);
+        AttendedExamDTO attendedExamDTO = attendedExamMapper.toDto(attendedExam);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAttendedExamMockMvc.perform(post("/api/attended-exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(attendedExam)))
+            .content(TestUtil.convertObjectToJsonBytes(attendedExamDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AttendedExam in the database
@@ -167,10 +178,11 @@ public class AttendedExamResourceIT {
         updatedAttendedExam
             .total(UPDATED_TOTAL)
             .result(UPDATED_RESULT);
+        AttendedExamDTO attendedExamDTO = attendedExamMapper.toDto(updatedAttendedExam);
 
         restAttendedExamMockMvc.perform(put("/api/attended-exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedAttendedExam)))
+            .content(TestUtil.convertObjectToJsonBytes(attendedExamDTO)))
             .andExpect(status().isOk());
 
         // Validate the AttendedExam in the database
@@ -186,10 +198,13 @@ public class AttendedExamResourceIT {
     public void updateNonExistingAttendedExam() throws Exception {
         int databaseSizeBeforeUpdate = attendedExamRepository.findAll().size();
 
+        // Create the AttendedExam
+        AttendedExamDTO attendedExamDTO = attendedExamMapper.toDto(attendedExam);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAttendedExamMockMvc.perform(put("/api/attended-exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(attendedExam)))
+            .content(TestUtil.convertObjectToJsonBytes(attendedExamDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the AttendedExam in the database

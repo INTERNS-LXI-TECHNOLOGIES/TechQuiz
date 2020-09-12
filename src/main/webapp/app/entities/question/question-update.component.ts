@@ -23,7 +23,7 @@ export class QuestionUpdateComponent implements OnInit {
     id: [],
     question: [],
     questionlevel: [],
-    answer: [],
+    answerId: [],
   });
 
   constructor(
@@ -45,11 +45,11 @@ export class QuestionUpdateComponent implements OnInit {
           })
         )
         .subscribe((resBody: IAnswer[]) => {
-          if (!question.answer || !question.answer.id) {
+          if (!question.answerId) {
             this.answers = resBody;
           } else {
             this.answerService
-              .find(question.answer.id)
+              .find(question.answerId)
               .pipe(
                 map((subRes: HttpResponse<IAnswer>) => {
                   return subRes.body ? [subRes.body].concat(resBody) : resBody;
@@ -66,7 +66,7 @@ export class QuestionUpdateComponent implements OnInit {
       id: question.id,
       question: question.question,
       questionlevel: question.questionlevel,
-      answer: question.answer,
+      answerId: question.answerId,
     });
   }
 
@@ -90,7 +90,7 @@ export class QuestionUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       question: this.editForm.get(['question'])!.value,
       questionlevel: this.editForm.get(['questionlevel'])!.value,
-      answer: this.editForm.get(['answer'])!.value,
+      answerId: this.editForm.get(['answerId'])!.value,
     };
   }
 

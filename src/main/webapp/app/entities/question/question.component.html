@@ -35,8 +35,8 @@
                     <td>{{ question.question }}</td>
                     <td jhiTranslate="{{ 'techQuizApp.QuestionLevel.' + question.questionlevel }}">{{ question.questionlevel }}</td>
                     <td>
-                        <div *ngIf="question.answer">
-                            <a [routerLink]="['/answer', question.answer?.id, 'view']" >{{ question.answer?.id }}</a>
+                        <div *ngIf="question.answerId">
+                            <a [routerLink]="['/answer', question.answerId , 'view']" >{{ question.answerId }}</a>
                         </div>
                     </td>
                     <td class="text-right">

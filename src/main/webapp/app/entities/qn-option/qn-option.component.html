@@ -33,8 +33,8 @@
                     <td><a [routerLink]="['/qn-option', qnOption.id, 'view']">{{ qnOption.id }}</a></td>
                     <td>{{ qnOption.option }}</td>
                     <td>
-                        <div *ngIf="qnOption.question">
-                            <a [routerLink]="['/question', qnOption.question?.id, 'view']" >{{ qnOption.question?.id }}</a>
+                        <div *ngIf="qnOption.questionId">
+                            <a [routerLink]="['/question', qnOption.questionId , 'view']" >{{ qnOption.questionId }}</a>
                         </div>
                     </td>
                     <td class="text-right">

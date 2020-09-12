@@ -3,6 +3,9 @@ package com.lxisoft.web.rest;
 import com.lxisoft.TechQuizApp;
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.repository.QnOptionRepository;
+import com.lxisoft.service.QnOptionService;
+import com.lxisoft.service.dto.QnOptionDTO;
+import com.lxisoft.service.mapper.QnOptionMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +38,12 @@ public class QnOptionResourceIT {
 
     @Autowired
     private QnOptionRepository qnOptionRepository;
+
+    @Autowired
+    private QnOptionMapper qnOptionMapper;
+
+    @Autowired
+    private QnOptionService qnOptionService;
 
     @Autowired
     private EntityManager em;
@@ -77,9 +86,10 @@ public class QnOptionResourceIT {
     public void createQnOption() throws Exception {
         int databaseSizeBeforeCreate = qnOptionRepository.findAll().size();
         // Create the QnOption
+        QnOptionDTO qnOptionDTO = qnOptionMapper.toDto(qnOption);
         restQnOptionMockMvc.perform(post("/api/qn-options").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(qnOption)))
+            .content(TestUtil.convertObjectToJsonBytes(qnOptionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the QnOption in the database
@@ -96,11 +106,12 @@ public class QnOptionResourceIT {
 
         // Create the QnOption with an existing ID
         qnOption.setId(1L);
+        QnOptionDTO qnOptionDTO = qnOptionMapper.toDto(qnOption);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restQnOptionMockMvc.perform(post("/api/qn-options").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(qnOption)))
+            .content(TestUtil.convertObjectToJsonBytes(qnOptionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the QnOption in the database
@@ -158,10 +169,11 @@ public class QnOptionResourceIT {
         em.detach(updatedQnOption);
         updatedQnOption
             .option(UPDATED_OPTION);
+        QnOptionDTO qnOptionDTO = qnOptionMapper.toDto(updatedQnOption);
 
         restQnOptionMockMvc.perform(put("/api/qn-options").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedQnOption)))
+            .content(TestUtil.convertObjectToJsonBytes(qnOptionDTO)))
             .andExpect(status().isOk());
 
         // Validate the QnOption in the database
@@ -176,10 +188,13 @@ public class QnOptionResourceIT {
     public void updateNonExistingQnOption() throws Exception {
         int databaseSizeBeforeUpdate = qnOptionRepository.findAll().size();
 
+        // Create the QnOption
+        QnOptionDTO qnOptionDTO = qnOptionMapper.toDto(qnOption);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restQnOptionMockMvc.perform(put("/api/qn-options").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(qnOption)))
+            .content(TestUtil.convertObjectToJsonBytes(qnOptionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the QnOption in the database

@@ -1,11 +1,9 @@
-import { IQuestion } from 'app/shared/model/question.model';
-
 export interface IQnOption {
   id?: number;
   option?: string;
-  question?: IQuestion;
+  questionId?: number;
 }
 
 export class QnOption implements IQnOption {
-  constructor(public id?: number, public option?: string, public question?: IQuestion) {}
+  constructor(public id?: number, public option?: string, public questionId?: number) {}
 }

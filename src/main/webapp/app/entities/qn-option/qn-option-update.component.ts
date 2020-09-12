@@ -21,7 +21,7 @@ export class QnOptionUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     option: [],
-    question: [],
+    questionId: [],
   });
 
   constructor(
@@ -43,7 +43,7 @@ export class QnOptionUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: qnOption.id,
       option: qnOption.option,
-      question: qnOption.question,
+      questionId: qnOption.questionId,
     });
   }
 
@@ -66,7 +66,7 @@ export class QnOptionUpdateComponent implements OnInit {
       ...new QnOption(),
       id: this.editForm.get(['id'])!.value,
       option: this.editForm.get(['option'])!.value,
-      question: this.editForm.get(['question'])!.value,
+      questionId: this.editForm.get(['questionId'])!.value,
     };
   }
 

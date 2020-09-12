@@ -18,8 +18,8 @@
                 </dd>
                 <dt><span jhiTranslate="techQuizApp.question.answer">Answer</span></dt>
                 <dd>
-                    <div *ngIf="question.answer">
-                        <a [routerLink]="['/answer', question.answer?.id, 'view']">{{ question.answer?.id }}</a>
+                    <div *ngIf="question.answerId">
+                        <a [routerLink]="['/answer', question.answerId, 'view']">{{ question.answerId }}</a>
                     </div>
                 </dd>
             </dl>

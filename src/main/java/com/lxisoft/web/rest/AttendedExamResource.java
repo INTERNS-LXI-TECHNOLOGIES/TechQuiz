@@ -1,8 +1,8 @@
 package com.lxisoft.web.rest;
 
-import com.lxisoft.domain.AttendedExam;
-import com.lxisoft.repository.AttendedExamRepository;
+import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.web.rest.errors.BadRequestAlertException;
+import com.lxisoft.service.dto.AttendedExamDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -23,7 +22,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class AttendedExamResource {
 
     private final Logger log = LoggerFactory.getLogger(AttendedExamResource.class);
@@ -33,26 +31,26 @@ public class AttendedExamResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final AttendedExamRepository attendedExamRepository;
+    private final AttendedExamService attendedExamService;
 
-    public AttendedExamResource(AttendedExamRepository attendedExamRepository) {
-        this.attendedExamRepository = attendedExamRepository;
+    public AttendedExamResource(AttendedExamService attendedExamService) {
+        this.attendedExamService = attendedExamService;
     }
 
     /**
      * {@code POST  /attended-exams} : Create a new attendedExam.
      *
-     * @param attendedExam the attendedExam to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new attendedExam, or with status {@code 400 (Bad Request)} if the attendedExam has already an ID.
+     * @param attendedExamDTO the attendedExamDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new attendedExamDTO, or with status {@code 400 (Bad Request)} if the attendedExam has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/attended-exams")
-    public ResponseEntity<AttendedExam> createAttendedExam(@RequestBody AttendedExam attendedExam) throws URISyntaxException {
-        log.debug("REST request to save AttendedExam : {}", attendedExam);
-        if (attendedExam.getId() != null) {
+    public ResponseEntity<AttendedExamDTO> createAttendedExam(@RequestBody AttendedExamDTO attendedExamDTO) throws URISyntaxException {
+        log.debug("REST request to save AttendedExam : {}", attendedExamDTO);
+        if (attendedExamDTO.getId() != null) {
             throw new BadRequestAlertException("A new attendedExam cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        AttendedExam result = attendedExamRepository.save(attendedExam);
+        AttendedExamDTO result = attendedExamService.save(attendedExamDTO);
         return ResponseEntity.created(new URI("/api/attended-exams/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -61,21 +59,21 @@ public class AttendedExamResource {
     /**
      * {@code PUT  /attended-exams} : Updates an existing attendedExam.
      *
-     * @param attendedExam the attendedExam to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated attendedExam,
-     * or with status {@code 400 (Bad Request)} if the attendedExam is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the attendedExam couldn't be updated.
+     * @param attendedExamDTO the attendedExamDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated attendedExamDTO,
+     * or with status {@code 400 (Bad Request)} if the attendedExamDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the attendedExamDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/attended-exams")
-    public ResponseEntity<AttendedExam> updateAttendedExam(@RequestBody AttendedExam attendedExam) throws URISyntaxException {
-        log.debug("REST request to update AttendedExam : {}", attendedExam);
-        if (attendedExam.getId() == null) {
+    public ResponseEntity<AttendedExamDTO> updateAttendedExam(@RequestBody AttendedExamDTO attendedExamDTO) throws URISyntaxException {
+        log.debug("REST request to update AttendedExam : {}", attendedExamDTO);
+        if (attendedExamDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        AttendedExam result = attendedExamRepository.save(attendedExam);
+        AttendedExamDTO result = attendedExamService.save(attendedExamDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, attendedExam.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, attendedExamDTO.getId().toString()))
             .body(result);
     }
 
@@ -85,34 +83,34 @@ public class AttendedExamResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of attendedExams in body.
      */
     @GetMapping("/attended-exams")
-    public List<AttendedExam> getAllAttendedExams() {
+    public List<AttendedExamDTO> getAllAttendedExams() {
         log.debug("REST request to get all AttendedExams");
-        return attendedExamRepository.findAll();
+        return attendedExamService.findAll();
     }
 
     /**
      * {@code GET  /attended-exams/:id} : get the "id" attendedExam.
      *
-     * @param id the id of the attendedExam to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the attendedExam, or with status {@code 404 (Not Found)}.
+     * @param id the id of the attendedExamDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the attendedExamDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/attended-exams/{id}")
-    public ResponseEntity<AttendedExam> getAttendedExam(@PathVariable Long id) {
+    public ResponseEntity<AttendedExamDTO> getAttendedExam(@PathVariable Long id) {
         log.debug("REST request to get AttendedExam : {}", id);
-        Optional<AttendedExam> attendedExam = attendedExamRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(attendedExam);
+        Optional<AttendedExamDTO> attendedExamDTO = attendedExamService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(attendedExamDTO);
     }
 
     /**
      * {@code DELETE  /attended-exams/:id} : delete the "id" attendedExam.
      *
-     * @param id the id of the attendedExam to delete.
+     * @param id the id of the attendedExamDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/attended-exams/{id}")
     public ResponseEntity<Void> deleteAttendedExam(@PathVariable Long id) {
         log.debug("REST request to delete AttendedExam : {}", id);
-        attendedExamRepository.deleteById(id);
+        attendedExamService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

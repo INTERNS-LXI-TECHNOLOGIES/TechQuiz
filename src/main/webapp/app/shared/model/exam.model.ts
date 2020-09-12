@@ -1,4 +1,3 @@
-import { IAttendedExam } from 'app/shared/model/attended-exam.model';
 import { IQuestion } from 'app/shared/model/question.model';
 import { ExamLevel } from 'app/shared/model/enumerations/exam-level.model';
 
@@ -7,7 +6,7 @@ export interface IExam {
   count?: number;
   name?: string;
   level?: ExamLevel;
-  attendedExam?: IAttendedExam;
+  attendedExamId?: number;
   questions?: IQuestion[];
 }
 
@@ -17,7 +16,7 @@ export class Exam implements IExam {
     public count?: number,
     public name?: string,
     public level?: ExamLevel,
-    public attendedExam?: IAttendedExam,
+    public attendedExamId?: number,
     public questions?: IQuestion[]
   ) {}
 }

@@ -28,9 +28,9 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="techQuizApp.question.answer" for="field_answer">Answer</label>
-                    <select class="form-control" id="field_answer" name="answer" formControlName="answer">
+                    <select class="form-control" id="field_answer" name="answer" formControlName="answerId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="answerOption.id === editForm.get('answer')!.value?.id ? editForm.get('answer')!.value : answerOption" *ngFor="let answerOption of answers; trackBy: trackById">{{ answerOption.id }}</option>
+                        <option [ngValue]="answerOption.id" *ngFor="let answerOption of answers; trackBy: trackById">{{ answerOption.id }}</option>
                     </select>
                 </div>
             </div>

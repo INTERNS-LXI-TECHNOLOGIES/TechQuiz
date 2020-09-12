@@ -38,8 +38,8 @@
                     <td>{{ exam.name }}</td>
                     <td jhiTranslate="{{ 'techQuizApp.ExamLevel.' + exam.level }}">{{ exam.level }}</td>
                     <td>
-                        <div *ngIf="exam.attendedExam">
-                            <a [routerLink]="['/attended-exam', exam.attendedExam?.id, 'view']" >{{ exam.attendedExam?.id }}</a>
+                        <div *ngIf="exam.attendedExamId">
+                            <a [routerLink]="['/attended-exam', exam.attendedExamId , 'view']" >{{ exam.attendedExamId }}</a>
                         </div>
                     </td>
                     <td>

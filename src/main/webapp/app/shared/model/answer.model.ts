@@ -1,11 +1,9 @@
-import { IQuestion } from 'app/shared/model/question.model';
-
 export interface IAnswer {
   id?: number;
   answer?: string;
-  question?: IQuestion;
+  questionId?: number;
 }
 
 export class Answer implements IAnswer {
-  constructor(public id?: number, public answer?: string, public question?: IQuestion) {}
+  constructor(public id?: number, public answer?: string, public questionId?: number) {}
 }
