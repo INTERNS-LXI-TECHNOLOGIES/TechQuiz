@@ -12,7 +12,6 @@ import java.util.Optional;
  * Service Interface for managing {@link com.lxisoft.domain.Exam}.
  */
 public interface ExamService {
-	
 
     /**
      * Save a exam.

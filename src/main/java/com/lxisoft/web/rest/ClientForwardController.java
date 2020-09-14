@@ -16,13 +16,17 @@ import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.service.*;
 import com.lxisoft.service.dto.ExamDTO;
+import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.ExamServiceImpl;
+import com.lxisoft.service.impl.QuestionServiceImpl;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -39,7 +43,7 @@ import org.springframework.validation.BindingResult;
 @Controller
 public class ClientForwardController {
     @Autowired
-    private QuestionService questionService;
+    private QuestionServiceImpl questionServiceImpl;
 
     @Autowired
     private ExamServiceImpl examServiceImpl;
@@ -64,12 +68,7 @@ public class ClientForwardController {
     @GetMapping(value="/instruction")
     public String root() {return "instruction";}
 
-    @RequestMapping(value = "/createxam")
-    public String newContact(Model model) {
-    	Exam exam=new Exam();
-    	model.addAttribute("exam",exam);
-		return "createxam";
-	}
+    
 
      /*@GetMapping("/login")
     public String login1(Model model)
@@ -82,39 +81,56 @@ public class ClientForwardController {
     {
         return "instruction";
     }
+    
+    @RequestMapping(value = "/createxam", method = RequestMethod.GET)
+    public String newContact(Model model) {
+    	ExamDTO examDto=new ExamDTO();
+    	model.addAttribute("examDto",examDto);
+		return "createxam";
+	}
+    
 
     @RequestMapping ("saveexam")
     public String saveExam(ExamDTO examDto,Model model)
 	{
 		examServiceImpl.save(examDto);
-		return "createxam";
+		return "redirect:/viewAll";
 	}
+    
+    @GetMapping(value = "/viewAll")
+    public ModelAndView listExam(ModelAndView model) throws IOException {
+        List<ExamDTO> listExam = examServiceImpl.findAll();
+        model.addObject("listExam", listExam);
+        model.setViewName("read");
+        return model;
+    }
+    
 
-//    @GetMapping(value="viewQuestion")
-//    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-//    	List<Question> listQuestion = questionService.getAll();
-//    	if(i<listQuestion.size())
-//    	{
-//	    	Question question=listQuestion.get(i);
-//	    	question.getQuestion();
-//	    	question.getAnswer();
-//
-//	        model.addObject("question", question);
-//
-//
-//	    	model.addObject("question", question);
-//	       // model.addObject("question", qnoption);
-//	        model.setViewName("questionview");
-//	        i++;
-//	        return model;
-//    		}
-//    		else
-//    		{
-//    			model.setViewName("examresult");
-//    			return model;
-//    		}
-//    }
-//
+    @GetMapping(value="viewQuestion")
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+    	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+    	if(i<listQuestion.size())
+    	{
+	    	QuestionDTO question=listQuestion.get(i);
+	    	question.getQuestion();
+	    	question.getAnswerId();
+
+	        model.addObject("question", question);
+
+
+	    	model.addObject("question", question);
+	       // model.addObject("question", qnoption);
+	        model.setViewName("questionview");
+	        i++;
+	        return model;
+    		}
+    		else
+    		{
+    			model.setViewName("examresult");
+    			return model;
+    		}
+    }
+
 
 
 
