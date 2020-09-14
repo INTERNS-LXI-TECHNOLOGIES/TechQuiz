@@ -46,17 +46,17 @@
     <h1 align="center">TECHQUIZ</h1>
     <h3 align="center">Create Exam</h3>
 </div>
-<form action="#" th:action="@{/saveexam}"  th:object="${exam}" method="GET">
+<form action="#" th:action="@{/saveexam}"  th:object="${examDto}" method="GET">
 
 	<div class="row">
 			<div class="form-group col-md-8">
-				<label for="question" class="col-form-label">Name of exam</label> <input
-					type="text" th:field="*{name}" class="form-control" 
+				<label for="name" class="col-form-label">Name of exam</label> <input
+					type="text" id="name" th:field="*{name}" class="form-control" 
 					placeholder="Name of Exam"> 
 			</div>
 			
 			<div class="form-group col-md-8">
-				<label for="question" class="col-form-label">Number of questions in exam</label> <input
+				<label for="count" class="col-form-label">Number of questions in exam</label> <input
 					type="text" th:field="*{count}" class="form-control" 
 					placeholder="Number of question"> 
 			</div>
@@ -69,11 +69,8 @@
 			</select>
 			</div>
 			<tr><div class="form-group col-md-8">
-			<center><input type="submit" class="button" value=Submit></form>
-						
-	<form action="http://localhost:8081/techquiz">
-	<input type="submit" class="button" value=Back></tr>
-	</form>
+			<center><input type="submit" class="button" value=Submit>
+			</form>
 	</div>
 </div>
 </body>
