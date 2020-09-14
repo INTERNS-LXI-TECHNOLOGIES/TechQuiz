@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="java.util.*"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,6 +74,15 @@ document.qform.submit();
     Seconds remaining: <span id="clock"><%=clock%></span>
 
 </form>
+<script>
+<!--
+timer();
+//-->
+</script>
+<form action="<%=request.getRequestURL()%>" name="forma">
+    Seconds remaining: <span id="clock"><%=clock%></span>
+
+</form>
 <br>
 
 
@@ -80,7 +90,7 @@ document.qform.submit();
 
 <a th:text = "${question.question}"></a><br>
 	 <br>
-	 <br>         	
+	 <br>
 	     <div align = "center"><button class="button">NEXT</button></div>
 
 
@@ -88,7 +98,7 @@ document.qform.submit();
 	            	<th:text="${q_option.option}">option<br>
 	            	<br>
 
-	            	  
+
 </form>
 </body>
 </html>
