@@ -63,13 +63,6 @@ public class ClientForwardController {
     @Autowired
     private ExamServiceImpl examServiceImpl;
 
-    int i=0;
-    @Autowired
-    private QnOptionService optService;
-
-
-
-
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
@@ -130,10 +123,7 @@ public class ClientForwardController {
 	    	QuestionDTO question=listQuestion.get(i);
 	    	question.getQuestion();
 	    	question.getAnswerId();
-
 	        model.addObject("question", question);
-
-
 	    	model.addObject("question", question);
 	       // model.addObject("question", qnoption);
 	        model.setViewName("questionview");
@@ -173,23 +163,27 @@ public class ClientForwardController {
 //    }
 
 
-   /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView question(ModelAndView model)
     {
         Question question=new Question();
         model.addObject("question",question);
         model.setViewName("add");
         return model;
-    }*/
+    }
+  /* @RequestMapping("signup")
+   public String showSignUpForm(QuestionDTO questionDTO) {
+       return "add";
+   }*/
     @RequestMapping("add")
-	public String addQuestion( QuestionDTO questionDTO, BindingResult result, Model model) {
+	public String addQuestion(QuestionDTO questionDTO, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "add";
 		}
 		questionServiceImpl.save(questionDTO);
 		return "redirect:list";
 	}
-  /*  @RequestMapping(value="/add")
+    /*@RequestMapping(value="/add")
     public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
     {
         questionService.saveQuestion(question);
@@ -197,7 +191,7 @@ public class ClientForwardController {
         model.addAttribute("success", true);
         return "add";
     }
-    */
+
 
 
    /* @GetMapping(value = "/add")
