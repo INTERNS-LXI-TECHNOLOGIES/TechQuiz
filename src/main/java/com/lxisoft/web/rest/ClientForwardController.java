@@ -98,7 +98,6 @@ public class ClientForwardController {
 		return "createxam";
 	}
 
-
     @RequestMapping ("saveexam")
     public String saveExam(ExamDTO examDto,Model model)
 	{
@@ -142,13 +141,7 @@ public class ClientForwardController {
     public String result() {return "examresult";}
 
 
-//   @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-//    public ModelAndView newQuestion(ModelAndView model) {
-//        Question question = new Question();
-//        model.addObject("question", question);
-//        model.setViewName("add");
-//        return model;
-//   }
+
 
 //    @GetMapping(value="/viewQuestion")
 //    public String viewQuestion(HttpServletRequest request) {
@@ -162,27 +155,42 @@ public class ClientForwardController {
 //    	return "redirect:/view";
 //    }
 
-
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    public String newQuestion(Model model) {
+        QuestionDTO questionDTO=new questionDTO();
+        model.addAttribute("questionDto",questionDTO);
+        return "add";
+    }
+    @RequestMapping ("saveexam")
+    public String saveQuestion(QuestionDTO questionDTO,Model model)
+    {
+        questionServiceImpl.save(questionDTODto);
+        return "redirect:/add";
+    }
+
+    /*@RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView question(ModelAndView model)
     {
-        Question question=new Question();
-        model.addObject("question",question);
+        QuestionDTO questionDTO=new QuestionDTO();
+        model.addObject("questionDTO",questionDTO);
         model.setViewName("add");
         return model;
     }
-  /* @RequestMapping("signup")
-   public String showSignUpForm(QuestionDTO questionDTO) {
-       return "add";
-   }*/
-    @RequestMapping("add")
+    public String addQuestion(QuestionDTO questionDTO, Model model) {
+        List<QuestionDTO> questionDTO  = new ArrayList<>();
+        questionDTO.setquestionDTO(questionDTO);
+        questionServiceImpl.saveQuestion(questionDTO);
+        return add;
+
+
+    }
+   /* @RequestMapping("add")
 	public String addQuestion(QuestionDTO questionDTO, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "add";
-		}
-		questionServiceImpl.save(questionDTO);
-		return "redirect:list";
+        questionServiceImpl.saveQuestion(questionDTO);
+        model.addAttribute("success", true);
+        return "add";
 	}
+
     /*@RequestMapping(value="/add")
     public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
     {
