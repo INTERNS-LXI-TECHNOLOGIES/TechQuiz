@@ -46,11 +46,12 @@
 <div class="card">
 <div class="card-body">
 <div class="col-md-10">
-                <form th:object="${question}" method="GET">  
+
+        <form action="#"  th:object="${question}" th:action="@{/add}" method="GET">
         <div class="row">
             <div class="form-group col-md-8">
                 <label for="question" class="col-form-label">Question</label> <input
-                type="text" id="quest" th:field="*{question}" class="form-control"
+                type="text" id="question" th:field="*{question}" class="form-control"
                 placeholder="Question">
             </div>
 
@@ -92,7 +93,7 @@
             <br>
                 <input type="submit" class="button" value=Add></button></center>
             </div>
-           
+
         </div>
     </form>
     <div class="col-md-6">

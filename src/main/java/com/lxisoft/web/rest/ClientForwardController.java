@@ -173,32 +173,19 @@ public class ClientForwardController {
         model.setViewName("add");
         return model;
    }
-    @RequestMapping ("add")
-    public String saveQuestion(QuestionDTO questionDTO,AnswerDTO answerDTO,Model model)
+    @RequestMapping (value="/add")
+    public String  saveQuestion()
     {
+        ModelAndView modelAndView =new ModelAndView();
+        AnswerDTO answerDTO=new AnswerDTO();
+        answerDTO.setAnswer("java");
         answerServiceImpl.save(answerDTO);
 
-        //questionServiceImpl.save(questionDTO);
-        return "redirect:/add";
+        return "add";
     }
 
     /*
-    public String addQuestion(QuestionDTO questionDTO, Model model) {
-        List<QuestionDTO> questionDTO  = new ArrayList<>();
-        questionDTO.setquestionDTO(questionDTO);
-        questionServiceImpl.saveQuestion(questionDTO);
-        return add;
-
-
-    }
-   /* @RequestMapping("add")
-	public String addQuestion(QuestionDTO questionDTO, BindingResult result, Model model) {
-        questionServiceImpl.saveQuestion(questionDTO);
-        model.addAttribute("success", true);
-        return "add";
-	}
-
-    /*@RequestMapping(value="/add")
+   @RequestMapping(value="/add")
     public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
     {
         questionService.saveQuestion(question);

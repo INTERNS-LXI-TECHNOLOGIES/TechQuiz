@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>viewQuestion</title>
@@ -41,8 +41,7 @@
   text-align: center;
 }
   </style>
-
-<script type="text/javascript">
+<script>
 <%
 String clock = "10";
 %>
@@ -58,28 +57,24 @@ else
 {
 document.getElementById("clock").innerHTML = "Time over";
 document.submit();
-
+///disable submit-button etc
 }
 }
-
 </script>
-    <form action="<%=request.getRequestURL()%>" name="forma">
-        Seconds remaining: <span id="clock"><%=clock%></span>
-
-    </form>
 
 </head>
-
-
 <br>
 <body>
+<a href="javascript:timer()">Test </a>
 <div class="header">
     <h1 align="center">Questions</h1>
 </div>
 
-<form th:object="${question}">
+<form th:object="${question}"  >
+
 
 <a th:text = "${question.question}"></a><br>
+
 	 <br>
 	 <br>
 	     <div align = "center"><button class="button">NEXT</button></div>
