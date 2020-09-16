@@ -47,50 +47,15 @@
 <div class="card-body">
 <div class="col-md-10">
 
-        <form action="#"  th:object="${question}" th:action="@{/add}" method="GET">
-        <div class="row">
-            <div class="form-group col-md-8">
-                <label for="question" class="col-form-label">Question</label> <input
-                type="text" id="question" th:field="*{question}" class="form-control"
-                placeholder="Question">
-            </div>
-
-            <div class="form-group col-md-8">
-                <label for="questionlevel" class="col-form-label">Level of Question</label>
-                <select name="questionlevel">
-                    <option th:each="levelOp : ${T(com.lxisoft.domain.enumeration.QuestionLevel).values()}"
-                            th:value="${levelOp}" th:text="${levelOp}"></option>
-                </select>
-            </div>
-
-
-            <div class="form-group col-md-8">
-                <label for="opt1" class="col-form-label">Option1</label> <input
-                type="text" id="opt1" th:field="*{qnOptions}" class="form-control"
-                placeholder="Option1">
-            </div>
-            <div class="form-group col-md-8">
-                <label for="opt2" class="col-form-label">Option2</label> <input
-                type="text" id="opt2" th:field="*{qnOptions}" class="form-control"
-                placeholder="Option2">
-            </div>
-            <div class="form-group col-md-8">
-                <label for="opt3" class="col-form-label">Option3</label> <input
-                type="text" id="opt3" th:field="*{qnOptions}" class="form-control"
-                placeholder="Option3">
-            </div>
-            <div class="form-group col-md-8">
-                <label for="opt4" class="col-form-label">Option4</label> <input
-                type="text" id="opt4" th:field="*{qnOptions}" class="form-control"
-                placeholder="Option4">
-    		</div>
-            <div class="form-group col-md-8">
-                <label for="answer" class="col-form-label">Answer</label> <input
-                type="text" th:field="*{answer}" class="form-control"
-                placeholder="Answer">
-            </div>
+        <form action="#"  th:object="${examModel}" th:action="@{/add}" method="GET">
             <div class="col-md-6">
             <br>
+                <label> Question</label>
+                <input type="text" id="question" th:field="*{question.question}" class="form-control"
+                placeholder="Question">
+                <label> Answer</label>
+                <input type="text" id="answer" th:field="*{answer.answer}" class="form-control"
+                       placeholder="Answer">
                 <input type="submit" class="button" value=Add></button></center>
             </div>
 

@@ -23,7 +23,7 @@ import com.lxisoft.service.*;
 import com.lxisoft.service.dto.ExamDTO;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.dto.AnswerDTO;
-
+import com.lxisoft.model.ExamModel;
 import com.lxisoft.service.impl.ExamServiceImpl;
 import com.lxisoft.service.impl.QuestionServiceImpl;
 
@@ -168,58 +168,25 @@ public class ClientForwardController {
     }*/
    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
-        Question question = new Question();
-        model.addObject("question", question);
+        ExamModel examModel = new ExamModel();
+        model.addObject("examModel", examModel);
         model.setViewName("add");
         return model;
    }
     @RequestMapping (value="/add")
-    public String  saveQuestion()
+    public String saveQuestion(@ModelAttribute ExamModel examModel)
     {
         ModelAndView modelAndView =new ModelAndView();
         AnswerDTO answerDTO=new AnswerDTO();
-        answerDTO.setAnswer("java");
+        answerDTO.setAnswer(examModel.getAnswer().getAnswer());
+        QuestionDTO questionDTO=new QuestionDTO();
+        questionDTO.setQuestion(examModel.getQuestion().getQuestion());
+        //questionDTO.setAnswerId(2L);
+
         answerServiceImpl.save(answerDTO);
-
-        return "add";
+        questionServiceImpl.save(questionDTO);
+        return "techquiz";
     }
-
-    /*
-   @RequestMapping(value="/add")
-    public String createExam( Question question ,BindingResult bindingResult,@RequestParam String[] options,Model model)
-    {
-        questionService.saveQuestion(question);
-        optService.saveQnOption(question, options);
-        model.addAttribute("success", true);
-        return "add";
-    }
-
-   @GetMapping(value = "/add")
-    public String addNewQuestion(@ModelAttribute Question question){
-        List<QnOption> qnOptions = new ArrayList<>();
-        Answer answer = question.getAnswer();
-        answer.setQuestion(question);
-        question.setAnswer(answer);
-        QnOption option1 = new QnOption();
-        QnOption option2 = new QnOption();
-        QnOption option3 = new QnOption();
-        QnOption option4 = new QnOption();
-        option1.setOption(question.getQuestion());
-        option2.setOption(question.getQuestion());
-        option3.setOption(question.getQuestion());
-        option4.setOption(question.getQuestion());
-        option1.setQuestion(question);
-        option2.setQuestion(question);
-        option3.setQuestion(question);
-        option4.setQuestion(question);
-        qnOptions.add(option1);
-        qnOptions.add(option2);
-        qnOptions.add(option3);
-        qnOptions.add(option4);
-        question.setOptions(qnOptions);
-        questionService.saveQuestion(question);
-        return "add";
-    }*/
 
    }
 
