@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@page import="java.util.*"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,13 +41,8 @@
   text-align: center;
 }
   </style>
-</head>
-<body>
-<div class="header">
-	<h1 align="center">Questions</h1>
-</div>
-<script>
-<!--
+
+<script type="text/javascript">
 <%
 String clock = "10";
 %>
@@ -63,28 +57,25 @@ window.setTimeout( "timer()", 1000 );
 else
 {
 document.getElementById("clock").innerHTML = "Time over";
-document.qform.submit();
-///disable submit-button etc
+document.submit();
+
 }
 }
-//-->
+
 </script>
+    <form action="<%=request.getRequestURL()%>" name="forma">
+        Seconds remaining: <span id="clock"><%=clock%></span>
 
-<form action="<%=request.getRequestURL()%>" name="forma">
-    Seconds remaining: <span id="clock"><%=clock%></span>
+    </form>
 
-</form>
-<script>
-<!--
-timer();
-//-->
-</script>
-<form action="<%=request.getRequestURL()%>" name="forma">
-    Seconds remaining: <span id="clock"><%=clock%></span>
+</head>
 
-</form>
+
 <br>
-
+<body>
+<div class="header">
+    <h1 align="center">Questions</h1>
+</div>
 
 <form th:object="${question}">
 
@@ -94,7 +85,7 @@ timer();
 	     <div align = "center"><button class="button">NEXT</button></div>
 
 
-	            <th:each="q_option : ${question.qstnOptions}">
+	            <th:each="qn_option : ${question.qstnOptions}">
 	            	<th:text="${q_option.option}">option<br>
 	            	<br>
 

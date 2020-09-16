@@ -22,6 +22,8 @@ import com.lxisoft.service.impl.*;
 import com.lxisoft.service.*;
 import com.lxisoft.service.dto.ExamDTO;
 import com.lxisoft.service.dto.QuestionDTO;
+import com.lxisoft.service.dto.AnswerDTO;
+
 import com.lxisoft.service.impl.ExamServiceImpl;
 import com.lxisoft.service.impl.QuestionServiceImpl;
 
@@ -59,6 +61,9 @@ public class ClientForwardController {
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
+
+    @Autowired
+    private AnswerServiceImpl answerServiceImpl;
 
     @Autowired
     private ExamServiceImpl examServiceImpl;
@@ -155,27 +160,29 @@ public class ClientForwardController {
 //    	return "redirect:/view";
 //    }
 
-    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public String newQuestion(Model model) {
-        QuestionDTO questionDTO=new questionDTO();
+        QuestionDTO questionDTO=new QuestionDTO();
         model.addAttribute("questionDto",questionDTO);
         return "add";
-    }
-    @RequestMapping ("saveexam")
-    public String saveQuestion(QuestionDTO questionDTO,Model model)
+    }*/
+   @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+    public ModelAndView newQuestion(ModelAndView model) {
+        Question question = new Question();
+        model.addObject("question", question);
+        model.setViewName("add");
+        return model;
+   }
+    @RequestMapping ("add")
+    public String saveQuestion(QuestionDTO questionDTO,AnswerDTO answerDTO,Model model)
     {
-        questionServiceImpl.save(questionDTODto);
+        answerServiceImpl.save(answerDTO);
+
+        //questionServiceImpl.save(questionDTO);
         return "redirect:/add";
     }
 
-    /*@RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public ModelAndView question(ModelAndView model)
-    {
-        QuestionDTO questionDTO=new QuestionDTO();
-        model.addObject("questionDTO",questionDTO);
-        model.setViewName("add");
-        return model;
-    }
+    /*
     public String addQuestion(QuestionDTO questionDTO, Model model) {
         List<QuestionDTO> questionDTO  = new ArrayList<>();
         questionDTO.setquestionDTO(questionDTO);
@@ -200,9 +207,7 @@ public class ClientForwardController {
         return "add";
     }
 
-
-
-   /* @GetMapping(value = "/add")
+   @GetMapping(value = "/add")
     public String addNewQuestion(@ModelAttribute Question question){
         List<QnOption> qnOptions = new ArrayList<>();
         Answer answer = question.getAnswer();
