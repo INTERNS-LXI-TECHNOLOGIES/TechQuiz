@@ -126,16 +126,23 @@ public class ClientForwardController {
     		}
     		else
     		{
+    			i=0;
     			model.setViewName("examresult");
     			return model;
     		}
     }
 
-
-
-
     @GetMapping(value="/examresult")
-    public String result() {return "examresult";}
+    public String result()
+    {
+    	return "examresult";
+    }
+    
+    @GetMapping(value="/selectExam")
+    public String selectExam() 
+    {
+    	return "selectexam";
+    	} 
 
 
 //   @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
