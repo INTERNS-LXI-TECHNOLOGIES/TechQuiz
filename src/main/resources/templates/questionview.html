@@ -41,11 +41,30 @@
   text-align: center;
 }
   </style>
-<script>
-<%
-String clock = "10";
-%>
-var timeout = <%=clock%>;
+</head>
+<br>
+<body>
+
+<div class="header">
+    <h1 align="center">Questions</h1>
+</div>
+<h1>timerrrrrrr</h1>
+Seconds Remaining :<script>timer();</script>
+<form th:object="${question}"  >
+<a th:text = "${question.question}"></a><br>
+
+	 <br>
+	 <br>
+	     <div align = "center"><button class="button">NEXT</button></div>
+
+	            <th:each="qn_option : ${question.qstnOptions}">
+	            	<th:text="${q_option.option}">option<br>
+	            	<br>
+
+</form>
+<script type="text/javascript" language="javascript">
+var clock = "10";
+var timeout = clock;
 function timer()
 {
 if( --timeout > 0 )
@@ -62,29 +81,6 @@ document.submit();
 }
 </script>
 
-</head>
-<br>
-<body>
-<a href="javascript:timer()">Test </a>
-<div class="header">
-    <h1 align="center">Questions</h1>
-</div>
-
-<form th:object="${question}"  >
-
-
-<a th:text = "${question.question}"></a><br>
-
-	 <br>
-	 <br>
-	     <div align = "center"><button class="button">NEXT</button></div>
-
-
-	            <th:each="qn_option : ${question.qstnOptions}">
-	            	<th:text="${q_option.option}">option<br>
-	            	<br>
-
-
-</form>
 </body>
+
 </html>

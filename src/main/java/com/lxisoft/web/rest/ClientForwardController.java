@@ -4,7 +4,6 @@ import com.lxisoft.domain.Answer;
 
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
-import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.QuestionServiceImpl;
 
@@ -173,7 +172,7 @@ public class ClientForwardController {
         model.setViewName("add");
         return model;
    }
-    @RequestMapping (value="/add")
+ /*   @RequestMapping (value="/add")
     public String saveQuestion(@ModelAttribute ExamModel examModel)
     {
         ModelAndView modelAndView =new ModelAndView();
@@ -187,7 +186,45 @@ public class ClientForwardController {
         questionServiceImpl.save(questionDTO);
         return "techquiz";
     }
+    */
 
-   }
+  /*  @RequestMapping(value = "/addQuestion")
+    public String addNewQuestion(@ModelAttribute Exam exam){
+
+        @GetMapping(value = "/add")
+        public String addNewQuestion(@ModelAttribute Exam exam){
+        	List<AnsOption> ansOptions = new ArrayList<>();
+            Question question = exam.getQuestion();
+            Answer answer = exam.getAnswer();
+            answer.setQuestion(question);
+            question.setAnswer(answer);
+            
+            AnsOption option1 = new AnsOption();
+            AnsOption option2 = new AnsOption();
+            AnsOption option3 = new AnsOption();
+            AnsOption option4 = new AnsOption();
+                 
+            option1.setAOption(exam.getOption1());
+            option2.setAOption(exam.getOption2());
+            option3.setAOption(exam.getOption3());
+            option4.setAOption(exam.getOption4());
+
+            option1.setQuestion(question);
+            option2.setQuestion(question);
+            option3.setQuestion(question);
+            option4.setQuestion(question);
+
+            ansOptions.add(option1);
+            ansOptions.add(option2);
+            ansOptions.add(option3);
+            ansOptions.add(option4);
+
+            question.setOptions(ansOptions);        
+            questionService.saveQuestion(question);
+           return "techquiz";
+        }
+    }*/
+    
+}
 
 
