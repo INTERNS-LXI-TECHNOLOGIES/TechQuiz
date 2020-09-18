@@ -1,42 +1,26 @@
 package com.lxisoft.web.rest;
 
-import com.lxisoft.domain.Answer;
-import com.lxisoft.domain.QnOption;
-import com.lxisoft.domain.Question;
-//import com.lxisoft.service.QuestionService;
+import com.lxisoft.domain.*;
+import com.lxisoft.domain.enumeration.ExamLevel;
+import com.lxisoft.domain.enumeration.QuestionLevel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
-import com.lxisoft.domain.Exam;
 import com.lxisoft.service.*;
 import com.lxisoft.service.dto.ExamDTO;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.ExamServiceImpl;
 import com.lxisoft.service.impl.QuestionServiceImpl;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.ui.Model;
-import com.lxisoft.domain.Exam;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.validation.BindingResult;
 
 
 
@@ -105,32 +89,127 @@ public class ClientForwardController {
         return model;
     }
     
-
+//
+//    @GetMapping(value="viewQuestion")
+//    public ModelAndView viewQuestion(ModelAndView model) {
+//    	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+//    	
+//    	if(i<listQuestion.size())
+//    	{
+//	    	QuestionDTO question=listQuestion.get(i);
+//	    	question.getQuestion();
+//	    	question.getAnswerId();
+//
+//	        model.addObject("question", question);
+//	        model.setViewName("questionview");
+//	        i++;
+//	        return model;
+//    	}
+//		else
+//		{
+//			i=0;
+//			model.setViewName("examresult");
+//			return model;
+//		}
+//    	}
+    
+  enum  TestEnum{
+	  EASY,MEDIUM,HARD;
+  }
+    
     @GetMapping(value="viewQuestion")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+    public String viewQuestion(HttpServletRequest request) {
+    	
+    	String level = null;
+    	if(request.getParameter("option") == null){
+    		level = "EASY"; 
+    	}
+    	else {
+    		level = request.getParameter("option");
+    	}
+    	 
     	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-    	if(i<listQuestion.size())
+    	HttpSession session = request.getSession(true);
+    	
+    	List<QuestionDTO> easyQuestion = new ArrayList<>();
+    	List<QuestionDTO> mediumQuestion = new ArrayList<>();
+    	List<QuestionDTO> hardQuestion = new ArrayList<>();
+    	
+    	
+    	for(QuestionDTO questionDTO : listQuestion) {
+    		QuestionLevel questionLevel = questionDTO.getQuestionlevel();
+    		if(questionLevel == QuestionLevel.EASY) {
+    			easyQuestion.add(questionDTO);
+    		}
+    		else if(questionLevel == QuestionLevel.MEDIUM) {
+    			mediumQuestion.add(questionDTO);
+    		}
+    		else if(questionLevel == QuestionLevel.HARD) {
+    			hardQuestion.add(questionDTO);
+    		}
+    	}
+    	
+    	if(level.equals("EASY")) {
+    		session.setAttribute("listQuestion", easyQuestion);
+    	}
+    	else if(level.equals("MEDIUM")) {
+    		session.setAttribute("listQuestion", mediumQuestion);
+    	}
+    	else if(level.equals("HARD")) {
+    		session.setAttribute("listQuestion", hardQuestion);
+    	}
+    	
+    	return "redirect:/questionview";
+    	    }
+
+
+
+//List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+//List<QuestionDTO> listExam = new ArrayList<>();
+//HttpSession session = request.getSession(true);
+//
+//for(int j=0;j<listQuestion.size();j++)
+//{
+//	QuestionDTO question=listQuestion.get(j);
+//	question.getQuestion();
+//	question.getAnswerId();
+//	
+////    listExam.add(exam);
+//    
+//}
+//session.setAttribute("listQuestion", listQuestion); 
+//return "redirect:/questionview";
+
+
+
+    
+    @GetMapping("/questionview")
+    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+    	HttpSession session = request.getSession(true);
+		@SuppressWarnings("unchecked")
+		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
+//		if (listQuestion.size()== 0)
+//		{
+//			listQuestion = questionServiceImpl.findAll();
+//		}
+		if(i<listQuestion.size())
     	{
-	    	QuestionDTO question=listQuestion.get(i);
-	    	question.getQuestion();
-	    	question.getAnswerId();
-
-	        model.addObject("question", question);
-
-
-	    	model.addObject("question", question);
-	       // model.addObject("question", qnoption);
-	        model.setViewName("questionview");
-	        i++;
-	        return model;
-    		}
-    		else
-    		{
-    			i=0;
-    			model.setViewName("examresult");
-    			return model;
-    		}
+		 model.addObject("listQuestion", listQuestion.get(i));
+		 i++;
+		 model.setViewName("questionview"); 
+        return model;
+		}
+		else
+		{
+			i=0;
+			model.setViewName("redirect:/examresult");
+			return model;
+		}
     }
+    
+
+    
+    
 
     @GetMapping(value="/examresult")
     public String result()
@@ -153,18 +232,6 @@ public class ClientForwardController {
 //        return model;
 //   }
 
-//    @GetMapping(value="/viewQuestion")
-//    public String viewQuestion(HttpServletRequest request) {
-//    	HttpSession session = request.getSession(true);
-//
-//    	List<Question> listQuestion = questionService.getAll();
-//    	Question question=listQuestion.get(0);
-//    	question.getQuestion();
-//
-//    	session.setAttribute("listExam", listQuestion);
-//    	return "redirect:/view";
-//    }
-
 
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView question(ModelAndView model)
@@ -174,6 +241,7 @@ public class ClientForwardController {
         model.setViewName("add");
         return model;
     }
+    
    /* @GetMapping(value = "/add")
     public String addNewQuestion(@ModelAttribute Question question){
         List<QnOption> qnOptions = new ArrayList<>();

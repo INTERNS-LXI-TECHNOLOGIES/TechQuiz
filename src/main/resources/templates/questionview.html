@@ -86,17 +86,12 @@ timer();
 <br>
 
 
-<form th:object="${question}">
+<form th:object="${listQuestion}">
 
-<a th:text = "${question.question}"></a><br>
-	 <br>
-	 <br>
-	     <div align = "center"><button class="button">NEXT</button></div>
-
-
-	            <th:each="q_option : ${question.qstnOptions}">
-	            	<th:text="${q_option.option}">option<br>
-	            	<br>
+<h2> Question : <a th:text = "${listQuestion.question}"> </h2><br>
+<h2> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h2>
+            	
+	            	<div align = "center"><button class="button">NEXT</button></div>
 
 
 </form>

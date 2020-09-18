@@ -45,32 +45,30 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public ExamDTO save(ExamDTO examDTO) {
     	
-    	Set<QuestionDTO> questionList = new HashSet<>(); 
-		List<QuestionDTO> questions=questionServiceImpl.findAll();
-		
-		int count=examDTO.getCount();
-		int c=0;
-		int qc=0;
-		ExamLevel level=examDTO.getLevel();
-		for(QuestionDTO qn:questions)
-		{
-			if(qn.getQuestionlevel().equals(level))
-				c++;
-		}
-		if(c>=count)
-		{
-			for(QuestionDTO qn:questions)
-			{
-				if(qn.getQuestionlevel().equals(level) && (qc<count))
-				{
-					qc++;
-					questionList.add(qn);
-				}
-			}
-
-		}
-		
-		
+//    	Set<QuestionDTO> questionList = new HashSet<>(); 
+//		List<QuestionDTO> questions=questionServiceImpl.findAll();
+//		
+//		int count=examDTO.getCount();
+//		int c=0;
+//		int qc=0;
+//		ExamLevel level=examDTO.getLevel();
+//		for(QuestionDTO qn:questions)
+//		{
+//			if(qn.getQuestionlevel().equals(level))
+//				c++;
+//		}
+//		if(c>=count)
+//		{
+//			for(QuestionDTO qn:questions)
+//			{
+//				if(qn.getQuestionlevel().equals(level) && (qc<count))
+//				{
+//					qc++;
+//					questionList.add(qn);
+//				}
+//			}
+//
+//		}
 		
         log.debug("Request to save Exam : {}", examDTO);
         Exam exam = examMapper.toEntity(examDTO);
