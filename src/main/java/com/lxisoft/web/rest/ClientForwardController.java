@@ -6,7 +6,7 @@ import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.QuestionServiceImpl;
-
+import com.lxisoft.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
+import com.lxisoft.domain.User;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.service.impl.*;
 import com.lxisoft.service.*;
@@ -31,6 +32,7 @@ import org.springframework.ui.Model;
 import com.lxisoft.domain.Exam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import com.lxisoft.repository.UserRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -67,6 +69,9 @@ public class ClientForwardController {
     @Autowired
     private ExamServiceImpl examServiceImpl;
 
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
@@ -81,7 +86,8 @@ public class ClientForwardController {
     @GetMapping(value="/instruction")
     public String root() {return "instruction";}
 
-
+     @GetMapping(value="/userview")
+    public String userView() {return "userview";}
 
      /*@GetMapping("/login")
     public String login1(Model model)
@@ -140,6 +146,26 @@ public class ClientForwardController {
     		}
     }
 
+    @SuppressWarnings("static-access")
+    @GetMapping(value = "/dashboard")
+    public ModelAndView userDashboard(ModelAndView model) throws IOException {
+
+        
+        Optional<User> usersDet = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+        /*Optional<String> users = SecurityUtils.getCurrentUserLogin();
+        String userName= users.get();*/
+
+
+        
+        usersDet.ifPresent(user -> {
+            model.addObject("user", user);
+            
+        });
+
+        
+        model.setViewName("dashboard");
+        return model;
+    }
 
     @GetMapping(value="/examresult")
     public String result() {return "examresult";}
