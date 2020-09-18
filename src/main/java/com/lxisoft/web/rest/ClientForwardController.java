@@ -182,14 +182,34 @@ public class ClientForwardController {
   	
   	return "redirect:/questionview";
   	    }
+  
+  
+  @GetMapping("/questionview")
+  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+  	HttpSession session = request.getSession(true);
+		@SuppressWarnings("unchecked")
+		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
+//		if (listQuestion.size()== 0)
+//		{
+//			listQuestion = questionServiceImpl.findAll();
+//		}
+		if(i<listQuestion.size())
+  	{
+		 model.addObject("listQuestion", listQuestion.get(i));
+		 i++;
+		 model.setViewName("questionview"); 
+      return model;
+		}
+		else
+		{
+			i=0;
+			model.setViewName("redirect:/examresult");
+			return model;
+		}
+  }
 
-    
 
-
-    
-
-
-
+  
 //List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
 //List<QuestionDTO> listExam = new ArrayList<>();
 //HttpSession session = request.getSession(true);
@@ -205,39 +225,6 @@ public class ClientForwardController {
 //}
 //session.setAttribute("listQuestion", listQuestion); 
 //return "redirect:/questionview";
-
-
-
-
-    
-    @GetMapping("/questionview")
-    public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-    	HttpSession session = request.getSession(true);
-		@SuppressWarnings("unchecked")
-		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
-//		if (listQuestion.size()== 0)
-//		{
-//			listQuestion = questionServiceImpl.findAll();
-//		}
-		if(i<listQuestion.size())
-    	{
-		 model.addObject("listQuestion", listQuestion.get(i));
-		 i++;
-		 model.setViewName("questionview"); 
-        return model;
-		}
-		else
-		{
-			i=0;
-			model.setViewName("redirect:/examresult");
-			return model;
-		}
-    }
-    
-
-    
-    
-
 
     @GetMapping(value="/examresult")
     public String result()
@@ -255,11 +242,11 @@ public class ClientForwardController {
 
 
 
-    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public ModelAndView question(ModelAndView model)
-    {
-        Question question=new Question();
-        model.addObject("question",question);
+//    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
+//    public ModelAndView question(ModelAndView model)
+//    {
+//        Question question=new Question();
+//        model.addObject("question",question);
 //    @GetMapping(value="/viewQuestion")
 //    public String viewQuestion(HttpServletRequest request) {
 //    	HttpSession session = request.getSession(true);
@@ -270,8 +257,8 @@ public class ClientForwardController {
 //
 //    	session.setAttribute("listExam", listQuestion);
 //    	return "redirect:/view";
-        return model;
-    }
+//        return model;
+//    }
 
    /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public String newQuestion(Model model) {
