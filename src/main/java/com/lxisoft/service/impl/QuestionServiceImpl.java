@@ -65,4 +65,9 @@ public class QuestionServiceImpl implements QuestionService {
         log.debug("Request to delete Question : {}", id);
         questionRepository.deleteById(id);
     }
+    
+    public void saveQuestionWithEnity(Question question) {
+    	log.debug("Request to save question with entity : {}", question);
+    	questionRepository.save(question);
+    }
 }

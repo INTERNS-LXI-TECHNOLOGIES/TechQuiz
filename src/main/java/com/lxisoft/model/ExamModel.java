@@ -1,6 +1,7 @@
 package com.lxisoft.model;
 
 import com.lxisoft.domain.Answer;
+
 import com.lxisoft.domain.Question;
 
 public class ExamModel {

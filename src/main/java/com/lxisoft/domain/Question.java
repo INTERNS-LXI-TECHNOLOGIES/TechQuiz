@@ -33,11 +33,11 @@ public class Question implements Serializable {
     @Column(name = "questionlevel")
     private QuestionLevel questionlevel;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Answer answer;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<QnOption> qnOptions = new HashSet<>();
 
