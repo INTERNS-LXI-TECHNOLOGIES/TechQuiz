@@ -1,14 +1,22 @@
 package com.lxisoft.service;
 
+import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+
 /**
  * Service Interface for managing {@link com.lxisoft.domain.Question}.
  */
 public interface QuestionService {
+	 final Logger log = LoggerFactory.getLogger(QuestionService.class);
+	   
+	     
 
     /**
      * Save a question.
@@ -23,9 +31,8 @@ public interface QuestionService {
      *
      * @return the list of entities.
      */
-    List<QuestionDTO> findAll();
-
-
+     List<QuestionDTO> findAll();
+    
     /**
      * Get the "id" question.
      *

@@ -6,12 +6,11 @@ import java.io.Serializable;
  * A DTO for the {@link com.lxisoft.domain.Answer} entity.
  */
 public class AnswerDTO implements Serializable {
-    
+
     private Long id;
 
     private String answer;
 
-    
     public Long getId() {
         return id;
     }

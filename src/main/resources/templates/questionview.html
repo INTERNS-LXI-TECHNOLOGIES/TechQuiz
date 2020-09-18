@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@page import="java.util.*"%>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>viewQuestion</title>
@@ -43,16 +42,29 @@
 }
   </style>
 </head>
+<br>
 <body>
+
 <div class="header">
-	<h1 align="center">Questions</h1>
+    <h1 align="center">Questions</h1>
 </div>
-<script>
-<!--
-<%
-String clock = "10";
-%>
-var timeout = <%=clock%>;
+<h1>timerrrrrrr</h1>
+Seconds Remaining :<script>timer();</script>
+<form th:object="${question}"  >
+<a th:text = "${question.question}"></a><br>
+
+	 <br>
+	 <br>
+	     <div align = "center"><button class="button">NEXT</button></div>
+
+	            <th:each="qn_option : ${question.qstnOptions}">
+	            	<th:text="${q_option.option}">option<br>
+	            	<br>
+
+</form>
+<script type="text/javascript" language="javascript">
+var clock = "10";
+var timeout = clock;
 function timer()
 {
 if( --timeout > 0 )
@@ -63,25 +75,13 @@ window.setTimeout( "timer()", 1000 );
 else
 {
 document.getElementById("clock").innerHTML = "Time over";
-document.qform.submit();
+document.submit();
 ///disable submit-button etc
 }
 }
-//-->
 </script>
 
-<form action="<%=request.getRequestURL()%>" name="forma">
-    Seconds remaining: <span id="clock"><%=clock%></span>
-
-</form>
-<script>
-<!--
-timer();
-//-->
-</script>
-<form action="<%=request.getRequestURL()%>" name="forma">
-    Seconds remaining: <span id="clock"><%=clock%></span>
-
+<<<<<<< HEAD
 </form>
 <br>
 
@@ -95,5 +95,8 @@ timer();
 
 
 </form>
+=======
+>>>>>>> 0d660703d476b3664824b36590044845d926903b
 </body>
+
 </html>
