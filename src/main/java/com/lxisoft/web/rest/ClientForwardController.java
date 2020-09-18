@@ -93,6 +93,14 @@ public class ClientForwardController {
         model.setViewName("read");
         return model;
     }
+    
+    @GetMapping(value = "/viewAllQn")
+    public ModelAndView viewAll(ModelAndView model) throws IOException {
+        List<QuestionDTO> questionList = questionServiceImpl.findAll();
+        model.addObject("questionList", questionList);
+        model.setViewName("view");
+        return model;
+    }
 
   
   @GetMapping(value="viewQuestion")
