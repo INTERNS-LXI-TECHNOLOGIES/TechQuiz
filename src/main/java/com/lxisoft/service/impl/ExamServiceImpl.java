@@ -1,21 +1,22 @@
 package com.lxisoft.service.impl;
 
 import com.lxisoft.service.ExamService;
-import com.lxisoft.domain.Exam;
+import com.lxisoft.domain.*;
+import com.lxisoft.domain.enumeration.ExamLevel;
 import com.lxisoft.repository.ExamRepository;
+import com.lxisoft.repository.QuestionRepository;
 import com.lxisoft.service.dto.ExamDTO;
+import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.mapper.ExamMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +25,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ExamServiceImpl implements ExamService {
+	
+	@Autowired
+	QuestionRepository questionRepo;
+	@Autowired
+	QuestionServiceImpl questionServiceImpl;
 
     private final Logger log = LoggerFactory.getLogger(ExamServiceImpl.class);
 
@@ -38,6 +44,32 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public ExamDTO save(ExamDTO examDTO) {
+    	
+//    	Set<QuestionDTO> questionList = new HashSet<>(); 
+//		List<QuestionDTO> questions=questionServiceImpl.findAll();
+//		
+//		int count=examDTO.getCount();
+//		int c=0;
+//		int qc=0;
+//		ExamLevel level=examDTO.getLevel();
+//		for(QuestionDTO qn:questions)
+//		{
+//			if(qn.getQuestionlevel().equals(level))
+//				c++;
+//		}
+//		if(c>=count)
+//		{
+//			for(QuestionDTO qn:questions)
+//			{
+//				if(qn.getQuestionlevel().equals(level) && (qc<count))
+//				{
+//					qc++;
+//					questionList.add(qn);
+//				}
+//			}
+//
+//		}
+		
         log.debug("Request to save Exam : {}", examDTO);
         Exam exam = examMapper.toEntity(examDTO);
         exam = examRepository.save(exam);
