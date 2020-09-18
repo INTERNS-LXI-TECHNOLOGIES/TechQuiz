@@ -1,41 +1,22 @@
 package com.lxisoft.web.rest;
 
-import com.lxisoft.domain.*;
-import com.lxisoft.domain.enumeration.ExamLevel;
-import com.lxisoft.domain.enumeration.QuestionLevel;
-import com.lxisoft.domain.Answer;
-
-
-
-import com.lxisoft.domain.QnOption;
-import com.lxisoft.domain.Question;
-import com.lxisoft.domain.enumeration.QuestionLevel;
-import com.lxisoft.service.dto.QuestionDTO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
-import com.lxisoft.domain.Exam;
+
+import com.lxisoft.domain.*;
 import com.lxisoft.service.impl.*;
 import com.lxisoft.service.*;
-import com.lxisoft.service.dto.ExamDTO;
-import com.lxisoft.service.dto.QuestionDTO;
-import com.lxisoft.service.dto.AnswerDTO;
+import com.lxisoft.service.dto.*;
 import com.lxisoft.model.TechQuizModel;
 import com.lxisoft.model.ExamModel;
-<<<<<<< HEAD
-import com.lxisoft.domain.enumeration.QuestionLevel;
+import com.lxisoft.domain.enumeration.*;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
-import com.lxisoft.domain.Exam;
-=======
-import com.lxisoft.service.impl.ExamServiceImpl;
-import com.lxisoft.service.impl.QuestionServiceImpl;
->>>>>>> 3977e7c40deefd52a5dc695d926ea4a26599044f
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.IOException;
 import java.util.*;
@@ -85,13 +66,6 @@ public class ClientForwardController {
     public String root() {return "instruction";}
 
 
-
-     /*@GetMapping("/login")
-    public String login1(Model model)
-    {
-        return "login";
-    }*/
-
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public String adminpage(Model model)
     {
@@ -120,37 +94,6 @@ public class ClientForwardController {
         return model;
     }
 
-<<<<<<< HEAD
-    @GetMapping(value="viewQuestion")
-=======
-    
-//
-//    @GetMapping(value="viewQuestion")
-//    public ModelAndView viewQuestion(ModelAndView model) {
-//    	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-//    	
-//    	if(i<listQuestion.size())
-//    	{
-//	    	QuestionDTO question=listQuestion.get(i);
-//	    	question.getQuestion();
-//	    	question.getAnswerId();
-//
-//	        model.addObject("question", question);
-//	        model.setViewName("questionview");
-//	        i++;
-//	        return model;
-//    	}
-//		else
-//		{
-//			i=0;
-//			model.setViewName("examresult");
-//			return model;
-//		}
-//    	}
-    
-  enum  TestEnum{
-	  EASY,MEDIUM,HARD;
-  }
   
   @GetMapping(value="viewQuestion")
   public String viewQuestion(HttpServletRequest request) {
@@ -195,45 +138,13 @@ public class ClientForwardController {
   	}
   	
   	return "redirect:/questionview";
-  	    }
-
-    
-
-
-    
-
-
-
-//List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-//List<QuestionDTO> listExam = new ArrayList<>();
-//HttpSession session = request.getSession(true);
-//
-//for(int j=0;j<listQuestion.size();j++)
-//{
-//	QuestionDTO question=listQuestion.get(j);
-//	question.getQuestion();
-//	question.getAnswerId();
-//	
-////    listExam.add(exam);
-//    
-//}
-//session.setAttribute("listQuestion", listQuestion); 
-//return "redirect:/questionview";
-
-
-
-
-    
+  }
+ 
     @GetMapping("/questionview")
->>>>>>> 3977e7c40deefd52a5dc695d926ea4a26599044f
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	HttpSession session = request.getSession(true);
 		@SuppressWarnings("unchecked")
 		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
-//		if (listQuestion.size()== 0)
-//		{
-//			listQuestion = questionServiceImpl.findAll();
-//		}
 		if(i<listQuestion.size())
     	{
 		 model.addObject("listQuestion", listQuestion.get(i));
@@ -248,10 +159,6 @@ public class ClientForwardController {
 			return model;
 		}
     }
-    
-
-    
-    
 
     @GetMapping(value="/examresult")
     public String result()
@@ -265,83 +172,21 @@ public class ClientForwardController {
     	return "selectexam";
     	} 
 
-
-
-<<<<<<< HEAD
-=======
-
-
-    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public ModelAndView question(ModelAndView model)
-    {
-        Question question=new Question();
-        model.addObject("question",question);
->>>>>>> 3977e7c40deefd52a5dc695d926ea4a26599044f
-//    @GetMapping(value="/viewQuestion")
-//    public String viewQuestion(HttpServletRequest request) {
-//    	HttpSession session = request.getSession(true);
+//    @RequestMapping (value="/add")
+//    public String saveQuestion(@ModelAttribute ExamModel examModel)
+//    {
+//        ModelAndView modelAndView =new ModelAndView();
+//        AnswerDTO answerDTO=new AnswerDTO();
+//        answerDTO.setAnswer(examModel.getAnswer().getAnswer());
+//        QuestionDTO questionDTO=new QuestionDTO();
+//        questionDTO.setQuestion(examModel.getQuestion().getQuestion());
+//        //questionDTO.setAnswerId(2L);
 //
-//    	List<Question> listQuestion = questionService.getAll();
-//    	Question question=listQuestion.get(0);
-//    	question.getQuestion();
-//
-//    	session.setAttribute("listExam", listQuestion);
-//    	return "redirect:/view";
-        return model;
-    }
+//        answerServiceImpl.save(answerDTO);
+//        questionServiceImpl.save(questionDTO);
+//        return "techquiz";
+//    }
 
-   
-    /* @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-    public ModelAndView newQuestion(ModelAndView model) {
-        ExamModel examModel = new ExamModel();
-        model.addObject("examModel", examModel);
-        model.setViewName("add");
-        return model;
-   }
-    @RequestMapping (value="/add")
-    public String saveQuestion(@ModelAttribute ExamModel examModel)
-    {
-        ModelAndView modelAndView =new ModelAndView();
-        AnswerDTO answerDTO=new AnswerDTO();
-        answerDTO.setAnswer(examModel.getAnswer().getAnswer());
-        QuestionDTO questionDTO=new QuestionDTO();
-        questionDTO.setQuestion(examModel.getQuestion().getQuestion());
-        //questionDTO.setAnswerId(2L);
-
-        answerServiceImpl.save(answerDTO);
-        questionServiceImpl.save(questionDTO);
-        return "techquiz";
-    }
-<<<<<<< HEAD
-    
-   /* @GetMapping(value = "/add")
-    public String addNewQuestion(@ModelAttribute Question question){
-        List<QnOption> qnOptions = new ArrayList<>();
-        Answer answer = question.getAnswer();
-        answer.setQuestion(question);
-        question.setAnswer(answer);
-        QnOption option1 = new QnOption();
-        QnOption option2 = new QnOption();
-        QnOption option3 = new QnOption();
-        QnOption option4 = new QnOption();
-        option1.setOption(question.getQuestion());
-        option2.setOption(question.getQuestion());
-        option3.setOption(question.getQuestion());
-        option4.setOption(question.getQuestion());
-        option1.setQuestion(question);
-        option2.setQuestion(question);
-        option3.setQuestion(question);
-        option4.setQuestion(question);
-        qnOptions.add(option1);
-        qnOptions.add(option2);
-        qnOptions.add(option3);
-        qnOptions.add(option4);
-        question.setOptions(qnOptions);
-        questionService.saveQuestion(question);
-        return "add";
-=======
-    */
-<<<<<<< HEAD
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
     	TechQuizModel techModel=new TechQuizModel();
@@ -384,47 +229,8 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "techquiz";
          }
-=======
 
-  /*  @RequestMapping(value = "/addQuestion")
-    public String addNewQuestion(@ModelAttribute Exam exam){
-
-        @GetMapping(value = "/add")
-        public String addNewQuestion(@ModelAttribute Exam exam){
-        	List<AnsOption> ansOptions = new ArrayList<>();
-            Question question = exam.getQuestion();
-            Answer answer = exam.getAnswer();
-            answer.setQuestion(question);
-            question.setAnswer(answer);
-            
-            AnsOption option1 = new AnsOption();
-            AnsOption option2 = new AnsOption();
-            AnsOption option3 = new AnsOption();
-            AnsOption option4 = new AnsOption();
-                 
-            option1.setAOption(exam.getOption1());
-            option2.setAOption(exam.getOption2());
-            option3.setAOption(exam.getOption3());
-            option4.setAOption(exam.getOption4());
-
-            option1.setQuestion(question);
-            option2.setQuestion(question);
-            option3.setQuestion(question);
-            option4.setQuestion(question);
-
-            ansOptions.add(option1);
-            ansOptions.add(option2);
-            ansOptions.add(option3);
-            ansOptions.add(option4);
-
-            question.setOptions(ansOptions);        
-            questionService.saveQuestion(question);
-           return "techquiz";
-        }
->>>>>>> 0d660703d476b3664824b36590044845d926903b
-    }*/
->>>>>>> 3977e7c40deefd52a5dc695d926ea4a26599044f
-    
+ 
 }
 
 
