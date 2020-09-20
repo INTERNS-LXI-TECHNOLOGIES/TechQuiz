@@ -288,7 +288,25 @@ public class ClientForwardController {
         return model;
     }
 
- 
+  /*  @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deletetQuestion(@PathVariable("id") int id,ModelAndView model) {
+    	TechQuizModel techModel = new TechQuizModel();
+    	questionServiceImpl.delete(id);
+        model.addObject("techModel", techModel);
+        model.setViewName("deleteconfirmation");
+        return model;
+    }    
+    
+    @GetMapping(value = "/delete")
+    public ModelAndView deleteQuest(@PathVariable("id") int id,ModelAndView model) {
+    	long examId = (long)id;
+    	questionServiceImpl.delete(id);
+    	List<Question> listExam = questionServiceImpl.findAll();
+    	model.addObject("listExam", listExam);
+        model.setViewName("read");
+        return model;  
+  }    
+ */
 }
 
 

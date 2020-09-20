@@ -68,6 +68,13 @@
                        <label> Option4</label>
                 <input type="text" id="option4" th:field="*{option4}" class="form-control"
                        placeholder="Option4">
+                       <div class="form-group col-md-8">
+			<label for="question" class="col-form-label">Level of exam</label>
+			<select name="level">
+			<option th:each="levelOpt : ${T(com.lxisoft.domain.enumeration.ExamLevel).values()}" 
+			th:value="${levelOpt}" th:text="${levelOpt}"></option>
+			</select>
+			</div>
                 <input type="submit" class="button" value=Add></button></center>
             </div>
 
