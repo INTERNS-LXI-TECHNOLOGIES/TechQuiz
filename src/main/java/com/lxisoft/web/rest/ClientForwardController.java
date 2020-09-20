@@ -281,7 +281,7 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "techquiz";
          }
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+  /*  @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deletetQuestion(@PathVariable("id") int id,ModelAndView model) {
     	TechQuizModel techModel = new TechQuizModel();
     	questionServiceImpl.delete(id);
@@ -299,7 +299,7 @@ public class ClientForwardController {
         model.setViewName("read");
         return model;  
   }    
- 
+ */
 }
 
 
