@@ -49,7 +49,7 @@
     <h1 align="center">Questions</h1>
 </div>
 
-Seconds Remaining :<script>timer();</script>
+
 
 </form>
 <br>
@@ -64,24 +64,7 @@ Seconds Remaining :<script>timer();</script>
 
 
 </form>
-<script type="text/javascript" language="javascript">
-var clock = "10";
-var timeout = clock;
-function timer()
-{
-if( --timeout > 0 )
-{
-document.getElementById("clock").innerHTML=timeout;
-window.setTimeout( "timer()", 1000 );
-}
-else
-{
-document.getElementById("clock").innerHTML = "Time over";
-document.submit();
-///disable submit-button etc
-}
-}
-</script>
+Seconds Remaining : <script src="timer.js"></script> 
 
 </body>
 
