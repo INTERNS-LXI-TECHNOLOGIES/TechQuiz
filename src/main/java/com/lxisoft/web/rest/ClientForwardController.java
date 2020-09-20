@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 
 import com.lxisoft.domain.*;
@@ -15,9 +14,8 @@ import com.lxisoft.model.TechQuizModel;
 import com.lxisoft.model.ExamModel;
 import com.lxisoft.domain.enumeration.*;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
@@ -91,14 +89,6 @@ public class ClientForwardController {
         List<ExamDTO> listExam = examServiceImpl.findAll();
         model.addObject("listExam", listExam);
         model.setViewName("read");
-        return model;
-    }
-    
-    @GetMapping(value = "/viewAllQn")
-    public ModelAndView viewAll(ModelAndView model) throws IOException {
-        List<QuestionDTO> questionList = questionServiceImpl.findAll();
-        model.addObject("questionList", questionList);
-        model.setViewName("view");
         return model;
     }
 
@@ -279,8 +269,24 @@ public class ClientForwardController {
          qnOptions.add(option4);
          question.setQnOptions(qnOptions);
          questionServiceImpl.saveQuestionWithEnity(question);
-         return "techquiz";
+         return "redirect:/viewAllQn";
          }
+    
+//    @GetMapping(value = "/viewAllQn")
+//    public ModelAndView viewAll(ModelAndView model) throws IOException {
+//        List<Question> questionList = questionServiceImpl.findAll();
+//        model.addObject("questionList", questionList);
+//        model.setViewName("view");
+//        return model;
+//    }
+    
+    @GetMapping(value = "/viewAllQn")
+    public ModelAndView listQuestion(ModelAndView model) throws IOException {
+        List<Question> listExam = questionServiceImpl.getAll();
+        model.addObject("listExam", listExam);
+        model.setViewName("view");
+        return model;
+    }
 
  
 }

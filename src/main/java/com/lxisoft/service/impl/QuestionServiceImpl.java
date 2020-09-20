@@ -70,4 +70,10 @@ public class QuestionServiceImpl implements QuestionService {
     	log.debug("Request to save question with entity : {}", question);
     	questionRepository.save(question);
     }
+    
+    public List<Question> getAll()
+    {
+
+        return  questionRepository.findAll();
+    }
 }

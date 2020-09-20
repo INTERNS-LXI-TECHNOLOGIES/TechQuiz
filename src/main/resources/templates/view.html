@@ -44,7 +44,7 @@
 <body>
 <div class="header">
         <h1>TECH QUIZ</h1>
-       
+       <a href="newquestion"><input type="submit" class="button" value="ADD"/></a>
 		</div>
 		<br>
     <table align=center border=1px >
@@ -56,10 +56,15 @@
 		<th>Option4</th>
 		<th>Delete</th>
 		<th>Edit</th>
+<tr th:each="list,iterationStatus : ${listExam}"> 
+                <td th:text="${list.question}"></td>
+                <th:block th:each ="answer : ${list.answer}">
+                <td th:text="${answer.answer}"></td>
+             
 
 
         </table>
     <br>
-<center><a href="/http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>
+<center><a href="http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>
 </body>
 </html>
