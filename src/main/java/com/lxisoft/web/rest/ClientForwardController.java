@@ -58,18 +58,13 @@ public class ClientForwardController {
 
     private final Logger log = LoggerFactory.getLogger(ClientForwardController.class);
 
-//    @Autowired
-//    private ExamService examService;
-//
+
     int i=0;
     @Autowired
     private QnOptionService optService;
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
-
-  //  @Autowired
-//    private AnswerServiceImpl answerServiceImpl;
 
     @Autowired
     private ExamServiceImpl examServiceImpl;
@@ -94,12 +89,6 @@ public class ClientForwardController {
 
      @GetMapping(value="/userview")
     public String userView(){return "userview";}
-
-     /*@GetMapping("/login")
-    public String login1(Model model)
-    {
-        return "login";
-    }*/
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public String adminpage(Model model)
@@ -176,10 +165,7 @@ public class ClientForwardController {
   	    }
   
   
-//  @GetMapping("/questionview")
-//  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-//  	HttpSession session = request.getSession(true);
-//  }
+
  
     @GetMapping("/questionview")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
@@ -190,9 +176,9 @@ public class ClientForwardController {
 	    	QuestionDTO question=listQuestion.get(i);
 	    	question.getQuestion();
 	    	question.getAnswerId();
-	        /*model.addObject("question", question);*/
+	       
 	    	model.addObject("question", question);
-	       // model.addObject("question", qnoption);
+	     
 	        model.setViewName("questionview");
 	        i++;
 	        return model;
@@ -210,9 +196,7 @@ public class ClientForwardController {
 
         
         Optional<User> usersDet = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
-        /*Optional<String> users = SecurityUtils.getCurrentUserLogin();
-        String userName= users.get();*/
-
+      
 
         
         usersDet.ifPresent(user -> {
@@ -224,44 +208,7 @@ public class ClientForwardController {
         model.setViewName("dashboard");
         return model;
     }
-    	/*HttpSession session = request.getSession(true);
-		@SuppressWarnings("unchecked")*/
-        /*@GetMapping(value="viewQuestion")
-        public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
-		if(i<listQuestion.size())
-  	{
-		 model.addObject("listQuestion", listQuestion.get(i));
-		 i++;
-		 model.setViewName("questionview"); 
-      return model;
-		}
-		else
-		{
-			i=0;
-			model.setViewName("redirect:/examresult");
-			return model;
-		}
-  }
-*/
-
-  
-//List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-//List<QuestionDTO> listExam = new ArrayList<>();
-//HttpSession session = request.getSession(true);
-//
-//for(int j=0;j<listQuestion.size();j++)
-//{
-//	QuestionDTO question=listQuestion.get(j);
-//	question.getQuestion();
-//	question.getAnswerId();
-//	
-////    listExam.add(exam);
-//    
-//}
-//session.setAttribute("listQuestion", listQuestion); 
-//return "redirect:/questionview";
-
+    	
     @GetMapping(value="/examresult")
     public String result()
     {
@@ -273,41 +220,6 @@ public class ClientForwardController {
     {
     	return "selectexam";
     	} 
-
-
-
-
-//    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-//    public ModelAndView question(ModelAndView model)
-//    {
-//        Question question=new Question();
-//        model.addObject("question",question);
-//    @GetMapping(value="/viewQuestion")
-//    public String viewQuestion(HttpServletRequest request) {
-//    	HttpSession session = request.getSession(true);
-//
-//    	List<Question> listQuestion = questionService.getAll();
-//    	Question question=listQuestion.get(0);
-//    	question.getQuestion();
-//
-//    	session.setAttribute("listExam", listQuestion);
-//    	return "redirect:/view";
-//        return model;
-
-//    @RequestMapping (value="/add")
-//    public String saveQuestion(@ModelAttribute ExamModel examModel)
-//    {
-//        ModelAndView modelAndView =new ModelAndView();
-//        AnswerDTO answerDTO=new AnswerDTO();
-//        answerDTO.setAnswer(examModel.getAnswer().getAnswer());
-//        QuestionDTO questionDTO=new QuestionDTO();
-//        questionDTO.setQuestion(examModel.getQuestion().getQuestion());
-//        //questionDTO.setAnswerId(2L);
-//
-//        answerServiceImpl.save(answerDTO);
-//        questionServiceImpl.save(questionDTO);
-//        return "techquiz";
-//    }
 
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
@@ -351,8 +263,4 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "techquiz";
          }
-
- 
 }
-
-
