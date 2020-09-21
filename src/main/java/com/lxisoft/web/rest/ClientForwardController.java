@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 
 import com.lxisoft.domain.*;
+
 import com.lxisoft.service.impl.*;
 import com.lxisoft.service.*;
 import com.lxisoft.service.dto.*;
@@ -138,12 +139,6 @@ public class ClientForwardController {
   	return "redirect:/questionview";
   	    }
   
-  
-//  @GetMapping("/questionview")
-//  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
-//  	HttpSession session = request.getSession(true);
-//  }
- 
     @GetMapping("/questionview")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
     	HttpSession session = request.getSession(true);
@@ -166,21 +161,6 @@ public class ClientForwardController {
 
 
   
-//List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-//List<QuestionDTO> listExam = new ArrayList<>();
-//HttpSession session = request.getSession(true);
-//
-//for(int j=0;j<listQuestion.size();j++)
-//{
-//	QuestionDTO question=listQuestion.get(j);
-//	question.getQuestion();
-//	question.getAnswerId();
-//	
-////    listExam.add(exam);
-//    
-//}
-//session.setAttribute("listQuestion", listQuestion); 
-//return "redirect:/questionview";
 
     @GetMapping(value="/examresult")
     public String result()
@@ -197,37 +177,6 @@ public class ClientForwardController {
 
 
 
-//    @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
-//    public ModelAndView question(ModelAndView model)
-//    {
-//        Question question=new Question();
-//        model.addObject("question",question);
-//    @GetMapping(value="/viewQuestion")
-//    public String viewQuestion(HttpServletRequest request) {
-//    	HttpSession session = request.getSession(true);
-//
-//    	List<Question> listQuestion = questionService.getAll();
-//    	Question question=listQuestion.get(0);
-//    	question.getQuestion();
-//
-//    	session.setAttribute("listExam", listQuestion);
-//    	return "redirect:/view";
-//        return model;
-
-//    @RequestMapping (value="/add")
-//    public String saveQuestion(@ModelAttribute ExamModel examModel)
-//    {
-//        ModelAndView modelAndView =new ModelAndView();
-//        AnswerDTO answerDTO=new AnswerDTO();
-//        answerDTO.setAnswer(examModel.getAnswer().getAnswer());
-//        QuestionDTO questionDTO=new QuestionDTO();
-//        questionDTO.setQuestion(examModel.getQuestion().getQuestion());
-//        //questionDTO.setAnswerId(2L);
-//
-//        answerServiceImpl.save(answerDTO);
-//        questionServiceImpl.save(questionDTO);
-//        return "techquiz";
-//    }
 
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
@@ -271,14 +220,8 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "redirect:/viewAllQn";
          }
-    
-//    @GetMapping(value = "/viewAllQn")
-//    public ModelAndView viewAll(ModelAndView model) throws IOException {
-//        List<Question> questionList = questionServiceImpl.findAll();
-//        model.addObject("questionList", questionList);
-//        model.setViewName("view");
-//        return model;
-//    }
+  
+
     
     @GetMapping(value = "/viewAllQn")
     public ModelAndView listQuestion(ModelAndView model) throws IOException {
@@ -288,10 +231,10 @@ public class ClientForwardController {
         return model;
     }
 
-  /*  @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deletetQuestion(@PathVariable("id") int id,ModelAndView model) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteQuestion(@PathVariable("id") int id,ModelAndView model) {
     	TechQuizModel techModel = new TechQuizModel();
-    	questionServiceImpl.delete(id);
+    	questionServiceImpl.deleteById(id);
         model.addObject("techModel", techModel);
         model.setViewName("deleteconfirmation");
         return model;
@@ -300,13 +243,73 @@ public class ClientForwardController {
     @GetMapping(value = "/delete")
     public ModelAndView deleteQuest(@PathVariable("id") int id,ModelAndView model) {
     	long examId = (long)id;
-    	questionServiceImpl.delete(id);
-    	List<Question> listExam = questionServiceImpl.findAll();
+    	questionServiceImpl.deleteById(id);
+    	List<Question> listExam = questionServiceImpl.getAll();
     	model.addObject("listExam", listExam);
-        model.setViewName("read");
+        model.setViewName("view");
         return model;  
-  }    
- */
+  }  
+    @RequestMapping(value = "/update/{id}")
+    public ModelAndView updateQuestion(@PathVariable("id") int qId)
+    {
+        ModelAndView model = new ModelAndView();
+        Question question = questionServiceImpl.get(qId);
+        model.addObject("questionById",question);
+        model.setViewName("update");
+        return model;
+    }
+
+    @RequestMapping(value = "/updateQuestion")
+    public ModelAndView update(@ModelAttribute Question question)
+    {
+        questionServiceImpl.saveQuestion(question);
+        return new ModelAndView("techquiz");
+    }
+    
+    
+   /* @GetMapping(value = "/update/{id}")
+    public ModelAndView updateQuestion(@PathVariable("id") long id)
+    {
+    	ModelAndView modelAndView = new ModelAndView();
+        Question question = questionServiceImpl.get(id);
+        TechQuizModel techModel = new TechQuizModel();
+        techModel.setId(question.getId());
+        String quest = question.getQuestion();
+        question.setQuestion(quest);
+        techModel.setQuestion(question);
+        techModel.setAnswer(question.getAnswer());
+        
+        
+        techModel.setOption1(question.getQnOptions().get(0).getOption());
+        techModel.setOption2(question.getQnOptions().get(1).getOption());
+        techModel.setOption3(question.getQnOptions().get(2).getOption());
+        techModel.setOption4(question.getQnOptions().get(3).getOption());
+       
+        modelAndView.addObject("updateQ",techModel);
+        modelAndView.setViewName("update");
+        return modelAndView;
+      
+       
+             
+        
+        
+    }
+    
+ /*   @GetMapping(value = "/updateQ")
+    public String updateQuestion(@ModelAttribute TechQuizModel techModel)
+    {
+        Question question = questionService.get(techModel.getId());
+        Question q = techModel.getQuestion();
+        question.setQuestion(q.getQuestion());
+        question.getAnswer().setAnswer(techModel.getAnswer().getAnswer());
+        question.getOptions().get(0).setAOption(techModel.getOption1());
+        question.getOptions().get(1).setAOption(techModel.getOption2());
+        question.getOptions().get(2).setAOption(techModel.getOption3());
+        question.getOptions().get(3).setAOption(techModel.getOption4());
+        questionServiceImpl.saveQuestion(question);
+        return "success";
+    }     
+   */ 
 }
 
 
