@@ -9,8 +9,7 @@
 <div class="heading" align="center" >
     <h3>UPDATE QUESTION</h3>
 </div>
-<div class="questadd" align="center">
-    <form method="get" th:action="@{/updateQuestion}" th:object="${questionById}">
+    <form method="get" th:action="@{/updateQuestion}" th:object="${qId}">
         <table>
             <tr>
                 <td>Question_ID</td>
@@ -22,21 +21,21 @@
             </tr>
             <tr>
                 <td>Option_1</td>
-                <td><input type="text" th:field="*{opt1}"/></td>
+                <td><input type="text" th:field="*{option1}"/></td>
             </tr>
             <tr>
                 <td>Option_2</td>
-                <td><input type="text" th:field="*{opt2}"/></td>
+                <td><input type="text" th:field="*{option2}"/></td>
             </tr>
 
             <tr>
                 <td>Option_3</td>
-                <td><input type="text" th:field="*{opt3}"/></td>
+                <td><input type="text" th:field="*{option3}"/></td>
             </tr>
 
             <tr>
                 <td>Option_4</td>
-                <td><input type="text" th:field="*{opt4}"/></td>
+                <td><input type="text" th:field="*{option4}"/></td>
             </tr>
 
             <tr>
