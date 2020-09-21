@@ -57,9 +57,11 @@
 
 <form th:object="${listQuestion}">
 
-<h2> Question : <a th:text = "${listQuestion.question}"> </h2><br>
-<h2> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h2>
-            	
+<h2> Question : <a th:text = "${listQuestion.question}"> </h2>
+<h3> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h3>
+<h3> Question Option : <a th:text = "${qnOptions}"> </h3>
+<th:each="qnOptions:${qnOptions}">
+<th:text="${qnOptions.option}">            	
 	            	<div align = "center"><button class="button">NEXT</button></div>
 
 
