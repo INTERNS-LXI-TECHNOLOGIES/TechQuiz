@@ -48,18 +48,20 @@
 <div class="header">
     <h1 align="center">Questions</h1>
 </div>
-<h1>timerrrrrrr</h1>
+
 Seconds Remaining :<script>timer();</script>
-<form th:object="${question}"  >
-<a th:text = "${question.question}"></a><br>
 
-	 <br>
-	 <br>
-	     <div align = "center"><button class="button">NEXT</button></div>
+</form>
+<br>
 
-	            <th:each="qn_option : ${question.qstnOptions}">
-	            	<th:text="${q_option.option}">option<br>
-	            	<br>
+
+<form th:object="${listQuestion}">
+
+<h2> Question : <a th:text = "${listQuestion.question}"> </h2><br>
+<h2> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h2>
+            	
+	            	<div align = "center"><button class="button">NEXT</button></div>
+
 
 </form>
 <script type="text/javascript" language="javascript">

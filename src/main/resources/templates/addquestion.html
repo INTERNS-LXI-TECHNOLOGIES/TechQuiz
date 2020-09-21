@@ -47,15 +47,27 @@
 <div class="card-body">
 <div class="col-md-10">
 
-        <form action="#"  th:object="${exam}" th:action="@{/addQuestion}" method="GET">
+        <form action="#"  th:object="${techModel}" th:action="@{/addQuestion}" method="GET">
             <div class="col-md-6">
             <br>
                 <label> Question</label>
-                <input type="text" id="question" th:field="*{question.question}" class="form-control"
+                <input type="text" id="question" th:field="*{question}" class="form-control"
                 placeholder="Question">
                 <label> Answer</label>
-                <input type="text" id="answer" th:field="*{answer.answer}" class="form-control"
+                <input type="text" id="answer" th:field="*{answer}" class="form-control"
                        placeholder="Answer">
+                        <label> Option1</label>
+                <input type="text" id="option1" th:field="*{option1}" class="form-control"
+                       placeholder="Option1">
+                        <label> Option2</label>
+                <input type="text" id="option2" th:field="*{option2}" class="form-control"
+                       placeholder="Option2">
+                        <label> Option3</label>
+                <input type="text" id="option3" th:field="*{option3}" class="form-control"
+                       placeholder="Option3">
+                       <label> Option4</label>
+                <input type="text" id="option4" th:field="*{option4}" class="form-control"
+                       placeholder="Option4">
                 <input type="submit" class="button" value=Add></button></center>
             </div>
 

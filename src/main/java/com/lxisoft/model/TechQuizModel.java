@@ -2,9 +2,13 @@ package com.lxisoft.model;
 
 import com.lxisoft.domain.Answer;
 
-import com.lxisoft.domain.Question;
 
-public class Exam {
+import com.lxisoft.domain.Question;
+import com.lxisoft.domain.enumeration.QuestionLevel;
+import com.lxisoft.domain.*;
+
+
+public class TechQuizModel {
 	 private long id;
 	 private String question;
 	 private String answer;
@@ -12,6 +16,8 @@ public class Exam {
 	 private String option2;
 	 private String option3;
 	 private String option4;
+	 private QuestionLevel questionlevel;
+	 
 	 public long getId() {
 		return id;
 	}
@@ -53,6 +59,12 @@ public class Exam {
 	}
 	public void setOption4(String option4) {
 		this.option4 = option4;
+	}
+	public QuestionLevel getQuestionlevel() {
+		return questionlevel;
+	}
+	public void setQuestionlevel(QuestionLevel questionlevel) {
+		this.questionlevel = questionlevel;
 	}
 	
 
