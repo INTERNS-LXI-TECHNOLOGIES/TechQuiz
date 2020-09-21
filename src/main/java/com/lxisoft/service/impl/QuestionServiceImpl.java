@@ -70,4 +70,26 @@ public class QuestionServiceImpl implements QuestionService {
     	log.debug("Request to save question with entity : {}", question);
     	questionRepository.save(question);
     }
+    
+    public List<Question> getAll()
+    {
+
+        return  questionRepository.findAll();
+    }
+    public long deleteById(long id)
+    {
+    	questionRepository.deleteById(id);
+    	return id;
+    }
+    public Question get(long id)
+    {
+        return questionRepository.getOne(id);
+    }
+    public void saveQuestion(Question question)
+    {
+    	questionRepository.save(question);
+    }
+   
+    
+       
 }

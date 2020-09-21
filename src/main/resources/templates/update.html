@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Question</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addcss.css}">
+</head>
+<body>
+<div class="heading" align="center" >
+    <h3>UPDATE QUESTION</h3>
+</div>
+<div class="questadd" align="center">
+    <form method="get" th:action="@{/updateQuestion}" th:object="${questionById}">
+        <table>
+            <tr>
+                <td>Question_ID</td>
+                <td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Question</td>
+                <td><input type="text" th:field="*{question}" /></td>
+            </tr>
+            <tr>
+                <td>Option_1</td>
+                <td><input type="text" th:field="*{opt1}"/></td>
+            </tr>
+            <tr>
+                <td>Option_2</td>
+                <td><input type="text" th:field="*{opt2}"/></td>
+            </tr>
+
+            <tr>
+                <td>Option_3</td>
+                <td><input type="text" th:field="*{opt3}"/></td>
+            </tr>
+
+            <tr>
+                <td>Option_4</td>
+                <td><input type="text" th:field="*{opt4}"/></td>
+            </tr>
+
+            <tr>
+                <td>Answer</td>
+                <td><input type="text" th:field="*{answer}"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center"><button type = "submit" onclick="msg()">Save</button></td>
+            </tr>
+
+        </table>
+
+    </form>
+</div>
+    <script>
+        <script type="text/javascript">
+
+			function msg()
+			{
+				confirm("Successfully Updated.....");
+		
+	}
+
+	</script>
+</body>
+</html>

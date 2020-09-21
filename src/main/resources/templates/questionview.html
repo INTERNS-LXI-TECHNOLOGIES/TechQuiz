@@ -46,16 +46,18 @@
 <body>
 
 <div class="header">
+	<span id="timerValue" style="color: red; font-size: x-large;font-weight: bold;"></span> minutes left
     <h1 align="center">Questions</h1>
 </div>
 
-Seconds Remaining :<script>timer();</script>
 
-</form>
+
+
 <br>
 
 
 <form th:object="${listQuestion}">
+<input type="hidden" id="timer"  name="timerValue" value=${timerValue}/>
 
 <h2> Question : <a th:text = "${listQuestion.question}"> </h2><br>
 <h2> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h2>
@@ -64,23 +66,82 @@ Seconds Remaining :<script>timer();</script>
 
 
 </form>
-<script type="text/javascript" language="javascript">
-var clock = "10";
-var timeout = clock;
-function timer()
-{
-if( --timeout > 0 )
-{
-document.getElementById("clock").innerHTML=timeout;
-window.setTimeout( "timer()", 1000 );
+ 
+<script th:inline="javascript">
+
+/*  var saveOption=false;
+var el = document.getElementById('click');  */
+
+
+let urlstring = window.location.search;
+let urlp=new URLSearchParams(urlstring);
+let ms=urlp.get('timerValue');
+let mseconds=0;
+if(ms==null)
+	{
+	 mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
+	}
+	else
+	{
+		mseconds=ms;
+	}
+
+
+function timer() {
+	mseconds = mseconds - 1000;
+	  if(mseconds > 0) {
+	    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
+			document.getElementById('timer').value = mseconds;
+			 window.setTimeout("timer()" , 1000);
+	  } else {
+			document.getElementById('timer').value = 0;	
+			alert('Timed OUt');
+			document.getElementById('myForm').submit();
+		}
 }
-else
-{
-document.getElementById("clock").innerHTML = "Time over";
-document.submit();
-///disable submit-button etc
+
+function hourToMiliSeconds(hour) {
+	let msecond = 0;
+	let time = hour.split(':');
+	msecond = (time[0] * (60000 * 60)) + (time[1] * 60000);
+	return msecond;
 }
+
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
+
+
+timer();
+
+	/* function check(){
+	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
+  function checked() {
+	  document.getElementById('qstnNo').innerHTML = "Question: "+[[${index}+1]];
+	  var optionId=[[${attendedOptions[index].attendedOpt}]];
+	  document.getElementById(optionId).checked = true;
+	}
+  checked();
+  
+  function showQuestion( aExamId , examId , index) {
+		let url  = "/user_exampage";
+		let params = `aExamId=${aExamId}&eId=${examId}&index=${index}&timerValue=${mseconds}`;
+		window.location = url + '?'+ params;
+	  }
+  function quitExam()
+  {
+	  var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}
+  }
+ 
+  /* function check(){
+		if(!saveOption)
+		 alert("you should save the option to continue..")}
+  
+ 
+  el.onclick = function save() {  saveOption=true;}  */
+  
 </script>
 
 </body>
