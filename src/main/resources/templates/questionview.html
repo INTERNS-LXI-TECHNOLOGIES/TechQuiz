@@ -69,17 +69,13 @@
  
 <script th:inline="javascript">
 
-/*  var saveOption=false;
-var el = document.getElementById('click');  */
-
-
 let urlstring = window.location.search;
 let urlp=new URLSearchParams(urlstring);
 let ms=urlp.get('timerValue');
 let mseconds=0;
 if(ms==null)
 	{
-	 mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
+	 mseconds = hourToMiliSeconds([[${techModel.getTime()}]]);
 	}
 	else
 	{
@@ -113,34 +109,7 @@ function millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
-
-timer();
-
-	/* function check(){
-	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
-  function checked() {
-	  document.getElementById('qstnNo').innerHTML = "Question: "+[[${index}+1]];
-	  var optionId=[[${attendedOptions[index].attendedOpt}]];
-	  document.getElementById(optionId).checked = true;
-	}
-  checked();
-  
-  function showQuestion( aExamId , examId , index) {
-		let url  = "/user_exampage";
-		let params = `aExamId=${aExamId}&eId=${examId}&index=${index}&timerValue=${mseconds}`;
-		window.location = url + '?'+ params;
-	  }
-  function quitExam()
-  {
-	  var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}
-  }
  
-  /* function check(){
-		if(!saveOption)
-		 alert("you should save the option to continue..")}
-  
- 
-  el.onclick = function save() {  saveOption=true;}  */
   
 </script>
 
