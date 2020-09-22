@@ -1,13 +1,24 @@
 package com.lxisoft.web.rest;
 
+
+import com.lxisoft.domain.Answer;
+
+import com.lxisoft.domain.QnOption;
+import com.lxisoft.domain.Question;
+import com.lxisoft.service.dto.QuestionDTO;
+import com.lxisoft.service.impl.QuestionServiceImpl;
+import com.lxisoft.security.SecurityUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 
+import com.lxisoft.domain.User;
+import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.*;
-
 import com.lxisoft.service.impl.*;
 import com.lxisoft.service.*;
 import com.lxisoft.service.dto.*;
@@ -15,10 +26,23 @@ import com.lxisoft.model.TechQuizModel;
 import com.lxisoft.model.ExamModel;
 import com.lxisoft.domain.enumeration.*;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.servlet.ModelAndView;
+import com.lxisoft.repository.UserRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Optional;
+import java.io.IOException;
 import java.util.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -34,9 +58,7 @@ public class ClientForwardController {
 
     private final Logger log = LoggerFactory.getLogger(ClientForwardController.class);
 
-//    @Autowired
-//    private ExamService examService;
-//
+
     int i=0;
     @Autowired
     private QnOptionService optService;
@@ -44,11 +66,11 @@ public class ClientForwardController {
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
 
-  //  @Autowired
-//    private AnswerServiceImpl answerServiceImpl;
-
     @Autowired
     private ExamServiceImpl examServiceImpl;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
@@ -64,6 +86,9 @@ public class ClientForwardController {
     @GetMapping(value="/instruction")
     public String root() {return "instruction";}
 
+
+     @GetMapping(value="/userview")
+    public String userView(){return "userview";}
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public String adminpage(Model model)
@@ -141,8 +166,12 @@ public class ClientForwardController {
   	return "redirect:/questionview";
   	    }
   
+  
+
+ 
     @GetMapping("/questionview")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+
     	HttpSession session = request.getSession(true);
 		@SuppressWarnings("unchecked")
 		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
@@ -162,6 +191,28 @@ public class ClientForwardController {
   }
   
 
+    	
+
+    @SuppressWarnings("static-access")
+    @GetMapping(value = "/dashboard")
+    public ModelAndView userDashboard(ModelAndView model) throws IOException {
+
+        
+        Optional<User> usersDet = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
+      
+
+        
+        usersDet.ifPresent(user -> {
+            model.addObject("user", user);
+            
+        });
+
+
+        
+        model.setViewName("dashboard");
+        return model;
+    }
+    	
     @GetMapping(value="/examresult")
     public String result()
     {
@@ -214,8 +265,9 @@ public class ClientForwardController {
          qnOptions.add(option4);
          question.setQnOptions(qnOptions);
          questionServiceImpl.saveQuestionWithEnity(question);
-         return "redirect:/viewAllQn";
+         return "techquiz";
          }
+
   
 
     

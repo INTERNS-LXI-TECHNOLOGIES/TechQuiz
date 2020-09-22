@@ -38,7 +38,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         if (isAdmin) {
             response.sendRedirect("techquiz");
         } else {
-            response.sendRedirect("instruction");
+            response.sendRedirect("userview");
         }
     }
 }
