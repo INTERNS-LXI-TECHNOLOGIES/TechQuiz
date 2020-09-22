@@ -81,6 +81,8 @@ public class ClientForwardController {
     @RequestMapping ("saveexam")
     public String saveExam(ExamDTO examDto,Model model)
 	{
+    	ExamController filerepo = new ExamController();
+    //	filerepo.save(examDto);
 		examServiceImpl.save(examDto);
 		return "redirect:/viewAll";
 	}
@@ -158,8 +160,6 @@ public class ClientForwardController {
 			return model;
 		}
   }
-
-
   
 
     @GetMapping(value="/examresult")
@@ -245,67 +245,50 @@ public class ClientForwardController {
         model.setViewName("view");
         return model;  
   }  
- /*   @RequestMapping(value = "/update/{id}")
-    public ModelAndView updateQuestion(@PathVariable("id") int qId)
-    {
-        ModelAndView model = new ModelAndView();
-        Question question = questionServiceImpl.get(qId);
-        model.addObject("questionById",question);
-        model.setViewName("update");
-        return model;
-    }
-
-  /*  @RequestMapping(value = "/updateQuestion")
-    public ModelAndView update(@ModelAttribute TechQuizModel techModel)
-    {
-    	 questionServiceImpl.saveQuestionWithEnity(question);
-         return new ModelAndView("techquiz");
-    }
+ 
     
-    
-   /* @GetMapping(value = "/update/{id}")
+   @GetMapping(value = "/update/{id}")
     public ModelAndView updateQuestion(@PathVariable("id") long id)
     {
-    	ModelAndView modelAndView = new ModelAndView();
-        Question question = questionServiceImpl.get(id);
-        TechQuizModel techModel = new TechQuizModel();
-        techModel.setId(question.getId());
-        String quest = question.getQuestion();
-        question.setQuestion(quest);
-        techModel.setQuestion(question);
-        techModel.setAnswer(question.getAnswer());
-        
-        
-        techModel.setOption1(question.getQnOptions().get(0).getOption());
-        techModel.setOption2(question.getQnOptions().get(1).getOption());
-        techModel.setOption3(question.getQnOptions().get(2).getOption());
-        techModel.setOption4(question.getQnOptions().get(3).getOption());
-       
-        modelAndView.addObject("updateQ",techModel);
-        modelAndView.setViewName("update");
+	      
+	   ModelAndView modelAndView = new ModelAndView();
+	   Question question =new Question();
+       question = questionServiceImpl.get(id);
+       ExamModel exam = new ExamModel();
+       exam.setId(question.getId());
+       String quest = question.getQuestion();
+       question.setQuestion(quest);
+       exam.setQuestion(question);
+       exam.setAnswer(question.getAnswer());
+      /* exam.setOption1(question.getOptions().get(0).getAOption());
+       exam.setOption2(question.getOptions().get(1).getAOption());
+       exam.setOption3(question.getOptions().get(2).getAOption());
+       exam.setOption4(question.getOptions().get(3).getAOption());*/
+
+       modelAndView.addObject("updateQ",exam);
+       modelAndView.setViewName("update");
+                    
         return modelAndView;
-      
-       
-             
-        
+                        
         
     }
     
- /*   @GetMapping(value = "/updateQ")
-    public String updateQuestion(@ModelAttribute TechQuizModel techModel)
-    {
-        Question question = questionService.get(techModel.getId());
-        Question q = techModel.getQuestion();
-        question.setQuestion(q.getQuestion());
-        question.getAnswer().setAnswer(techModel.getAnswer().getAnswer());
-        question.getOptions().get(0).setAOption(techModel.getOption1());
-        question.getOptions().get(1).setAOption(techModel.getOption2());
-        question.getOptions().get(2).setAOption(techModel.getOption3());
-        question.getOptions().get(3).setAOption(techModel.getOption4());
-        questionServiceImpl.saveQuestion(question);
-        return "success";
-    }     
-   */ 
+   @GetMapping(value = "/updateQ")
+   public String updateQuestion(@ModelAttribute ExamModel exam)
+   {
+	   Question question =new Question();
+       question = questionServiceImpl.get(exam.getId());
+       Question q = exam.getQuestion();
+       question.setQuestion(q.getQuestion());
+       question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
+     /*  question.getOptions().get(0).setAOption(exam.getOption1());
+       question.getOptions().get(1).setAOption(exam.getOption2());
+       question.getOptions().get(2).setAOption(exam.getOption3());
+       question.getOptions().get(3).setAOption(exam.getOption4());*/
+       questionServiceImpl.saveQuestion(question);
+       return "view";
+   }   
+  
 }
 
 
