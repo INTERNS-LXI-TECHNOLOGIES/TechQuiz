@@ -60,6 +60,14 @@
 <h2> Question : <a th:text = "${listQuestion.question}"> </h2>
 <h3> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h3>
 <h3> Question Option : <a th:text = "${qnOptions}"> </h3>
+<input type="radio" id="option" name="option" value="1">
+  <label th:for="option" th:text="${qnOptions}" ></label><br>
+  <input type="radio" id="option" name="option" value="2">
+  <label th:for="option" th:text="${qnOptions}" ></label><br>
+  <input type="radio" id="option" name="option" value="3">
+  <label th:for="option" th:text="${qnOptions}" ></label><br>
+  <input type="radio" id="option" name="option" value="4">
+  <label th:for="option" th:text="${qnOptions}" ></label><br>
 <th:each="qnOptions:${qnOptions}">
 <th:text="${qnOptions.option}">            	
 	            	<div align = "center"><button class="button">NEXT</button></div>
