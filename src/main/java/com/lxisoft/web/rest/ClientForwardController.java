@@ -174,10 +174,6 @@ public class ClientForwardController {
     	return "selectexam";
     	} 
 
-
-
-
-
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
     	TechQuizModel techModel=new TechQuizModel();
@@ -249,7 +245,7 @@ public class ClientForwardController {
         model.setViewName("view");
         return model;  
   }  
-    @RequestMapping(value = "/update/{id}")
+ /*   @RequestMapping(value = "/update/{id}")
     public ModelAndView updateQuestion(@PathVariable("id") int qId)
     {
         ModelAndView model = new ModelAndView();
@@ -259,11 +255,11 @@ public class ClientForwardController {
         return model;
     }
 
-    @RequestMapping(value = "/updateQuestion")
-    public ModelAndView update(@ModelAttribute Question question)
+  /*  @RequestMapping(value = "/updateQuestion")
+    public ModelAndView update(@ModelAttribute TechQuizModel techModel)
     {
-        questionServiceImpl.saveQuestion(question);
-        return new ModelAndView("techquiz");
+    	 questionServiceImpl.saveQuestionWithEnity(question);
+         return new ModelAndView("techquiz");
     }
     
     

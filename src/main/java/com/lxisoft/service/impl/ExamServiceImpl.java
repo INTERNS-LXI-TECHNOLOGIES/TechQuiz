@@ -30,6 +30,10 @@ public class ExamServiceImpl implements ExamService {
 	QuestionRepository questionRepo;
 	@Autowired
 	QuestionServiceImpl questionServiceImpl;
+	 @Autowired
+	    private ExamRepository examRepo;
+	     
+	   
 
     private final Logger log = LoggerFactory.getLogger(ExamServiceImpl.class);
 
@@ -102,5 +106,8 @@ public class ExamServiceImpl implements ExamService {
     public void delete(Long id) {
         log.debug("Request to delete Exam : {}", id);
         examRepository.deleteById(id);
+    }
+    public List<Exam> listAll() {
+        return examRepo.findAll();
     }
 }

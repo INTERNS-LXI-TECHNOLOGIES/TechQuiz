@@ -46,18 +46,15 @@
 <body>
 
 <div class="header">
-	<span id="timerValue" style="color: red; font-size: x-large;font-weight: bold;"></span> minutes left
+<form action="<%=request.getRequestURL()%>" name="forma">
+Seconds remaining: <span id="clock"><%=clock%></span>
+
     <h1 align="center">Questions</h1>
 </div>
 
-
-
-
 <br>
 
-
 <form th:object="${listQuestion}">
-<input type="hidden" id="timer"  name="timerValue" value=${timerValue}/>
 
 <h2> Question : <a th:text = "${listQuestion.question}"> </h2><br>
 <h2> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h2>
@@ -68,49 +65,25 @@
 </form>
  
 <script th:inline="javascript">
-
-let urlstring = window.location.search;
-let urlp=new URLSearchParams(urlstring);
-let ms=urlp.get('timerValue');
-let mseconds=0;
-if(ms==null)
-	{
-	 mseconds = hourToMiliSeconds([[${techModel.getTime()}]]);
-	}
-	else
-	{
-		mseconds=ms;
-	}
-
-
-function timer() {
-	mseconds = mseconds - 1000;
-	  if(mseconds > 0) {
-	    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
-			document.getElementById('timer').value = mseconds;
-			 window.setTimeout("timer()" , 1000);
-	  } else {
-			document.getElementById('timer').value = 0;	
-			alert('Timed OUt');
-			document.getElementById('myForm').submit();
-		}
+<%
+String clock = "10";
+%>
+var timeout = <%=clock%>;
+function timer()
+{
+if( --timeout > 0 )
+{
+document.getElementById("clock").innerHTML=timeout;
+window.setTimeout( "timer()", 1000 );
 }
-
-function hourToMiliSeconds(hour) {
-	let msecond = 0;
-	let time = hour.split(':');
-	msecond = (time[0] * (60000 * 60)) + (time[1] * 60000);
-	return msecond;
+else
+{
+document.getElementById("clock").innerHTML = "Time over";
+document.qform.submit();
+///disable submit-button etc
 }
-
-function millisToMinutesAndSeconds(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
-
  
-  
 </script>
 
 </body>
