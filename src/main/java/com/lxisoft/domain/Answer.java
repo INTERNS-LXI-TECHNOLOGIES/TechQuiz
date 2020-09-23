@@ -25,7 +25,7 @@ public class Answer implements Serializable {
     @Column(name = "answer")
     private String answer;
 
-    @OneToOne(mappedBy = "answer")
+    @OneToOne(mappedBy = "answer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     private Question question;
 

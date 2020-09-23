@@ -3,6 +3,7 @@ package com.lxisoft.web.rest;
 
 import com.lxisoft.domain.Answer;
 
+
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
@@ -106,9 +107,8 @@ public class ClientForwardController {
     @RequestMapping ("saveexam")
     public String saveExam(ExamDTO examDto,Model model)
 	{
-    	ExamController filerepo = new ExamController();
-    //	filerepo.save(examDto);
-		examServiceImpl.save(examDto);
+    	//FileController fileRepo = new FileController();
+    	examServiceImpl.save(examDto);
 		return "redirect:/viewAll";
 	}
 
@@ -119,7 +119,6 @@ public class ClientForwardController {
         model.setViewName("read");
         return model;
     }
-
   
   @GetMapping(value="viewQuestion")
   public String viewQuestion(HttpServletRequest request) {
@@ -165,10 +164,8 @@ public class ClientForwardController {
   	
   	return "redirect:/questionview";
   	    }
-  
-  
-
  
+
     @GetMapping("/questionview")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
 
@@ -189,25 +186,20 @@ public class ClientForwardController {
 			return model;
 		}
   }
-  
 
-    	
 
     @SuppressWarnings("static-access")
     @GetMapping(value = "/dashboard")
     public ModelAndView userDashboard(ModelAndView model) throws IOException {
-
         
         Optional<User> usersDet = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin);
-      
+ 
 
         
         usersDet.ifPresent(user -> {
             model.addObject("user", user);
             
         });
-
-
         
         model.setViewName("dashboard");
         return model;
@@ -248,7 +240,11 @@ public class ClientForwardController {
          QnOption option2 = new QnOption();
          QnOption option3 = new QnOption();
          QnOption option4 = new QnOption();
-    
+         
+         
+        /* QuestionLevel questionLevel =techModel.getQuestionlevel();
+         question.setQuestionlevel(questionlevel);*/
+         
          option1.setOption(techModel.getOption1());
          option2.setOption(techModel.getOption2());
          option3.setOption(techModel.getOption3());
@@ -267,10 +263,7 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "techquiz";
          }
-
-  
-
-    
+     
     @GetMapping(value = "/viewAllQn")
     public ModelAndView listQuestion(ModelAndView model) throws IOException {
         List<Question> listExam = questionServiceImpl.getAll();
@@ -297,16 +290,15 @@ public class ClientForwardController {
         model.setViewName("view");
         return model;  
   }  
- 
     
    @GetMapping(value = "/update/{id}")
     public ModelAndView updateQuestion(@PathVariable("id") long id)
     {
 	      
 	   ModelAndView modelAndView = new ModelAndView();
+	   ExamModel exam = new ExamModel();
 	   Question question =new Question();
        question = questionServiceImpl.get(id);
-       ExamModel exam = new ExamModel();
        exam.setId(question.getId());
        String quest = question.getQuestion();
        question.setQuestion(quest);
@@ -316,23 +308,19 @@ public class ClientForwardController {
        exam.setOption2(question.getOptions().get(1).getAOption());
        exam.setOption3(question.getOptions().get(2).getAOption());
        exam.setOption4(question.getOptions().get(3).getAOption());*/
-
        modelAndView.addObject("updateQ",exam);
-       modelAndView.setViewName("update");
-                    
-        return modelAndView;
-                        
-        
-    }
-    
+       modelAndView.setViewName("update");                    
+        return modelAndView;    
+        //database ? open answer table 
+    }    
    @GetMapping(value = "/updateQ")
    public String updateQuestion(@ModelAttribute ExamModel exam)
    {
-	   Question question =new Question();
-       question = questionServiceImpl.get(exam.getId());
-       Question q = exam.getQuestion();
-       question.setQuestion(q.getQuestion());
-       question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
+	   Question question = questionServiceImpl.get(exam.getId());
+       //question = questionServiceImpl.get(exam.getId());
+       //Question q = exam.getQuestion();
+       //question.setQuestion(q.getQuestion());
+      // question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
      /*  question.getOptions().get(0).setAOption(exam.getOption1());
        question.getOptions().get(1).setAOption(exam.getOption2());
        question.getOptions().get(2).setAOption(exam.getOption3());

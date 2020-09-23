@@ -10,7 +10,7 @@ import com.lxisoft.domain.Exam;
 
 import java.io.*;
 
-public class ExamController 
+public class FileController 
 {
 	public File file = new File("D:\\exam.csv");
 	public boolean fileExist(File file)
@@ -57,8 +57,7 @@ public class ExamController
 			System.out.println(e+"Error eeeeeee");
 			e.printStackTrace();
 		}
-	}
-		
+	}		
 	public List<Exam> readFromDatabase(List<Exam> exams) throws Exception , IOException
 	{
 		FileReader fr = new FileReader(file);
