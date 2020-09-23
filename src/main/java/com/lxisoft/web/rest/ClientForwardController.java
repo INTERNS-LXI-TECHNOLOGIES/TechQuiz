@@ -119,8 +119,9 @@ public class ClientForwardController {
         model.setViewName("read");
         return model;
     }
+
   
-  @GetMapping(value="viewQuestion")
+/*  @GetMapping(value="viewQuestion")
   public String viewQuestion(HttpServletRequest request) {
   	
   	String level = null;
@@ -165,13 +166,110 @@ public class ClientForwardController {
   	return "redirect:/questionview";
   	    }
  
+*/
+
+    
+    
+    @SuppressWarnings("unchecked")
+	@GetMapping(value="viewQuestion")
+    public String viewQuestions(HttpServletRequest request) {
+    	
+    	String level = null;
+    	if(request.getParameter("option") == null){
+    		level = "EASY"; 
+    	}
+    	else {
+    		level = request.getParameter("option");
+    	}
+    	 
+    	List<Question> listQuestion = questionServiceImpl.getAll();
+    	List<TechQuizModel> listExam = new ArrayList<>();
+    	HttpSession session = request.getSession(true);
+    	    	
+    	List<Question> easyQuestion = new ArrayList<>();
+    	List<Question> mediumQuestion = new ArrayList<>();
+    	List<Question> hardQuestion = new ArrayList<>();
+    	TechQuizModel techModel=new TechQuizModel();
+    	
+    	for(Question question : listQuestion) {
+    		QuestionLevel questionLevel = question.getQuestionlevel();
+    		if(questionLevel == QuestionLevel.EASY) {
+    			easyQuestion.add(question);
+    		}
+    		else if(questionLevel == QuestionLevel.MEDIUM) {
+    			mediumQuestion.add(question);
+    		}
+    		else if(questionLevel == QuestionLevel.HARD) {
+    			hardQuestion.add(question);
+    		}
+    	}
+    	
+    	if(level.equals("EASY")) {
+    		session.setAttribute("listQuestion", easyQuestion);
+    	}
+    	else if(level.equals("MEDIUM")) {
+    		session.setAttribute("listQuestion", mediumQuestion);
+    	}
+    	else if(level.equals("HARD")) {
+    		session.setAttribute("listQuestion", hardQuestion);
+    	}
+    	
+    	return "redirect:/questionview";
+    	    }
+
+  
+//  @GetMapping(value="viewQuestion")
+//  public String viewQuestion(HttpServletRequest request) {
+//  	
+//  	String level = null;
+//  	if(request.getParameter("option") == null){
+//  		level = "EASY"; 
+//  	}
+//  	else {
+//  		level = request.getParameter("option");
+//  	}
+//  	 
+//  	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+//  	HttpSession session = request.getSession(true);
+//  	
+//  	List<QuestionDTO> easyQuestion = new ArrayList<>();
+//  	List<QuestionDTO> mediumQuestion = new ArrayList<>();
+//  	List<QuestionDTO> hardQuestion = new ArrayList<>();
+//  	
+//  	
+//  	for(QuestionDTO questionDTO : listQuestion) {
+//  		QuestionLevel questionLevel = questionDTO.getQuestionlevel();
+//  		if(questionLevel == QuestionLevel.EASY) {
+//  			easyQuestion.add(questionDTO);
+//  		}
+//  		else if(questionLevel == QuestionLevel.MEDIUM) {
+//  			mediumQuestion.add(questionDTO);
+//  		}
+//  		else if(questionLevel == QuestionLevel.HARD) {
+//  			hardQuestion.add(questionDTO);
+//  		}
+//  	}
+//  	
+//  	if(level.equals("EASY")) {
+//  		session.setAttribute("listQuestion", easyQuestion);
+//  	}
+//  	else if(level.equals("MEDIUM")) {
+//  		session.setAttribute("listQuestion", mediumQuestion);
+//  	}
+//  	else if(level.equals("HARD")) {
+//  		session.setAttribute("listQuestion", hardQuestion);
+//  	}
+//  	
+//  	return "redirect:/questionview";
+//  	    }
+  
 
     @GetMapping("/questionview")
     public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
 
     	HttpSession session = request.getSession(true);
 		@SuppressWarnings("unchecked")
-		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
+		List<Question> listQuestion = (List<Question>)session.getAttribute("listQuestion");
 		if(i<listQuestion.size())
   	{
 		 model.addObject("listQuestion", listQuestion.get(i));
@@ -187,6 +285,102 @@ public class ClientForwardController {
 		}
   }
 
+    
+    
+
+  
+//  @GetMapping(value="viewQuestion")
+//  public String viewQuestion(HttpServletRequest request) {
+//  	
+//  	String level = null;
+//  	if(request.getParameter("option") == null){
+//  		level = "EASY"; 
+//  	}
+//  	else {
+//  		level = request.getParameter("option");
+//  	}
+//  	 
+//  	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+//  	HttpSession session = request.getSession(true);
+//  	
+//  	List<QuestionDTO> easyQuestion = new ArrayList<>();
+//  	List<QuestionDTO> mediumQuestion = new ArrayList<>();
+//  	List<QuestionDTO> hardQuestion = new ArrayList<>();
+//  	
+//  	
+//  	for(QuestionDTO questionDTO : listQuestion) {
+//  		QuestionLevel questionLevel = questionDTO.getQuestionlevel();
+//  		if(questionLevel == QuestionLevel.EASY) {
+//  			easyQuestion.add(questionDTO);
+//  		}
+//  		else if(questionLevel == QuestionLevel.MEDIUM) {
+//  			mediumQuestion.add(questionDTO);
+//  		}
+//  		else if(questionLevel == QuestionLevel.HARD) {
+//  			hardQuestion.add(questionDTO);
+//  		}
+//  	}
+//  	
+//  	if(level.equals("EASY")) {
+//  		session.setAttribute("listQuestion", easyQuestion);
+//  	}
+//  	else if(level.equals("MEDIUM")) {
+//  		session.setAttribute("listQuestion", mediumQuestion);
+//  	}
+//  	else if(level.equals("HARD")) {
+//  		session.setAttribute("listQuestion", hardQuestion);
+//  	}
+//  	
+//  	return "redirect:/questionview";
+//  	    }
+//  
+//    
+//  @GetMapping("/questionview")
+//  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+//  	HttpSession session = request.getSession(true);
+//		@SuppressWarnings("unchecked")
+//		List<QuestionDTO> listQuestion = (List<QuestionDTO>)session.getAttribute("listQuestion");
+//		if(i<listQuestion.size())
+//	{
+//		 model.addObject("listQuestion", listQuestion.get(i));
+//		 i++;
+//		 model.setViewName("questionview"); 
+//    return model;
+//		}
+//		else
+//		{
+//			i=0;
+//			model.setViewName("redirect:/examresult");
+//			return model;
+//		}
+//}
+
+  
+//  @GetMapping("/questionview")
+//  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
+//  	HttpSession session = request.getSession(true);
+//  }
+    
+    
+    
+  
+//List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
+//List<QuestionDTO> listExam = new ArrayList<>();
+//HttpSession session = request.getSession(true);
+//
+//for(int j=0;j<listQuestion.size();j++)
+//{
+//	QuestionDTO question=listQuestion.get(j);
+//	question.getQuestion();
+//	question.getAnswerId();
+//	
+////    listExam.add(exam);
+//    
+//}
+//session.setAttribute("listQuestion", listQuestion); 
+//return "redirect:/questionview";
+    	
+
 
     @SuppressWarnings("static-access")
     @GetMapping(value = "/dashboard")
@@ -200,6 +394,7 @@ public class ClientForwardController {
             model.addObject("user", user);
             
         });
+
         
         model.setViewName("dashboard");
         return model;
@@ -227,6 +422,9 @@ public class ClientForwardController {
     @RequestMapping(value = "/addQuestion")
     public String addNewQuestion(@ModelAttribute TechQuizModel techModel)
     {
+    	QuestionLevel questionlevel= QuestionLevel.EASY;
+    	questionlevel= QuestionLevel.MEDIUM;
+    	questionlevel= QuestionLevel.HARD;
     	 Question question = new Question();
          String ques = techModel.getQuestion();
          question.setQuestion(ques);
@@ -234,6 +432,7 @@ public class ClientForwardController {
          answer.setQuestion(question);
          answer.setAnswer(techModel.getAnswer());
          question.setAnswer(answer);
+         question.setQuestionlevel(questionlevel);
          Set<QnOption> qnOptions = new HashSet<>();
          
          QnOption option1 = new QnOption();
@@ -263,7 +462,7 @@ public class ClientForwardController {
          questionServiceImpl.saveQuestionWithEnity(question);
          return "techquiz";
          }
-     
+
     @GetMapping(value = "/viewAllQn")
     public ModelAndView listQuestion(ModelAndView model) throws IOException {
         List<Question> listExam = questionServiceImpl.getAll();

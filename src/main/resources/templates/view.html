@@ -49,6 +49,7 @@
 		<br>
     <table align=center border=1px >
 		<th>Question</th>
+		<th>QuestionLevel</th>
 		<th>Answer</th>
 		<th>Option1</th>
 		<th>Option2</th>
@@ -58,6 +59,7 @@
 		<th>Edit</th>
 <tr th:each="list,iterationStatus : ${listExam}"> 
                 <td th:text="${list.question}"></td>
+                <td th:text="${list.questionlevel}"></td>
                 <th:block th:each ="answer : ${list.answer}">
                 <td th:text="${answer.answer}"></td>
                  <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
