@@ -94,6 +94,18 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findAllWithEagerRelationships(pageable).map(examMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Exam getOne(long id)
+    {
+        return examRepository.getOne(id);
+    }
+    
+    
+    public void saveExam(Exam exam)
+    {
+    	examRepository.save(exam);
+    }
+    
     @Override
     @Transactional(readOnly = true)
     public Optional<ExamDTO> findOne(Long id) {
