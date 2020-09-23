@@ -440,10 +440,7 @@ public class ClientForwardController {
          QnOption option3 = new QnOption();
          QnOption option4 = new QnOption();
          
-         
-        /* QuestionLevel questionLevel =techModel.getQuestionlevel();
-         question.setQuestionlevel(questionlevel);*/
-         
+                
          option1.setOption(techModel.getOption1());
          option2.setOption(techModel.getOption2());
          option3.setOption(techModel.getOption3());

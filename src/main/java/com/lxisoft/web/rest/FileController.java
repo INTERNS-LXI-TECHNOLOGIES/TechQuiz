@@ -1,12 +1,13 @@
 package com.lxisoft.web.rest;
 import java.io.FileReader;
+
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.lxisoft.domain.Exam;
+import com.lxisoft.service.dto.ExamDTO;
 
 import java.io.*;
 
@@ -18,7 +19,7 @@ public class FileController
 		boolean isCheck=file.exists();
 		return isCheck;
 	}
-	public void writeToDatabase(List<Exam> exams)
+	public void writeToDatabase(List<ExamDTO> exams)
 	{
 		try
 		{
@@ -38,7 +39,7 @@ public class FileController
 			e.printStackTrace();
 		}
 	}
-	public void appendFile(List<Exam> exams)
+/*	public void appendFile(List<Exam> exams)
 	{
 		try
 		{
@@ -78,7 +79,7 @@ public class FileController
 			}	
 		}
 		return exams;
-	}	
+	}	*/
 }
 
 	
