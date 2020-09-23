@@ -76,4 +76,20 @@ public class QuestionServiceImpl implements QuestionService {
 
         return  questionRepository.findAll();
     }
+    public long deleteById(long id)
+    {
+    	questionRepository.deleteById(id);
+    	return id;
+    }
+    public Question get(long id)
+    {
+        return questionRepository.getOne(id);
+    }
+    public void saveQuestion(Question question)
+    {
+    	questionRepository.save(question);
+    }
+   
+    
+       
 }

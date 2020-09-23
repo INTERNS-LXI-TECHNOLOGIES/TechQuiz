@@ -46,14 +46,13 @@
 <body>
 
 <div class="header">
+<form action="<%=request.getRequestURL()%>" name="forma">
+Seconds remaining: <span id="clock"><%=clock%></span>
+
     <h1 align="center">Questions</h1>
 </div>
 
-
-
-</form>
 <br>
-
 
 <form th:object="${listQuestion}">
 
@@ -64,6 +63,28 @@
 </form>
 
 Seconds Remaining : <script src="timer.js"></script> 
+ 
+<script th:inline="javascript">
+<%
+String clock = "10";
+%>
+var timeout = <%=clock%>;
+function timer()
+{
+if( --timeout > 0 )
+{
+document.getElementById("clock").innerHTML=timeout;
+window.setTimeout( "timer()", 1000 );
+}
+else
+{
+document.getElementById("clock").innerHTML = "Time over";
+document.qform.submit();
+///disable submit-button etc
+}
+}
+ 
+</script>
 
 </body>
 

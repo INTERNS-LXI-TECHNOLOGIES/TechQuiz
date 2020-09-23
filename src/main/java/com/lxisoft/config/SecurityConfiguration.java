@@ -1,7 +1,6 @@
 package com.lxisoft.config;
 
 import com.lxisoft.security.*;
-import com.lxisoft.service.UserService;
 
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.security.*;
@@ -11,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
