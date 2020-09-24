@@ -479,8 +479,7 @@ public class ClientForwardController {
          QnOption option2 = new QnOption();
          QnOption option3 = new QnOption();
          QnOption option4 = new QnOption();
-         
-                
+                         
          option1.setOption(techModel.getOption1());
          option2.setOption(techModel.getOption2());
          option3.setOption(techModel.getOption3());
@@ -500,13 +499,13 @@ public class ClientForwardController {
          return "redirect:/viewAllQn";
          }
 
-    @GetMapping(value = "/viewAllQn")
-    public ModelAndView listQuestion(ModelAndView model) throws IOException {
-        List<Question> listExam = questionServiceImpl.getAll();
-        model.addObject("listExam", listExam);
-        model.setViewName("view");
-        return model;
-    }
+	    @GetMapping(value = "/viewAllQn")
+	    public ModelAndView listQuestion(ModelAndView model) throws IOException {
+	        List<Question> listExam = questionServiceImpl.getAll();
+	        model.addObject("listExam", listExam);
+	        model.setViewName("view");
+	        return model;
+	    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteQuestion(@PathVariable("id") int id,ModelAndView model) {
@@ -540,38 +539,37 @@ public class ClientForwardController {
        question.setQuestion(quest);
        exam.setQuestion(question);
        exam.setAnswer(question.getAnswer());
-      /* exam.setOption1(question.getOptions().get(0).getAOption());
-       exam.setOption2(question.getOptions().get(1).getAOption());
-       exam.setOption3(question.getOptions().get(2).getAOption());
-       exam.setOption4(question.getOptions().get(3).getAOption());*/
+       
+      // exam.setOption1(question.getQnOptions().get(i).getOptions());
+      
+      /* exam.setOption2(question.getQnOptions().get(1).getOptions());
+       exam.setOption3(question.getQnOptions().get(2).getOptions());
+       exam.setOption4(question.getQnOptions().get(3).getOptions());*/
        modelAndView.addObject("updateQ",exam);
        modelAndView.setViewName("update");                    
         return modelAndView;    
-        //database ? open answer table 
+        
     }    
    @GetMapping(value = "/updateQ")
    public String updateQuestion(@ModelAttribute ExamModel exam)
    {
-	   Question question = questionServiceImpl.get(exam.getId());
-       //question = questionServiceImpl.get(exam.getId());
-       //Question q = exam.getQuestion();
+	   
+       Question question = questionServiceImpl.get(exam.getId());
+    
+             
+	    //Question q = exam.getQuestion();
        //question.setQuestion(q.getQuestion());
       // question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
-     /*  question.getOptions().get(0).setAOption(exam.getOption1());
-       question.getOptions().get(1).setAOption(exam.getOption2());
-       question.getOptions().get(2).setAOption(exam.getOption3());
-       question.getOptions().get(3).setAOption(exam.getOption4());*/
+     /*  question.getOptions().get(0).setOptions(exam.getOption1());
+       question.getOptions().get(1).setOptions(exam.getOption2());
+       question.getOptions().get(2).setOptions(exam.getOption3());
+       question.getOptions().get(3).setOptions(exam.getOption4());*/
+       
+       
        questionServiceImpl.saveQuestion(question);
        return "view";
    }   
-
-  /* @RequestMapping(value = "/createxamz", method = RequestMethod.GET)
-   public String newFile(Model model) {
-   	ExamDTO examDto=new ExamDTO();
-   	model.addAttribute("examDto",examDto);
-		return "createxam";
-	}*/
-
+  
    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
    public String newExam(Model model) {
    	ExamDTO examDto=new ExamDTO();

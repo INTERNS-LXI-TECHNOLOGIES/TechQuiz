@@ -38,8 +38,6 @@ public class Question implements Serializable {
     private Answer answer;
 
 
-
-
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<QnOption> qnOptions = new HashSet<>();

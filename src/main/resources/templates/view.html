@@ -62,7 +62,11 @@
                 <td th:text="${list.questionlevel}"></td>
                 <th:block th:each ="answer : ${list.answer}">
                 <td th:text="${answer.answer}"></td>
-                 <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
+                
+                           
+	            	
+		          
+                <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
                 <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>
                
 
