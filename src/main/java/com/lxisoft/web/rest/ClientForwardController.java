@@ -135,24 +135,46 @@ public class ClientForwardController {
         return model;  
   }  
     
-    @GetMapping("edt/{id}")
+    
+    
+//    @GetMapping(value = "/upt/{id}")
+//    public ModelAndView updateExam(@PathVariable("id") long id)
+//    {
+//    	ModelAndView modelAndView = new ModelAndView();
+//        Exam exam = examServiceImpl.getOne(id);
+//  
+//        modelAndView.addObject("updateQ",exam);
+//        modelAndView.setViewName("updateExam");
+//        return modelAndView;
+//    }
+//
+//    @GetMapping(value = "/updatQ")
+//    public String updateExams( Exam exam)
+//    {
+//        
+//    	examServiceImpl.saveExam(exam);
+//        return "redirect:/viewAll";
+//    } 
+
+    
+    
+    @GetMapping("/edt/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		Exam exam = examServiceImpl.getOne(id);
 		model.addAttribute("exam", exam);
-		return "updateExam";
+		return "updateExam.html";
 	}
 
-	@PostMapping("upt/{id}")
-	public String updateStudent(@PathVariable("id") long id,  Exam exam, BindingResult result,
-			Model model) {
+	@PostMapping("/upt/{id}")
+	public String updateExam(@PathVariable("id") long id,  Exam exam, BindingResult result,Model model) {
 		if (result.hasErrors()) {
 			exam.setId(id);
-			return "updateExam";
+			return "updateExam.html";
 		}
-
+		List<ExamDTO> listExam = examServiceImpl.findAll();
 		examServiceImpl.saveExam(exam);
-		model.addAttribute("exams", examServiceImpl.findAll());
-		return "techquiz";
+		model.addAttribute("listExam", listExam);
+		return "read";
 	}
     
 	@GetMapping(value="viewQuestion")
@@ -167,8 +189,42 @@ public class ClientForwardController {
     	}
     	 
     	List<Question> listQuestion = questionServiceImpl.getAll();
-//    	List<TechQuizModel> listExam = new ArrayList<>();
+    	List<TechQuizModel> listExam = new ArrayList<>();
     	HttpSession session = request.getSession(true);
+//    	Set<Foo> set = ...;
+//    	List<Foo> list = new ArrayList<Foo>(set);
+//    	Foo obj = list.get(0);
+    	
+    	
+    	
+//    	List<TechQuizModel> listExam = new ArrayList<>();
+    	for(int j=0;j<listQuestion.size();j++)
+    	{
+	    	Question qn=listQuestion.get(j);
+	    	Set<QnOption> optionset =new HashSet<>();
+	    	optionset =qn.getQnOptions();
+	    	for (QnOption temp : optionset) {
+	            System.out.println(temp);
+	         	session.setAttribute("listQuestion",temp);
+	         }
+	   
+//	    	List<QnOption> list = new ArrayList<QnOption>(optionset);
+//	    	QnOption obj = list.get(0);
+	    	TechQuizModel exam=new TechQuizModel();       
+	    	exam.setQuestion(qn.getQuestion());
+//	    	exam.setAnswer(qn.getAnswer().getAnswer());
+//	    	exam.setOption1((list.get(0)).getOption());
+//	    	exam.setOption2((list.get(1)).getOption());
+//	    	exam.setOption3((list.get(2)).getOption());
+//	    	exam.setOption4((list.get(3)).getOption());
+//	        exam.setOption2(question.getQnOptions().get(1).getOption());
+//	        exam.setOption3(question.getQnOptions().get(2).getOption());
+//	        exam.setOption4(question.getQnOptions().get(3).getOption());             
+//	        listExam.add(exam);
+//	        
+//    	}
+//    	session.setAttribute("listQuestion", listExam); 
+    	
     	    	
     	List<Question> easyQuestion = new ArrayList<>();
     	List<Question> mediumQuestion = new ArrayList<>();
@@ -196,6 +252,7 @@ public class ClientForwardController {
     	}
     	else if(level.equals("HARD")) {
     		session.setAttribute("listQuestion", hardQuestion);
+    	}
     	}
     	
     	return "redirect:/questionview";

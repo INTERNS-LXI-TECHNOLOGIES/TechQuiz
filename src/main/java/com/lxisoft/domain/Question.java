@@ -37,7 +37,7 @@ public class Question implements Serializable {
     @JoinColumn(unique = true)
     private Answer answer;
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<QnOption> qnOptions = new HashSet<>();
 
@@ -170,5 +170,4 @@ public class Question implements Serializable {
             ", questionlevel='" + getQuestionlevel() + "'" +
             "}";
     }
-    // by Adarsh...
 }
