@@ -50,4 +50,7 @@ public interface ExamService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    ExamDTO saveFile(ExamDTO examDTO);
+
 }

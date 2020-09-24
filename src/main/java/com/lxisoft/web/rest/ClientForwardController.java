@@ -9,6 +9,7 @@ import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.QuestionServiceImpl;
+import com.lxisoft.web.controller.FileController;
 import com.lxisoft.security.SecurityUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,8 +105,7 @@ public class ClientForwardController {
     @RequestMapping ("saveexam")
     public String saveExam(ExamDTO examDto,Model model)
 	{
-    	//FileController fileRepo = new FileController();
-    	examServiceImpl.save(examDto);
+       	examServiceImpl.save(examDto);
 		return "redirect:/viewAll";
 	}
 
@@ -331,11 +331,6 @@ public class ClientForwardController {
 			return model;
 		}
   }   
-
-    
-    
-
-
   
 //  @GetMapping(value="viewQuestion")
 //  public String viewQuestion(HttpServletRequest request) {
@@ -569,6 +564,29 @@ public class ClientForwardController {
        questionServiceImpl.saveQuestion(question);
        return "view";
    }   
+
+  /* @RequestMapping(value = "/createxamz", method = RequestMethod.GET)
+   public String newFile(Model model) {
+   	ExamDTO examDto=new ExamDTO();
+   	model.addAttribute("examDto",examDto);
+		return "createxam";
+	}*/
+
+   @RequestMapping(value = "/createFile", method = RequestMethod.GET)
+   public String newExam(Model model) {
+   	ExamDTO examDto=new ExamDTO();
+   	model.addAttribute("examDto",examDto);
+		return "createfile";
+	}
+   @RequestMapping ("saveFile")
+   public String saveExamUsingFile(ExamDTO examDto,Model model)
+	{
+   	FileController fileRepo = new FileController();
+   	
+   	examServiceImpl.saveFile(examDto);
+		return "redirect:/viewFile";
+	}
+
   
 }
 

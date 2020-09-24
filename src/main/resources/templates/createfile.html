@@ -46,7 +46,7 @@
     <h1 align="center">TECHQUIZ</h1>
     <h3 align="center">Create Exam</h3>
 </div>
-<form action="#" th:action="@{/saveexam}"  th:object="${examDto}" method="GET">
+<form action="#" th:action="@{/savefile}"  th:object="${examDto}" method="GET">
 
 	<div class="row">
 			<div class="form-group col-md-8">
@@ -70,7 +70,7 @@
 			</div>
 			<tr><div class="form-group col-md-8">
 			<center><input type="submit" class="button" value=Submit>
-			
+			<a href="saveFile">Export to File</a>
 			</form>
 	</div>
 </div>
