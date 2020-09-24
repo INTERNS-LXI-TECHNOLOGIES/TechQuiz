@@ -1,86 +1,50 @@
 package com.lxisoft.web.rest;
-import java.io.FileReader;
+import java.io.IOException;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import com.lxisoft.domain.Exam;
-import com.lxisoft.service.dto.ExamDTO;
+import javax.servlet.http.HttpServletResponse;
 
-import java.io.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.lxisoft.service.dto.ExamDTO;
+import com.lxisoft.service.impl.ExamServiceImpl;
 
 public class FileController 
 {
-	public File file = new File("D:\\exam.csv");
-	public boolean fileExist(File file)
-	{
-		boolean isCheck=file.exists();
-		return isCheck;
-	}
-	public void writeToDatabase(List<ExamDTO> exams)
-	{
-		try
-		{
-			FileWriter fw = new FileWriter(file,false);
-			BufferedWriter bw = new BufferedWriter(fw);
-			for(int i=0; i<exams.size(); i++)
-			{
-				bw.write(exams.get(i).getId()+","+exams.get(i).getName());  
-				bw.newLine();		
-			}
-			bw.flush();
-			bw.close();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e+"Error eeeeeee");
-			e.printStackTrace();
-		}
-	}
-/*	public void appendFile(List<Exam> exams)
-	{
-		try
-		{
-			FileWriter fw = new FileWriter(file,true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			for(int i=0; i<exams.size(); i++)
-			{
-				bw.write(exams.get(i).getId()+","+exams.get(i).getName());  
-				bw.newLine();		
-			}
-			bw.flush();
-			bw.close();
-		}
-		catch(Exception e)
-		{
-			System.out.println(e+"Error eeeeeee");
-			e.printStackTrace();
-		}
-	}		
-	public List<Exam> readFromDatabase(List<Exam> exams) throws Exception , IOException
-	{
-		FileReader fr = new FileReader(file);
-		BufferedReader br = new BufferedReader(fr);
-		String str;
-		while((str=br.readLine())!=null)
-		{	
-			String[] s = str.split(",",3);	
-			exams.add(new Exam());
-			for(int i=0;i<exams.size();i++)
-			{
-				if(exams.get(i).getName()==null)
-				{
-					exams.get(i).setId(Long.parseLong(s[0]));
-					exams.get(i).setName(s[1]);
-				
-				}
-			}	
-		}
-		return exams;
-	}	*/
-}
+	 @Autowired
+	    private ExamServiceImpl examServiceImpl;
+
+	 @GetMapping("/users/export")
+	    public void exportToCSV(HttpServletResponse response) throws IOException {
+	        response.setContentType("text/csv");
+	        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+	        String currentDateTime = dateFormatter.format(new Date());
+	         
+	        String headerKey = "Content-Disposition";
+	        String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
+	        response.setHeader(headerKey, headerValue);
+	         
+	       /* List<ExamDTO> listUsers = examServiceImpl.findOne(id);
+	        		
+	 
+	        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+	        String[] csvHeader = {"ID", "Exam", "No.of Question", "Level"};
+	        String[] nameMapping = {"id", "exam", "no.of questions", "level"};
+	         
+	        csvWriter.writeHeader(csvHeader);
+	         
+	        for (ExamDTO user : listUsers) {
+	            csvWriter.write(user, nameMapping);
+	        }
+	         
+	        csvWriter.close();
+	         
+	    */}}
 
 	
 	

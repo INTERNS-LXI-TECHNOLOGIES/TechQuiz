@@ -382,7 +382,7 @@ public class ClientForwardController {
     	
 
 
-    @SuppressWarnings("static-access")
+   /* @SuppressWarnings("static-access")
     @GetMapping(value = "/dashboard")
     public ModelAndView userDashboard(ModelAndView model) throws IOException {
         
@@ -399,7 +399,7 @@ public class ClientForwardController {
         model.setViewName("dashboard");
         return model;
     }
-    	
+    */	
     @GetMapping(value="/examresult")
     public String result()
     {

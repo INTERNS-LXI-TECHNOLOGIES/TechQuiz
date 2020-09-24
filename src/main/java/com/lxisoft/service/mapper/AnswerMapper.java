@@ -2,6 +2,7 @@ package com.lxisoft.service.mapper;
 
 
 import com.lxisoft.domain.*;
+
 import com.lxisoft.service.dto.AnswerDTO;
 
 import org.mapstruct.*;
