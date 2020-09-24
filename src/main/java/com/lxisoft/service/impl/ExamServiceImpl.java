@@ -1,8 +1,9 @@
 package com.lxisoft.service.impl;
 
 import com.lxisoft.service.ExamService;
+
+
 import com.lxisoft.domain.*;
-import com.lxisoft.domain.enumeration.ExamLevel;
 import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QuestionRepository;
 import com.lxisoft.service.dto.ExamDTO;
@@ -94,6 +95,9 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findAllWithEagerRelationships(pageable).map(examMapper::toDto);
     }
 
+
+    //file 
+
     @Transactional(readOnly = true)
     public Exam getOne(long id)
     {
@@ -106,6 +110,7 @@ public class ExamServiceImpl implements ExamService {
     	examRepository.save(exam);
     }
     
+
     @Override
     @Transactional(readOnly = true)
     public Optional<ExamDTO> findOne(Long id) {

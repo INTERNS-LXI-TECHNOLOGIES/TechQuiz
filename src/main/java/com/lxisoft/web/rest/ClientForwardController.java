@@ -4,6 +4,7 @@ package com.lxisoft.web.rest;
 import com.lxisoft.domain.Answer;
 
 
+
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
@@ -433,7 +434,7 @@ public class ClientForwardController {
     	
 
 
-    @SuppressWarnings("static-access")
+   /* @SuppressWarnings("static-access")
     @GetMapping(value = "/dashboard")
     public ModelAndView userDashboard(ModelAndView model) throws IOException {
         
@@ -450,6 +451,8 @@ public class ClientForwardController {
         model.setViewName("dashboard");
         return model;
     }
+
+    */	
     
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {

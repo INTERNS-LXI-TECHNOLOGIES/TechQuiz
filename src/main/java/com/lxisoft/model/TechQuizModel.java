@@ -3,6 +3,7 @@ package com.lxisoft.model;
 import com.lxisoft.domain.Answer;
 
 
+
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.enumeration.QuestionLevel;
 import com.lxisoft.domain.*;
