@@ -1,16 +1,17 @@
 package com.lxisoft.web.rest;
 import java.io.FileReader;
+
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.lxisoft.domain.Exam;
+import com.lxisoft.service.dto.ExamDTO;
 
 import java.io.*;
 
-public class ExamController 
+public class FileController 
 {
 	public File file = new File("D:\\exam.csv");
 	public boolean fileExist(File file)
@@ -18,7 +19,7 @@ public class ExamController
 		boolean isCheck=file.exists();
 		return isCheck;
 	}
-	public void writeToDatabase(List<Exam> exams)
+	public void writeToDatabase(List<ExamDTO> exams)
 	{
 		try
 		{
@@ -38,7 +39,7 @@ public class ExamController
 			e.printStackTrace();
 		}
 	}
-	public void appendFile(List<Exam> exams)
+/*	public void appendFile(List<Exam> exams)
 	{
 		try
 		{
@@ -57,8 +58,7 @@ public class ExamController
 			System.out.println(e+"Error eeeeeee");
 			e.printStackTrace();
 		}
-	}
-		
+	}		
 	public List<Exam> readFromDatabase(List<Exam> exams) throws Exception , IOException
 	{
 		FileReader fr = new FileReader(file);
@@ -79,7 +79,7 @@ public class ExamController
 			}	
 		}
 		return exams;
-	}	
+	}	*/
 }
 
 	
