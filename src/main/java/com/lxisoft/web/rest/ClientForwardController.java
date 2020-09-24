@@ -58,7 +58,7 @@ public class ClientForwardController {
 
     int i=0;
     @Autowired
-    private QnOptionService optService;
+    private QnOptionServiceImpl optService;
 
     @Autowired
     private QuestionServiceImpl questionServiceImpl;
@@ -225,10 +225,41 @@ public class ClientForwardController {
 		model.addAttribute("listExam", listExam);
 		return "read";
 	}
+	
+	
+	@GetMapping(value="/viewQuest")
+    public String viewQuest(HttpServletRequest request) {
+    	List<Question> listQuestion = questionServiceImpl.getAll();
+    	List<QnOptionDTO> listOptions =optService.findAll();
+    	List<TechQuizModel> listExam = new ArrayList<>();
+    	List<QuestionDTO> listQues=new ArrayList<>();
+    	HttpSession session = request.getSession(true);
+    	for(int j=0;j<listQuestion.size();j++)
+    	{
+	    	Question question=listQuestion.get(j);
+	    	List<QnOption> options=question.getQnOptions();
+	    	TechQuizModel exam=new TechQuizModel();       
+	    	exam.setQuestion(question.getQuestion());
+	    	exam.setAnswer(question.getAnswer().getAnswer());
+	    	exam.setQuestionlevel(question.getQuestionlevel());
+	    	if(options.size()!=0)	
+	    	{
+	    	exam.setOption1(options.get(0).getOption());
+	    	exam.setOption2(options.get(1).getOption());
+	    	exam.setOption3(options.get(2).getOption());
+	    	exam.setOption4(options.get(3).getOption());
+	    	}
+	        listExam.add(exam);
+	        
+    	}
+    	session.setAttribute("listQuestion", listExam); 
+    	return "selectexam";
+    }	
+	
     
-	@GetMapping(value="viewQuestion")
+	@GetMapping(value="/viewQuestion")
     public String viewQuestions(HttpServletRequest request) {
-    	
+		HttpSession session = request.getSession(true);
     	String level = null;
     	if(request.getParameter("option") == null){
     		level = "EASY"; 
@@ -237,50 +268,14 @@ public class ClientForwardController {
     		level = request.getParameter("option");
     	}
     	 
-    	List<Question> listQuestion = questionServiceImpl.getAll();
-    	List<TechQuizModel> listExam = new ArrayList<>();
-    	HttpSession session = request.getSession(true);
-//    	Set<Foo> set = ...;
-//    	List<Foo> list = new ArrayList<Foo>(set);
-//    	Foo obj = list.get(0);
+    	List<TechQuizModel> listQuestion = (List<TechQuizModel>) session.getAttribute("listQuestion");
+    	System.out.println("size="+listQuestion.size());
     	
+    	List<TechQuizModel> easyQuestion = new ArrayList<>();
+    	List<TechQuizModel> mediumQuestion = new ArrayList<>();
+    	List<TechQuizModel> hardQuestion = new ArrayList<>();
     	
-    	
-//    	List<TechQuizModel> listExam = new ArrayList<>();
-    	for(int j=0;j<listQuestion.size();j++)
-    	{
-	    	Question qn=listQuestion.get(j);
-	    	Set<QnOption> optionset =new HashSet<>();
-	    	optionset =qn.getQnOptions();
-	    	for (QnOption temp : optionset) {
-	            System.out.println(temp);
-	         	session.setAttribute("listQuestion",temp);
-	         }
-	   
-//	    	List<QnOption> list = new ArrayList<QnOption>(optionset);
-//	    	QnOption obj = list.get(0);
-	    	TechQuizModel exam=new TechQuizModel();       
-	    	exam.setQuestion(qn.getQuestion());
-//	    	exam.setAnswer(qn.getAnswer().getAnswer());
-//	    	exam.setOption1((list.get(0)).getOption());
-//	    	exam.setOption2((list.get(1)).getOption());
-//	    	exam.setOption3((list.get(2)).getOption());
-//	    	exam.setOption4((list.get(3)).getOption());
-//	        exam.setOption2(question.getQnOptions().get(1).getOption());
-//	        exam.setOption3(question.getQnOptions().get(2).getOption());
-//	        exam.setOption4(question.getQnOptions().get(3).getOption());             
-//	        listExam.add(exam);
-//	        
-//    	}
-//    	session.setAttribute("listQuestion", listExam); 
-    	
-    	    	
-    	List<Question> easyQuestion = new ArrayList<>();
-    	List<Question> mediumQuestion = new ArrayList<>();
-    	List<Question> hardQuestion = new ArrayList<>();
-//    	TechQuizModel techModel=new TechQuizModel();
-    	
-    	for(Question question : listQuestion) {
+    	for(TechQuizModel question : listQuestion) {
     		QuestionLevel questionLevel = question.getQuestionlevel();
     		if(questionLevel == QuestionLevel.EASY) {
     			easyQuestion.add(question);
@@ -302,7 +297,7 @@ public class ClientForwardController {
     	else if(level.equals("HARD")) {
     		session.setAttribute("listQuestion", hardQuestion);
     	}
-    	}
+    	
     	
     	return "redirect:/questionview";
     	    }
@@ -329,7 +324,20 @@ public class ClientForwardController {
 			model.setViewName("redirect:/examresult");
 			return model;
 		}
-  }   
+  } 
+    
+    @GetMapping(value="/examresult")
+    public String result()
+    {
+    	return "examresult";
+    }
+    
+    @GetMapping(value="/selectExam")
+    public String selectExam() 
+    {
+    	return "selectexam";
+    	} 
+
 
     
     
@@ -442,19 +450,7 @@ public class ClientForwardController {
         model.setViewName("dashboard");
         return model;
     }
-    	
-    @GetMapping(value="/examresult")
-    public String result()
-    {
-    	return "examresult";
-    }
     
-    @GetMapping(value="/selectExam")
-    public String selectExam() 
-    {
-    	return "selectexam";
-    	} 
-
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
     	TechQuizModel techModel=new TechQuizModel();
@@ -477,7 +473,7 @@ public class ClientForwardController {
          question.setAnswer(answer);
          question.setQuestionlevel(questionlevel);
          
-         Set<QnOption> qnOptions = new HashSet<>();
+         List<QnOption> qnOptions = new ArrayList<>();
          
          QnOption option1 = new QnOption();
          QnOption option2 = new QnOption();
