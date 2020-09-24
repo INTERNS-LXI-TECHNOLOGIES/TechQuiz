@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 
 import com.lxisoft.domain.User;
@@ -27,10 +26,7 @@ import com.lxisoft.model.TechQuizModel;
 import com.lxisoft.model.ExamModel;
 import com.lxisoft.domain.enumeration.*;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.servlet.ModelAndView;
 import com.lxisoft.repository.UserRepository;
 
@@ -169,8 +165,67 @@ public class ClientForwardController {
 */
 
     
+    @RequestMapping(value = "/dlt/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteExam(@PathVariable("id") long id,ModelAndView model) {
+    	TechQuizModel techModel = new TechQuizModel();
+    	examServiceImpl.delete(id);
+        model.addObject("techModel", techModel);
+        model.setViewName("deleteExam");
+        return model;
+    }    
     
-    @SuppressWarnings("unchecked")
+    @GetMapping(value = "/dlt")
+    public ModelAndView deleteExm(@PathVariable("id") long id,ModelAndView model) {
+    	long examId = (long)id;
+    	examServiceImpl.delete(id);
+    	List<ExamDTO> listExam = examServiceImpl.findAll();
+    	model.addObject("listExam", listExam);
+        model.setViewName("read");
+        return model;  
+  }  
+    
+    
+    
+//    @GetMapping(value = "/upt/{id}")
+//    public ModelAndView updateExam(@PathVariable("id") long id)
+//    {
+//    	ModelAndView modelAndView = new ModelAndView();
+//        Exam exam = examServiceImpl.getOne(id);
+//  
+//        modelAndView.addObject("updateQ",exam);
+//        modelAndView.setViewName("updateExam");
+//        return modelAndView;
+//    }
+//
+//    @GetMapping(value = "/updatQ")
+//    public String updateExams( Exam exam)
+//    {
+//        
+//    	examServiceImpl.saveExam(exam);
+//        return "redirect:/viewAll";
+//    } 
+
+    
+    
+    @GetMapping("/edt/{id}")
+	public String showUpdateForm(@PathVariable("id") long id, Model model) {
+		Exam exam = examServiceImpl.getOne(id);
+		model.addAttribute("exam", exam);
+		return "updateExam.html";
+	}
+
+	@PostMapping("/upt/{id}")
+	public String updateExam(@PathVariable("id") long id,  Exam exam, BindingResult result,Model model) {
+		if (result.hasErrors()) {
+			exam.setId(id);
+			return "updateExam.html";
+		}
+		List<ExamDTO> listExam = examServiceImpl.findAll();
+		examServiceImpl.saveExam(exam);
+		model.addAttribute("listExam", listExam);
+		return "read";
+	}
+    
 	@GetMapping(value="viewQuestion")
     public String viewQuestions(HttpServletRequest request) {
     	
@@ -185,11 +240,45 @@ public class ClientForwardController {
     	List<Question> listQuestion = questionServiceImpl.getAll();
     	List<TechQuizModel> listExam = new ArrayList<>();
     	HttpSession session = request.getSession(true);
+//    	Set<Foo> set = ...;
+//    	List<Foo> list = new ArrayList<Foo>(set);
+//    	Foo obj = list.get(0);
+    	
+    	
+    	
+//    	List<TechQuizModel> listExam = new ArrayList<>();
+    	for(int j=0;j<listQuestion.size();j++)
+    	{
+	    	Question qn=listQuestion.get(j);
+	    	Set<QnOption> optionset =new HashSet<>();
+	    	optionset =qn.getQnOptions();
+	    	for (QnOption temp : optionset) {
+	            System.out.println(temp);
+	         	session.setAttribute("listQuestion",temp);
+	         }
+	   
+//	    	List<QnOption> list = new ArrayList<QnOption>(optionset);
+//	    	QnOption obj = list.get(0);
+	    	TechQuizModel exam=new TechQuizModel();       
+	    	exam.setQuestion(qn.getQuestion());
+//	    	exam.setAnswer(qn.getAnswer().getAnswer());
+//	    	exam.setOption1((list.get(0)).getOption());
+//	    	exam.setOption2((list.get(1)).getOption());
+//	    	exam.setOption3((list.get(2)).getOption());
+//	    	exam.setOption4((list.get(3)).getOption());
+//	        exam.setOption2(question.getQnOptions().get(1).getOption());
+//	        exam.setOption3(question.getQnOptions().get(2).getOption());
+//	        exam.setOption4(question.getQnOptions().get(3).getOption());             
+//	        listExam.add(exam);
+//	        
+//    	}
+//    	session.setAttribute("listQuestion", listExam); 
+    	
     	    	
     	List<Question> easyQuestion = new ArrayList<>();
     	List<Question> mediumQuestion = new ArrayList<>();
     	List<Question> hardQuestion = new ArrayList<>();
-    	TechQuizModel techModel=new TechQuizModel();
+//    	TechQuizModel techModel=new TechQuizModel();
     	
     	for(Question question : listQuestion) {
     		QuestionLevel questionLevel = question.getQuestionlevel();
@@ -213,55 +302,12 @@ public class ClientForwardController {
     	else if(level.equals("HARD")) {
     		session.setAttribute("listQuestion", hardQuestion);
     	}
+    	}
     	
     	return "redirect:/questionview";
     	    }
 
   
-//  @GetMapping(value="viewQuestion")
-//  public String viewQuestion(HttpServletRequest request) {
-//  	
-//  	String level = null;
-//  	if(request.getParameter("option") == null){
-//  		level = "EASY"; 
-//  	}
-//  	else {
-//  		level = request.getParameter("option");
-//  	}
-//  	 
-//  	List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
-//  	HttpSession session = request.getSession(true);
-//  	
-//  	List<QuestionDTO> easyQuestion = new ArrayList<>();
-//  	List<QuestionDTO> mediumQuestion = new ArrayList<>();
-//  	List<QuestionDTO> hardQuestion = new ArrayList<>();
-//  	
-//  	
-//  	for(QuestionDTO questionDTO : listQuestion) {
-//  		QuestionLevel questionLevel = questionDTO.getQuestionlevel();
-//  		if(questionLevel == QuestionLevel.EASY) {
-//  			easyQuestion.add(questionDTO);
-//  		}
-//  		else if(questionLevel == QuestionLevel.MEDIUM) {
-//  			mediumQuestion.add(questionDTO);
-//  		}
-//  		else if(questionLevel == QuestionLevel.HARD) {
-//  			hardQuestion.add(questionDTO);
-//  		}
-//  	}
-//  	
-//  	if(level.equals("EASY")) {
-//  		session.setAttribute("listQuestion", easyQuestion);
-//  	}
-//  	else if(level.equals("MEDIUM")) {
-//  		session.setAttribute("listQuestion", mediumQuestion);
-//  	}
-//  	else if(level.equals("HARD")) {
-//  		session.setAttribute("listQuestion", hardQuestion);
-//  	}
-//  	
-//  	return "redirect:/questionview";
-//  	    }
   
 
     @GetMapping("/questionview")
@@ -283,10 +329,11 @@ public class ClientForwardController {
 			model.setViewName("redirect:/examresult");
 			return model;
 		}
-  }
+  }   
 
     
     
+
 
   
 //  @GetMapping(value="viewQuestion")
@@ -360,10 +407,6 @@ public class ClientForwardController {
 //  public ModelAndView viewQuestion(ModelAndView model,HttpServletRequest request) {
 //  	HttpSession session = request.getSession(true);
 //  }
-    
-    
-    
-  
 //List<QuestionDTO> listQuestion = questionServiceImpl.findAll();
 //List<QuestionDTO> listExam = new ArrayList<>();
 //HttpSession session = request.getSession(true);
@@ -423,8 +466,8 @@ public class ClientForwardController {
     public String addNewQuestion(@ModelAttribute TechQuizModel techModel)
     {
     	QuestionLevel questionlevel= QuestionLevel.EASY;
-    	questionlevel= QuestionLevel.MEDIUM;
-    	questionlevel= QuestionLevel.HARD;
+//    	questionlevel= QuestionLevel.MEDIUM;
+//    	questionlevel= QuestionLevel.HARD;
     	 Question question = new Question();
          String ques = techModel.getQuestion();
          question.setQuestion(ques);
@@ -433,6 +476,7 @@ public class ClientForwardController {
          answer.setAnswer(techModel.getAnswer());
          question.setAnswer(answer);
          question.setQuestionlevel(questionlevel);
+         
          Set<QnOption> qnOptions = new HashSet<>();
          
          QnOption option1 = new QnOption();
@@ -457,7 +501,7 @@ public class ClientForwardController {
          qnOptions.add(option4);
          question.setQnOptions(qnOptions);
          questionServiceImpl.saveQuestionWithEnity(question);
-         return "techquiz";
+         return "redirect:/viewAllQn";
          }
 
     @GetMapping(value = "/viewAllQn")

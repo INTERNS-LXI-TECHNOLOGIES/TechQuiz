@@ -1,6 +1,7 @@
 package com.lxisoft.web.rest;
 
 import com.lxisoft.service.AttendedExamService;
+
 import com.lxisoft.web.rest.errors.BadRequestAlertException;
 import com.lxisoft.service.dto.AttendedExamDTO;
 

@@ -53,11 +53,16 @@
 		<th>Name</th>
 		<th>count</th>
 		<th>Level</th>
+		<th>Delete</th>
+		<th>Edit</th>
 
 <tr th:each="list,iterationStatus : ${listExam}"> 
                 <td th:text="${list.name}"></td>
                 <td th:text="${list.count}"></td>
                  <td th:text="${list.level}"></td>
+                 <td><a th:href="@{/dlt/{id}(id=${list.id})}">Delete</a></td>
+                 <td><a th:href="@{/edt/{id}(id=${list.id})}">Edit</a></td>
+                
                        
             </tr>   
         </table>
