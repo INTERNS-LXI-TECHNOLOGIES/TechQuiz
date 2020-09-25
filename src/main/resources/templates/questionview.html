@@ -58,17 +58,18 @@ Seconds remaining: <span id="clock"><%=clock%></span>
 
 <h2> Question : <a th:text = "${listQuestion.question}"> </h2>
 <h3> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h3>
-
-
+ <h3>   
 <input type="radio" id="option" name="option" value="1">
-
-  <br>
+ <label th:for="option" th:text="${listQuestion.option1}" ></label><br>
   <input type="radio" id="option" name="option" value="2">
- <br>
+  <label th:for="option" th:text="${listQuestion.option2}" ></label><br>
   <input type="radio" id="option" name="option" value="3">
-  <br>
+  <label th:for="option" th:text="${listQuestion.option3}" ></label><br>
   <input type="radio" id="option" name="option" value="4">
+  <label th:for="option" th:text="${listQuestion.option4}" ></label><br>
   <br>
+</h3>
+
   <div align = "center"><button class="button">NEXT</button></div>
 
 </form>
