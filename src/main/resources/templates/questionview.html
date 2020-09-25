@@ -54,7 +54,7 @@ Seconds remaining: <span id="clock"><%=clock%></span>
 
 <br>
 
-<form th:object="${listQuestion}">
+<form action="#" th:action = "@{/selectedOption}"  th:object="${listQuestion}">
 
 <h2> Question : <a th:text = "${listQuestion.question}"> </h2>
 <h3> Question Level : <a th:text = "${listQuestion.questionlevel}"> </h3>
