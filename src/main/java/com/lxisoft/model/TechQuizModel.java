@@ -18,6 +18,7 @@ public class TechQuizModel {
 	 private String option3;
 	 private String option4;
 	 private QuestionLevel questionlevel;
+	 private String selectedOption;
 	 
 	 public long getId() {
 		return id;
@@ -68,5 +69,11 @@ public class TechQuizModel {
 		this.questionlevel = questionlevel;
 	}
 	
+	 public String getSelectedOption() {
+			return selectedOption;
+		}
+		public void setSelectedOption(String selectedOption) {
+			this.selectedOption = selectedOption;
+		}
 
 }
