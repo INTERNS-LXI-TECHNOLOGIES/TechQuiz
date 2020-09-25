@@ -3,6 +3,7 @@ package com.lxisoft.service.impl;
 import com.lxisoft.service.AnswerService;
 
 import com.lxisoft.domain.Answer;
+import com.lxisoft.domain.Question;
 import com.lxisoft.repository.AnswerRepository;
 import com.lxisoft.service.dto.AnswerDTO;
 import com.lxisoft.service.mapper.AnswerMapper;
@@ -81,5 +82,14 @@ public class AnswerServiceImpl implements AnswerService {
     public void delete(Long id) {
         log.debug("Request to delete Answer : {}", id);
         answerRepository.deleteById(id);
+    }
+    
+    public void saveAnswer(Answer answer)
+    {
+    	answerRepository.save(answer);
+    }
+    public Answer get(long id)
+    {
+        return answerRepository.getOne(id);
     }
 }
