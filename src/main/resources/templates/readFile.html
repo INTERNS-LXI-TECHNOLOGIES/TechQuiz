@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>viewAll</title>
+    <style>
+	.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff0080;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #ff0040}
+
+.button:active {
+  background-color: #ff0040;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+	div
+	{
+		padding-top: 40px;
+		padding-right: 30px;
+		padding-left: 80px;
+		padding-bottom: 20px;
+	}
+	
+	.header {
+  background-color: #ff0080;
+  padding: 20px;
+  text-align: center;
+}
+  </style>
+</head>
+<body>
+<div class="header">
+        <h1>TECHQUIZ</h1>
+        <h3>
+        <a href="createFile"><input type="submit" class="button" value="ADD"/></a>
+        </h3>
+		</div>
+		<br>
+    <table align=center border=1px >
+		<th>Name</th>
+		<th>count</th>
+		<th>Level</th>
+		<th>Delete</th>
+		<th>Edit</th>
+
+<tr th:each="list,iterationStatus : ${listExam}"> 
+                <td th:text="${list.name}"></td>
+                <td th:text="${list.count}"></td>
+                 <td th:text="${list.level}"></td>
+                 <td><a th:href="@{/dlt/{id}(id=${list.id})}">Delete</a></td>
+                 <td><a th:href="@{/edt/{id}(id=${list.id})}">Edit</a></td>
+                
+                       
+            </tr>   
+        </table>
+    <br>
+<center><a href="http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>
+</body>
+</html>

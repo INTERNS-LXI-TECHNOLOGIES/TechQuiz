@@ -438,7 +438,11 @@ public class ClientForwardController {
     {
     	Answer answer = answerServiceImpl.get(exam.getId());
     	answerServiceImpl.saveAnswer(answer);
-        /*Question question = answerServiceImpl.get(exam.getId());
+        /*
+         *  EmployeeEntity emp = new EmployeeEntity();
+      emp.setEmployeeId(1);
+      emp.setFirstName("Lokesh");
+         * Question question = answerServiceImpl.get(exam.getId());
         Question q = exam.getQuestion();
         question.setQuestion(q.getQuestion());
         question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
@@ -465,7 +469,6 @@ public class ClientForwardController {
         return "success";
     }     
 */
-   
     
    
     @RequestMapping(value = "/createFile", method = RequestMethod.GET)
@@ -475,14 +478,18 @@ public class ClientForwardController {
 		return "createfile";
 	}
    @RequestMapping ("saveFile")
-   public String saveExamUsingFile(ExamDTO examDto,Model model)
+   public String saveExamUsingFile(List<ExamDTO> examDto,Model model)
 	{
-   	FileController fileRepo = new FileController();
-   	
-   	examServiceImpl.saveFile(examDto);
-		return "redirect:/viewFile";
+    examServiceImpl.writeToFile(examDto);
+   		return "redirect:/viewFile";
 	}
-
+   @GetMapping(value = "/viewFile")
+   public ModelAndView examFile(ModelAndView model) throws IOException {
+     List<ExamDTO> listExam = examServiceImpl.findAll();
+   model.addObject("listExam", listExam);
+   model.setViewName("readFile");
+   return model;
+   }
   
 }
 

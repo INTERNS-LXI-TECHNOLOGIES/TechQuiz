@@ -76,10 +76,10 @@ Seconds remaining: <span id="clock"><%=clock%></span>
  
  
 <script th:inline="javascript">
-<%
-String clock = "10";
-%>
-var timeout = <%=clock%>;
+
+var clock = "10";
+
+var timeout =clock;
 function timer()
 {
 if( --timeout > 0 )

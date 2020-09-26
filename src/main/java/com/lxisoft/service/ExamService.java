@@ -52,5 +52,6 @@ public interface ExamService {
     void delete(Long id);
     
     ExamDTO saveFile(ExamDTO examDTO);
+  //  ExamDTO writeToFile(ExamDTO examDto);
 
 }

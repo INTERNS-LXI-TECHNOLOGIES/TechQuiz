@@ -3,6 +3,7 @@ package com.lxisoft.service.impl;
 import com.lxisoft.service.ExamService;
 
 
+
 import com.lxisoft.domain.*;
 import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QuestionRepository;
@@ -17,6 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -96,7 +100,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
 
-    //file 
+    
 
     @Transactional(readOnly = true)
     public Exam getOne(long id)
@@ -135,4 +139,40 @@ public class ExamServiceImpl implements ExamService {
         exam = examRepository.save(exam);
         return examMapper.toDto(exam);
     }
-}
+   
+   
+    	
+    	
+		/*
+		 * public boolean fileExist(File file) { boolean isCheck=file.exists(); return
+		 * isCheck; }
+		 */
+   
+    	public void writeToFile(List<ExamDTO> examDto)
+    	{
+    		File file = new File("/home/user/exam.csv");
+    		try
+    		{
+    			FileWriter fw = new FileWriter(file,false);
+    			BufferedWriter bw = new BufferedWriter(fw);
+    		
+    			for(int i=0; i<examDto.size(); i++)
+    			{
+    				bw.write(examDto.get(i).getId()+","+examDto.get(i).getCount()+","+examDto.get(i).getName()+","+examDto.get(i).getLevel());  
+    				bw.newLine();		
+    			}
+    			bw.flush();
+    			bw.close();
+    		}
+    		catch(Exception e)
+    		{
+    			System.out.println(e);
+    			e.printStackTrace();
+    		}
+    	}
+    	public List<Exam> listAllFile() {
+            return examRepo.findAll();
+        }
+    }
+    
+
