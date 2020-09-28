@@ -127,4 +127,34 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> listAll() {
         return examRepo.findAll();
     }
+    
+    public Exam createOrUpdateExam(Exam exam) 
+    {
+        if(exam.getId()  == null) 
+        {
+        	exam = examRepo.save(exam);
+             
+            return exam;
+        } 
+        else
+        {
+            Optional<Exam> exams = examRepo.findById(exam.getId());
+             
+            if(exams.isPresent()) 
+            {
+            	Exam newEntity = exams.get();
+                newEntity.setName(exam.getName());
+                newEntity.setCount(exam.getCount());
+                newEntity.setLevel(exam.getLevel());
+ 
+                newEntity = examRepo.save(newEntity);
+                 
+                return newEntity;
+            } else {
+                exam = examRepo.save(exam);
+                 
+                return exam;
+            }
+        }
+    } 
 }

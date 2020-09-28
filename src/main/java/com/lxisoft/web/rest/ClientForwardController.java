@@ -137,24 +137,64 @@ public class ClientForwardController {
   }  
     
     
-    @GetMapping("/edt/{id}")
-	public String showUpdateForm(@PathVariable("id") long id, Model model) {
-		Exam exam = examServiceImpl.getOne(id);
-		model.addAttribute("exam", exam);
-		return "updateExam.html";
-	}
+//    @GetMapping(value = "/updat/{id}")
+//    public ModelAndView updateExam(@PathVariable("id") long id)
+//    {
+//    	ModelAndView modelAndView = new ModelAndView();
+//        Exam exam = examServiceImpl.getOne(id);
+//        
+//        exam.getId();
+//        modelAndView.addObject("updateQ",exam);
+//        modelAndView.setViewName("updateExam");
+//        return modelAndView;
+//    }
+//
+//    @GetMapping(value = "/updatQ")
+//    public String updateExm(@ModelAttribute Exam exam)
+//    {
+//    	Exam exam=new Exam();
+//    	exam = examServiceImpl.getOne(exam.getId());
+//    	examServiceImpl.saveExam(exam);
+//        return "/succUpdate";
+//    } 
 
-	@PostMapping("/upt/{id}")
-	public String updateExam(@PathVariable("id") long id,  Exam exam, BindingResult result,Model model) {
-		if (result.hasErrors()) {
-			exam.setId(id);
-			return "updateExam.html";
-		}
-		List<ExamDTO> listExam = examServiceImpl.findAll();
-		examServiceImpl.saveExam(exam);
-		model.addAttribute("listExam", listExam);
-		return "read";
-	}
+    
+    
+//    @GetMapping("/edt/{id}")
+//	public String showUpdateForm(@PathVariable("id") long id, Model model) {
+//		Exam exam = examServiceImpl.getOne(id);
+//		model.addAttribute("exam", exam);
+//		return "updateExam.html";
+//	}
+//
+//	@PostMapping("/updateExam")
+//	public String updateExam(@PathVariable("id") long id,BindingResult result,Model model) {
+//		ExamDTO examDto=new ExamDTO();
+//		examServiceImpl.save(examDto);
+////		model.addAttribute("listExam", listExam);
+//		return "redirect:/viewAll";
+//	}
+    
+    @RequestMapping(path = "/createExm", method = RequestMethod.POST)
+    public String createOrUpdateExam(Exam exam) 
+    {
+        examServiceImpl.createOrUpdateExam(exam);
+        return "redirect:/viewAll";
+    }
+    
+    
+    @RequestMapping(path = {"/edit", "/edit/{id}"})
+    public String editExamById(Model model, @PathVariable("id") Optional<Long> id) 
+                            
+    {
+        if (id.isPresent()) {
+            Exam exam = examServiceImpl.getOne(id.get());
+            model.addAttribute("exam", exam);
+        } else {
+            model.addAttribute("exam", new Exam());
+        }
+        return "examUpdate";
+    }
 	
 	
 	@GetMapping(value="/viewQuest")
@@ -317,7 +357,7 @@ public class ClientForwardController {
     	} 
 
 
-   /* @SuppressWarnings("static-access")
+    @SuppressWarnings("static-access")
     @GetMapping(value = "/dashboard")
     public ModelAndView userDashboard(ModelAndView model) throws IOException {
         
@@ -334,8 +374,7 @@ public class ClientForwardController {
         model.setViewName("dashboard");
         return model;
     }
-
-    */	
+	
     
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
