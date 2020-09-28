@@ -131,7 +131,7 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> listAll() {
         return examRepo.findAll();
     }
-    @Override
+    
     public ExamDTO saveFile(ExamDTO examDTO) {
 		
         log.debug("Request to save Exam : {}", examDTO);

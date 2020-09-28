@@ -33,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import com.lxisoft.repository.UserRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -477,13 +478,13 @@ public class ClientForwardController {
    	ExamDTO examDto=new ExamDTO();
     examServiceImpl.createFile();   	
    	model.addAttribute("examDto",examDto);
-		return "createfile";
+	return "createfile";
 	}
    @RequestMapping ("saveFile")
-   public String saveExamUsingFile(List<ExamDTO> examDto,Model model)
-	{
+   public String saveExamUsingFile(List<ExamDTO> examDto,File file,Model model)
+   {
 	   
-  //  examServiceImpl.writeToFile(examDto);
+    examServiceImpl.writeToFile(examDto,file);
    	return "redirect:/viewFile";
 	}
    @GetMapping(value = "/viewFile")
