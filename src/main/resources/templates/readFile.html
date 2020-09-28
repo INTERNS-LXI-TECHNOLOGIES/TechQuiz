@@ -43,33 +43,28 @@
 </head>
 <body>
 <div class="header">
-        <h1>TECH QUIZ</h1>
-       <a href="newquestion"><input type="submit" class="button" value="ADD"/></a>
+        <h1>TECHQUIZ</h1>
+        <h3>
+        <a href="createFile"><input type="submit" class="button" value="ADD"/></a>
+        </h3>
 		</div>
 		<br>
     <table align=center border=1px >
-		<th>Question</th>
-		<th>QuestionLevel</th>
-		<th>Answer</th>
-		<th>Option1</th>
-		<th>Option2</th>
-		<th>Option3</th>
-		<th>Option4</th>
+		<th>Name</th>
+		<th>count</th>
+		<th>Level</th>
 		<th>Delete</th>
 		<th>Edit</th>
+
 <tr th:each="list,iterationStatus : ${listExam}"> 
-                <td th:text="${list.question}"></td>
-                <td th:text="${list.questionlevel}"></td>
-                <th:block th:each ="answer : ${list.answer}">
-                <td th:text="${answer.answer}"></td>
-                 </th:block>
-                  <th:block th:each ="options : ${list.qnOptions}">
-                  <td th:text="${options.qnOptions}"></td>
-                </th:block>
+                <td th:text="${list.name}"></td>
+                <td th:text="${list.count}"></td>
+                 <td th:text="${list.level}"></td>
+                 <td><a th:href="@{/dlt/{id}(id=${list.id})}">Delete</a></td>
+                 <td><a th:href="@{/edt/{id}(id=${list.id})}">Edit</a></td>
                 
-                <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
-                <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>
-              	                          
+                       
+            </tr>   
         </table>
     <br>
 <center><a href="http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>

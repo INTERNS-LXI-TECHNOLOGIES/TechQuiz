@@ -40,14 +40,15 @@
   padding: 20px;
   text-align: center;
 }
-  </style>
+</style>
 </head>
 <br>
 <body>
 
 <div class="header">
-<form action="<%=request.getRequestURL()%>" name="forma">
-Seconds remaining: <span id="clock"><%=clock%></span>
+<form action="<=request.getRequestURL()%>" name="forma">
+Seconds remaining: <span id="clock"></span>
+
 </form>
     <h1 align="center">Questions</h1>
 </div>
@@ -73,27 +74,31 @@ Seconds remaining: <span id="clock"><%=clock%></span>
   <div align = "center"><button class="button">NEXT</button></div>
 
 </form>
-
-Seconds Remaining : <script src="timer.js"></script> 
+ 
  
 <script th:inline="javascript">
-<%
-String clock = "10";
-%>
-var timeout = <%=clock%>;
+
+
+
+var clock = "10";
+
+var timeout =clock;
+
+timer();
+
 function timer()
 {
-if( --timeout > 0 )
-{
-document.getElementById("clock").innerHTML=timeout;
-window.setTimeout( "timer()", 1000 );
-}
-else
-{
-document.getElementById("clock").innerHTML = "Time over";
-document.qform.submit();
-///disable submit-button etc
-}
+	if( --timeout > 0 )
+	{
+	document.getElementById("clock").innerHTML=timeout;
+	window.setTimeout( "timer()", 1000 );
+	}
+	else
+	{
+	document.getElementById("clock").innerHTML = "Time over";
+	document.qform.submit();
+	///disable submit-button etc
+	}
 }
  
 </script>
