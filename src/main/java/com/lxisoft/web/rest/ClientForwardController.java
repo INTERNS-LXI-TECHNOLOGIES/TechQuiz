@@ -2,6 +2,7 @@ package com.lxisoft.web.rest;
 
 
 import com.lxisoft.domain.Answer;
+
 import com.lxisoft.domain.QnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
@@ -474,14 +475,16 @@ public class ClientForwardController {
     @RequestMapping(value = "/createFile", method = RequestMethod.GET)
     public String newExam(Model model) {
    	ExamDTO examDto=new ExamDTO();
+    examServiceImpl.createFile();   	
    	model.addAttribute("examDto",examDto);
 		return "createfile";
 	}
    @RequestMapping ("saveFile")
    public String saveExamUsingFile(List<ExamDTO> examDto,Model model)
 	{
-    examServiceImpl.writeToFile(examDto);
-   		return "redirect:/viewFile";
+	   
+  //  examServiceImpl.writeToFile(examDto);
+   	return "redirect:/viewFile";
 	}
    @GetMapping(value = "/viewFile")
    public ModelAndView examFile(ModelAndView model) throws IOException {

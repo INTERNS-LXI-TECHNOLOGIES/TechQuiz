@@ -142,15 +142,24 @@ public class ExamServiceImpl implements ExamService {
    
    
     	
-    	
-		/*
-		 * public boolean fileExist(File file) { boolean isCheck=file.exists(); return
-		 * isCheck; }
-		 */
+    public File createFile()
+	{
+		File file = new File("/home/user/exam.csv");
+		return file;
+	
+	}
+	
+		
+	public boolean fileExist(File file)
+	{
+		boolean isCheck=file.exists();
+		return isCheck;
+	}
+		 
    
-    	public void writeToFile(List<ExamDTO> examDto)
+    	public void writeToFile(List<ExamDTO> examDto,File file)
     	{
-    		File file = new File("/home/user/exam.csv");
+    		//File file = new File("/home/user/exam.csv");
     		try
     		{
     			FileWriter fw = new FileWriter(file,false);

@@ -63,6 +63,9 @@
                 <th:block th:each ="answer : ${list.answer}">
                 <td th:text="${answer.answer}"></td>
                  </th:block>
+                  <th:block th:each ="options : ${list.qnOptions}">
+                  <td th:text="${options.qnOptions}"></td>
+                </th:block>
                 
                 <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
                 <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>
