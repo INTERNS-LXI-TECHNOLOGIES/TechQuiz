@@ -510,22 +510,47 @@ public class ClientForwardController {
         return "success";
     }     
 */
+ 
+//    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
+//    public String newExam(Model model) {
+//    	Exam exam=new Exam();
+//    	examServiceImpl.create(exam);
+//    	model.addAttribute("examDto",exam);
+//		return "createfile";
+//	}
     
-   
     @RequestMapping(value = "/createFile", method = RequestMethod.GET)
     public String newExam(Model model) {
-   	ExamDTO examDto=new ExamDTO();
-    examServiceImpl.createFile();   	
-   	model.addAttribute("examDto",examDto);
+    	Exam examDto=new Exam();
+    	model.addAttribute("examDto",examDto);
 		return "createfile";
 	}
-   @RequestMapping ("saveFile")
-   public String saveExamUsingFile(List<ExamDTO> examDto,Model model)
+
+    @RequestMapping (value ="/savexam")
+    public String saveExm(Exam examDto,Model model)
 	{
-	   
-  //  examServiceImpl.writeToFile(examDto);
-   	return "redirect:/viewFile";
+    	//FileController fileRepo = new FileController();
+    	examServiceImpl.create(examDto);
+		return "readFile";
 	}
+
+    
+    
+   
+//    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
+//    public String newExam(Model model) {
+//   	ExamDTO examDto=new ExamDTO();
+//    examServiceImpl.createFile();   	
+//   	model.addAttribute("examDto",examDto);
+//		return "createfile";
+//	}
+//   @RequestMapping ("saveFile")
+//   public String saveExamUsingFile(List<ExamDTO> examDto,Model model)
+//	{
+//	   
+//  //  examServiceImpl.writeToFile(examDto);
+//   	return "redirect:/viewFile";
+//	}
    @GetMapping(value = "/viewFile")
    public ModelAndView examFile(ModelAndView model) throws IOException {
      List<ExamDTO> listExam = examServiceImpl.findAll();
