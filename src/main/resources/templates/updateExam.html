@@ -20,9 +20,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-8">
-					<form action="#"
-						th:action="@{/upt/{id}(id=${exam.id})}"
-						th:object="${exam}" method="get">
+					<form action="#" th:action = "@{/updatQ}" method="GET" th:object="${updateQ}">
 						<div class="row">
 							<div class="form-group col-md-6">
 								<label for="question" class="col-form-label">Name</label> <input
@@ -38,6 +36,13 @@
 									th:if="${#fields.hasErrors('count')}" th:errors="*{count}"
 									class="text-danger"></span>
 							</div>
+							<div class="form-group col-md-8">
+			<label for="question" class="col-form-label">Level of exam</label>
+			<select name="level">
+			<option th:each="level : ${T(com.lxisoft.domain.enumeration.ExamLevel).values()}" 
+			th:value="${level}" th:text="${level}"></option>
+			</select>
+			</div>
 							
 
 							<div class="form-group col-md-8">

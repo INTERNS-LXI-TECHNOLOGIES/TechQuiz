@@ -72,7 +72,7 @@
 			<label for="question" class="col-form-label">Level of exam</label>
 			<select name="level">
 			<option th:each="questionlevel : ${T(com.lxisoft.domain.enumeration.QuestionLevel).values()}" 
-			th:value="${questionlevel}" th:text="${questionlevel}"></option>
+			th:value="${questionlevel}" th:text="${questionlevel}" id="questionlevel"></option>
 			</select>
 			</div>
                 <input type="submit" class="button" value=Add></button></center>
