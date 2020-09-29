@@ -54,17 +54,23 @@
 		
 		<th>Delete</th>
 		<th>Edit</th>
-<tr th:each="list,iterationStatus : ${listExam}"> 
+		<tr th:each="list,iterationStatus : ${listExam}"> 
                 <td th:text="${list.question}"></td>
-                <td th:text="${list.questionlevel}"></td>
-                <th:block th:each ="answer : ${list.answer}">
+                 <td th:text="${list.questionlevel}"></td>
+                 <th:block th:each ="answer : ${list.answer}">
                 <td th:text="${answer.answer}"></td>
+
                  </th:block>
                   
                 
+                 
+             
+               
                 <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
-                <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>
-              	                          
+                <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>              
+            </tr>   
+		
+               
         </table>
     <br>
 <center><a href="http://localhost:8081/techquiz"><input type="submit" class="button" value=Back></button></center>

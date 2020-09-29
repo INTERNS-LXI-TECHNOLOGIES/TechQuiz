@@ -33,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import com.lxisoft.repository.UserRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -350,7 +351,7 @@ public class ClientForwardController {
     @RequestMapping(value = "/addQuestion")
     public String addNewQuestion(@ModelAttribute TechQuizModel techModel)
     {
-    	QuestionLevel questionlevel= QuestionLevel.EASY;
+    	QuestionLevel questionlevel= QuestionLevel.MEDIUM;
 //    	questionlevel= QuestionLevel.MEDIUM;
 //    	questionlevel= QuestionLevel.HARD;
     	 Question question = new Question();
@@ -458,35 +459,14 @@ public class ClientForwardController {
         return "success";
     }     
     
- /*   @GetMapping(value = "/updateQ")
-    public String updateQuestion(@ModelAttribute ExamModel exam)
-    {
-        Question question = questionServiceImpl.get(exam.getId());
-        Question q = exam.getQuestion();
-        question.setQuestion(q.getQuestion());
-        question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
-        question.getQnOptions().get(0).setOption(exam.getOption1());
-        question.getQnOptions().get(1).setOption(exam.getOption2());
-        question.getQnOptions().get(2).setOption(exam.getOption3());
-        question.getQnOptions().get(3).setOption(exam.getOption4());
-        questionServiceImpl.saveQuestion(question);
-        return "success";
-    }     
-*/
- 
-//    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
-//    public String newExam(Model model) {
-//    	Exam exam=new Exam();
-//    	examServiceImpl.create(exam);
-//    	model.addAttribute("examDto",exam);
-//		return "createfile";
-//	}
     
     @RequestMapping(value = "/createFile", method = RequestMethod.GET)
     public String newExam(Model model) {
-    	Exam examDto=new Exam();
-    	model.addAttribute("examDto",examDto);
-		return "createfile";
+
+   	ExamDTO examDto=new ExamDTO();
+  //  examServiceImpl.createFile();   	
+   	model.addAttribute("examDto",examDto);
+	return "createfile";
 	}
 
     @RequestMapping (value ="/savexam")
@@ -495,6 +475,7 @@ public class ClientForwardController {
     	//FileController fileRepo = new FileController();
     	examServiceImpl.create(examDto);
 		return "readFile";
+
 	}
     
     
