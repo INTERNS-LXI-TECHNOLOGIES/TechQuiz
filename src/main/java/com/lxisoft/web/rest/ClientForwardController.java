@@ -481,9 +481,6 @@ public class ClientForwardController {
     	Answer answer = answerServiceImpl.get(exam.getId());
     	answerServiceImpl.saveAnswer(answer);
         /*
-         *  EmployeeEntity emp = new EmployeeEntity();
-      emp.setEmployeeId(1);
-      emp.setFirstName("Lokesh");
          * Question question = answerServiceImpl.get(exam.getId());
         Question q = exam.getQuestion();
         question.setQuestion(q.getQuestion());
