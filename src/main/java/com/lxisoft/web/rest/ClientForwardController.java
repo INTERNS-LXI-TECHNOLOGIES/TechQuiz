@@ -9,6 +9,7 @@ import com.lxisoft.domain.Question;
 import com.lxisoft.service.dto.QuestionDTO;
 import com.lxisoft.service.impl.QuestionServiceImpl;
 import com.lxisoft.security.SecurityUtils;
+import com.lxisoft.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,8 @@ public class ClientForwardController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
     /**
      * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
      * @return forward to client {@code index.html}.
@@ -455,6 +458,14 @@ public class ClientForwardController {
     	return "selectexam";
     	} 
 
+        @RequestMapping(value = "/createquestion", method = RequestMethod.GET)
+    public ModelAndView createQuestion(ModelAndView model) {
+      TechQuizModel techModel=new TechQuizModel();
+      model.addObject("techModel", techModel);
+        model.setViewName("createquestion");
+        return model;
+   }
+
     @RequestMapping(value = "/newquestion", method = RequestMethod.GET)
     public ModelAndView newQuestion(ModelAndView model) {
     	TechQuizModel techModel=new TechQuizModel();
@@ -568,7 +579,94 @@ public class ClientForwardController {
        questionServiceImpl.saveQuestion(question);
        return "view";
    }   
-  
+
+
+   @RequestMapping(value = "/newquestion2", method = RequestMethod.GET)
+    public ModelAndView newQuestion2(ModelAndView model) {
+      TechQuizModel techModel=new TechQuizModel();
+      model.addObject("techModel", techModel);
+        model.setViewName("addquestion2");
+        return model;
+   }
+    @RequestMapping(value = "/addQuestion2")
+    public String addNewQuestion2(@ModelAttribute TechQuizModel techModel)
+    {
+       Question question = new Question();
+         String ques = techModel.getQuestion();
+         question.setQuestion(ques);
+         Answer answer = new Answer();
+         answer.setQuestion(question);
+         answer.setAnswer(techModel.getAnswer());
+         question.setAnswer(answer);
+         Set<QnOption> qnOptions = new HashSet<>();
+         
+         QnOption option1 = new QnOption();
+       
+       if(techModel.getAnswer()=="True")
+       {
+
+          option1.setOption("False");
+          option1.setQuestion(question);
+         
+    
+         qnOptions.add(option1);
+         
+         question.setQnOptions(qnOptions);
+         questionServiceImpl.saveQuestionWithEnity(question);
+       }
+
+        if(techModel.getAnswer()=="False")
+       {
+
+          option1.setOption("True");
+          option1.setQuestion(question);
+         
+    
+         qnOptions.add(option1);
+         
+         question.setQnOptions(qnOptions);
+         questionServiceImpl.saveQuestionWithEnity(question);
+       }
+    
+         
+         option1.setOption(techModel.getOption1());
+          option1.setQuestion(question);
+         
+    
+         qnOptions.add(option1);
+         
+         question.setQnOptions(qnOptions);
+         questionServiceImpl.saveQuestionWithEnity(question);
+       
+         
+         return "techquiz";
+         }
+         @RequestMapping(value = "/reg", method = RequestMethod.GET)
+    public ModelAndView userRegister()
+    {
+      UserRegisterDto user = new UserRegisterDto();
+        ModelAndView model = new ModelAndView();
+        model.addObject("user",user);
+        model.setViewName("registration");
+        return model;
+    }
+
+    @RequestMapping(value = "/registration")
+    public ModelAndView register(@ModelAttribute UserRegisterDto user)
+    {
+    
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        String password = user.getPassword();
+        userService.registerUser(userDTO, password);
+        
+        
+        return new ModelAndView("redirect:/reg");
+
+    }
 }
 
 
