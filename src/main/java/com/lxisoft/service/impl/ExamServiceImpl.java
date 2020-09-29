@@ -40,8 +40,9 @@ public class ExamServiceImpl implements ExamService {
 	QuestionServiceImpl questionServiceImpl;
 	 @Autowired
 	  private ExamRepository examRepo;
-	 
 	 File file=new File("/home/user/git jhipster/TechQuiz/src/main/java/com/lxisoft/repository/Text.csv");
+
+	 //File file=new File("D:\\TechQuizRepository\\TechQuiz\\src\\main\\java\\com\\lxisoft\\repository\\Text.csv");
 //		FileWriter fw=null;
 //		FileWriter f=null;
 //		BufferedWriter bw=null;

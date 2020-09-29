@@ -496,29 +496,6 @@ public class ClientForwardController {
         return "success";
     }     
     
- /*   @GetMapping(value = "/updateQ")
-    public String updateQuestion(@ModelAttribute ExamModel exam)
-    {
-        Question question = questionServiceImpl.get(exam.getId());
-        Question q = exam.getQuestion();
-        question.setQuestion(q.getQuestion());
-        question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
-        question.getQnOptions().get(0).setOption(exam.getOption1());
-        question.getQnOptions().get(1).setOption(exam.getOption2());
-        question.getQnOptions().get(2).setOption(exam.getOption3());
-        question.getQnOptions().get(3).setOption(exam.getOption4());
-        questionServiceImpl.saveQuestion(question);
-        return "success";
-    }     
-*/
- 
-//    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
-//    public String newExam(Model model) {
-//    	Exam exam=new Exam();
-//    	examServiceImpl.create(exam);
-//    	model.addAttribute("examDto",exam);
-//		return "createfile";
-//	}
     
     @RequestMapping(value = "/createFile", method = RequestMethod.GET)
     public String newExam(Model model) {
