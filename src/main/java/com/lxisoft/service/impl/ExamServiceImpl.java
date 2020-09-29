@@ -229,7 +229,7 @@ public class ExamServiceImpl implements ExamService {
     		e=new Exam();
     		try
     		{
-    			FileWriter fw = new FileWriter(file);
+    			FileWriter fw = new FileWriter(file,true);
     			BufferedWriter bw = new BufferedWriter(fw);
 //    			BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
 //    			fw=new FileWriter(file,true);

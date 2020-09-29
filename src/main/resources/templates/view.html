@@ -51,10 +51,7 @@
 		<th>Question</th>
 		<th>QuestionLevel</th>
 		<th>Answer</th>
-		<th>Option1</th>
-		<th>Option2</th>
-		<th>Option3</th>
-		<th>Option4</th>
+		
 		<th>Delete</th>
 		<th>Edit</th>
 <tr th:each="list,iterationStatus : ${listExam}"> 
@@ -63,9 +60,7 @@
                 <th:block th:each ="answer : ${list.answer}">
                 <td th:text="${answer.answer}"></td>
                  </th:block>
-                  <th:block th:each ="options : ${list.qnOptions}">
-                  <td th:text="${options.qnOptions}"></td>
-                </th:block>
+                  
                 
                 <td><a th:href="@{/delete/{id}(id=${list.id})}">Delete</a></td>
                 <td><a th:href="@{/update/{id}(id=${list.id})}">Edit</a></td>

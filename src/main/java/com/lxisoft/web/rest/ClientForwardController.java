@@ -139,43 +139,6 @@ public class ClientForwardController {
   }  
     
     
-//    @GetMapping(value = "/updat/{id}")
-//    public ModelAndView updateExam(@PathVariable("id") long id)
-//    {
-//    	ModelAndView modelAndView = new ModelAndView();
-//        Exam exam = examServiceImpl.getOne(id);
-//        
-//        exam.getId();
-//        modelAndView.addObject("updateQ",exam);
-//        modelAndView.setViewName("updateExam");
-//        return modelAndView;
-//    }
-//
-//    @GetMapping(value = "/updatQ")
-//    public String updateExm(@ModelAttribute Exam exam)
-//    {
-//    	Exam exam=new Exam();
-//    	exam = examServiceImpl.getOne(exam.getId());
-//    	examServiceImpl.saveExam(exam);
-//        return "/succUpdate";
-//    } 
-
-    
-    
-//    @GetMapping("/edt/{id}")
-//	public String showUpdateForm(@PathVariable("id") long id, Model model) {
-//		Exam exam = examServiceImpl.getOne(id);
-//		model.addAttribute("exam", exam);
-//		return "updateExam.html";
-//	}
-//
-//	@PostMapping("/updateExam")
-//	public String updateExam(@PathVariable("id") long id,BindingResult result,Model model) {
-//		ExamDTO examDto=new ExamDTO();
-//		examServiceImpl.save(examDto);
-////		model.addAttribute("listExam", listExam);
-//		return "redirect:/viewAll";
-//	}
     
     @RequestMapping(path = "/createExm", method = RequestMethod.POST)
     public String createOrUpdateExam(Exam exam) 
@@ -202,9 +165,9 @@ public class ClientForwardController {
 	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
     	List<Question> listQuestion = questionServiceImpl.getAll();
-    	List<QnOptionDTO> listOptions =optService.findAll();
+//    	List<QnOptionDTO> listOptions =optService.findAll();
     	List<TechQuizModel> listExam = new ArrayList<>();
-    	List<QuestionDTO> listQues=new ArrayList<>();
+//    	List<QuestionDTO> listQues=new ArrayList<>();
     	HttpSession session = request.getSession(true);
     	for(int j=0;j<listQuestion.size();j++)
     	{
@@ -533,7 +496,6 @@ public class ClientForwardController {
     	examServiceImpl.create(examDto);
 		return "readFile";
 	}
-
     
     
    
