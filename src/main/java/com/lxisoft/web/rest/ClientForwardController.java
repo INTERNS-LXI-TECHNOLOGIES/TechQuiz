@@ -511,8 +511,6 @@ public class ClientForwardController {
 		return "readFile";
 
 	}
-
-    
     
    
 //    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
