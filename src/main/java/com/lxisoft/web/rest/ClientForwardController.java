@@ -141,15 +141,15 @@ public class ClientForwardController {
     
     
     
- /*   @RequestMapping(path = "/createExm", method = RequestMethod.POST)
+    @RequestMapping(path = "/createExm", method = RequestMethod.POST)
     public String createOrUpdateExam(Exam exam) 
     {
         examServiceImpl.createOrUpdateExam(exam);
         return "redirect:/viewAll";
     }
-    */
     
-/*    @RequestMapping(path = {"/edit", "/edit/{id}"})
+    
+    @RequestMapping(path = {"/edit", "/edit/{id}"})
     public String editExamById(Model model, @PathVariable("id") Optional<Long> id) 
                             
     {
@@ -161,7 +161,7 @@ public class ClientForwardController {
         }
         return "examUpdate";
     }
-	*/
+	
 	
 /*	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
@@ -399,7 +399,7 @@ public class ClientForwardController {
         return model;
     }
    
-/*
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteQuestion(@PathVariable("id") int id,ModelAndView model) {
     	TechQuizModel techModel = new TechQuizModel();
@@ -407,7 +407,7 @@ public class ClientForwardController {
         model.addObject("techModel", techModel);
         model.setViewName("deleteconfirmation");
         return model;
-    } */   
+    }    
     
     /*@GetMapping(value = "/delete")
     public ModelAndView deleteQuest(@PathVariable("id") int id,ModelAndView model) {

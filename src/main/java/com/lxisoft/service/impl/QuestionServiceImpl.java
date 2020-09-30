@@ -69,4 +69,9 @@ public class QuestionServiceImpl implements QuestionService {
     {
         return questionRepository.getOne(id);
     }
+    public long deleteById(long id)
+    {
+    	questionRepository.deleteById(id);
+    	return id;
+    }
 }
