@@ -79,6 +79,8 @@ public class AnswerServiceImpl implements AnswerService {
             .map(answerMapper::toDto);
     }
 
+    
+    
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Answer : {}", id);
