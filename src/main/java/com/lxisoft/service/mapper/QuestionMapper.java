@@ -18,8 +18,6 @@ public interface QuestionMapper extends EntityMapper<QuestionDTO, Question> {
     @Mapping(source = "answerId", target = "answer")
     @Mapping(target = "qnOptions", ignore = true)
     @Mapping(target = "removeQnOption", ignore = true)
-    @Mapping(target = "exams", ignore = true)
-    @Mapping(target = "removeExam", ignore = true)
     Question toEntity(QuestionDTO questionDTO);
 
     default Question fromId(Long id) {

@@ -141,15 +141,15 @@ public class ClientForwardController {
     
     
     
-    @RequestMapping(path = "/createExm", method = RequestMethod.POST)
+ /*   @RequestMapping(path = "/createExm", method = RequestMethod.POST)
     public String createOrUpdateExam(Exam exam) 
     {
         examServiceImpl.createOrUpdateExam(exam);
         return "redirect:/viewAll";
     }
+    */
     
-    
-    @RequestMapping(path = {"/edit", "/edit/{id}"})
+/*    @RequestMapping(path = {"/edit", "/edit/{id}"})
     public String editExamById(Model model, @PathVariable("id") Optional<Long> id) 
                             
     {
@@ -161,9 +161,9 @@ public class ClientForwardController {
         }
         return "examUpdate";
     }
+	*/
 	
-	
-	@GetMapping(value="/viewQuest")
+/*	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
     	List<Question> listQuestion = questionServiceImpl.getAll();
 //    	List<QnOptionDTO> listOptions =optService.findAll();
@@ -192,7 +192,7 @@ public class ClientForwardController {
     	return "selectexam";
     }	
 	
-    
+    */
 	@GetMapping(value="/viewQuestion")
     public String viewQuestions(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
@@ -384,22 +384,22 @@ public class ClientForwardController {
          qnOptions.add(option2);
          qnOptions.add(option3);
          qnOptions.add(option4);
-         question.setQnOptions(qnOptions);
-         questionServiceImpl.saveQuestionWithEnity(question);
+        // question.setQnOptions(qnOptions);
+         //questionServiceImpl.saveQuestionWithEnity(question);
          return "redirect:/viewAllQn";
          }
   
 
     @GetMapping(value = "/viewAllQn")
     public ModelAndView listQuestion(ModelAndView model) throws IOException {
-        List<Question> listExam = questionServiceImpl.getAll();
-        model.addObject("listExam", listExam);
-//        model.addObject("listExam", temp);
+        //List<Question> listExam = questionServiceImpl.getAll();
+       // model.addObject("listExam", listExam);
+
         model.setViewName("view");
         return model;
     }
    
-
+/*
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteQuestion(@PathVariable("id") int id,ModelAndView model) {
     	TechQuizModel techModel = new TechQuizModel();
@@ -407,9 +407,9 @@ public class ClientForwardController {
         model.addObject("techModel", techModel);
         model.setViewName("deleteconfirmation");
         return model;
-    }    
+    } */   
     
-    @GetMapping(value = "/delete")
+    /*@GetMapping(value = "/delete")
     public ModelAndView deleteQuest(@PathVariable("id") int id,ModelAndView model) {
     	long examId = (long)id;
     	questionServiceImpl.deleteById(id);
@@ -417,7 +417,7 @@ public class ClientForwardController {
     	model.addObject("listExam", listExam);
         model.setViewName("view");
         return model;  
-  }  
+  }  */
     @GetMapping(value = "/update/{id}")
     public ModelAndView updateQuestion(@PathVariable("id") long id)
     {
@@ -429,10 +429,10 @@ public class ClientForwardController {
         question.setQuestion(quest);
         exam.setQuestion(question);
         exam.setAnswer(question.getAnswer());
-        exam.setOption1(question.getQnOptions().get(0).getOption());
+     /*   exam.setOption1(question.getQnOptions().get(0).getOption());
         exam.setOption2(question.getQnOptions().get(1).getOption());
         exam.setOption3(question.getQnOptions().get(2).getOption());
-        exam.setOption4(question.getQnOptions().get(3).getOption());
+        exam.setOption4(question.getQnOptions().get(3).getOption());*/
 
         modelAndView.addObject("updateQ",exam);
         modelAndView.setViewName("update");
@@ -445,7 +445,6 @@ public class ClientForwardController {
     	Answer answer = answerServiceImpl.get(93l);
     	answer.setAnswer("testtttt");
     	answer.getQuestion().setQuestion("test question");
-    	//answer.getQuestion("test question");
     	answerServiceImpl.saveAnswer(answer);
     	
        
@@ -466,19 +465,19 @@ public class ClientForwardController {
     public String newExam(Model model) {
 
    	ExamDTO examDto=new ExamDTO();
-  //  examServiceImpl.createFile();   	
+  // examServiceImpl.createFile();   	
    	model.addAttribute("examDto",examDto);
 	return "createfile";
 	}
 
-    @RequestMapping (value ="/savexam")
+   /* @RequestMapping (value ="/savexam")
     public String saveExm(Exam examDto,Model model)
 	{
     	//FileController fileRepo = new FileController();
     	examServiceImpl.create(examDto);
 		return "readFile";
 
-	}
+	}*/
     
    
 //    @RequestMapping(value = "/createFile", method = RequestMethod.GET)

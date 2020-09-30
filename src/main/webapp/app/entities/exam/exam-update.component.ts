@@ -9,10 +9,6 @@ import { IExam, Exam } from 'app/shared/model/exam.model';
 import { ExamService } from './exam.service';
 import { IAttendedExam } from 'app/shared/model/attended-exam.model';
 import { AttendedExamService } from 'app/entities/attended-exam/attended-exam.service';
-import { IQuestion } from 'app/shared/model/question.model';
-import { QuestionService } from 'app/entities/question/question.service';
-
-type SelectableEntity = IAttendedExam | IQuestion;
 
 @Component({
   selector: 'jhi-exam-update',
@@ -21,7 +17,6 @@ type SelectableEntity = IAttendedExam | IQuestion;
 export class ExamUpdateComponent implements OnInit {
   isSaving = false;
   attendedexams: IAttendedExam[] = [];
-  questions: IQuestion[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -29,13 +24,11 @@ export class ExamUpdateComponent implements OnInit {
     name: [],
     level: [],
     attendedExamId: [],
-    questions: [],
   });
 
   constructor(
     protected examService: ExamService,
     protected attendedExamService: AttendedExamService,
-    protected questionService: QuestionService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -45,8 +38,6 @@ export class ExamUpdateComponent implements OnInit {
       this.updateForm(exam);
 
       this.attendedExamService.query().subscribe((res: HttpResponse<IAttendedExam[]>) => (this.attendedexams = res.body || []));
-
-      this.questionService.query().subscribe((res: HttpResponse<IQuestion[]>) => (this.questions = res.body || []));
     });
   }
 
@@ -57,7 +48,6 @@ export class ExamUpdateComponent implements OnInit {
       name: exam.name,
       level: exam.level,
       attendedExamId: exam.attendedExamId,
-      questions: exam.questions,
     });
   }
 
@@ -83,7 +73,6 @@ export class ExamUpdateComponent implements OnInit {
       name: this.editForm.get(['name'])!.value,
       level: this.editForm.get(['level'])!.value,
       attendedExamId: this.editForm.get(['attendedExamId'])!.value,
-      questions: this.editForm.get(['questions'])!.value,
     };
   }
 
@@ -103,18 +92,7 @@ export class ExamUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: IAttendedExam): any {
     return item.id;
-  }
-
-  getSelected(selectedVals: IQuestion[], option: IQuestion): IQuestion {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 }

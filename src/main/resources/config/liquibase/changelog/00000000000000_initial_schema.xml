@@ -172,4 +172,9 @@
             <column name="local_date" type="date"/>
         </createTable>
     </changeSet>
+    
+      
+   <changeSet id="20200829144517-2" author="jhipster">
+     <validCheckSum>8:5157cc0ef8872d732b4cdb8ae189c8e5</validCheckSum>    
+</changeSet>
 </databaseChangeLog>

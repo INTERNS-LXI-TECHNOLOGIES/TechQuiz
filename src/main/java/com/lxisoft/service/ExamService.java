@@ -2,9 +2,6 @@ package com.lxisoft.service;
 
 import com.lxisoft.service.dto.ExamDTO;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -28,13 +25,6 @@ public interface ExamService {
      */
     List<ExamDTO> findAll();
 
-    /**
-     * Get all the exams with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    Page<ExamDTO> findAllWithEagerRelationships(Pageable pageable);
-
 
     /**
      * Get the "id" exam.
@@ -50,8 +40,4 @@ public interface ExamService {
      * @param id the id of the entity.
      */
     void delete(Long id);
-    
-    ExamDTO saveFile(ExamDTO examDTO);
-  //  ExamDTO writeToFile(ExamDTO examDto);
-
 }

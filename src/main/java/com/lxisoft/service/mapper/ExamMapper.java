@@ -9,14 +9,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Exam} and its DTO {@link ExamDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AttendedExamMapper.class, QuestionMapper.class})
+@Mapper(componentModel = "spring", uses = {AttendedExamMapper.class})
 public interface ExamMapper extends EntityMapper<ExamDTO, Exam> {
 
     @Mapping(source = "attendedExam.id", target = "attendedExamId")
     ExamDTO toDto(Exam exam);
 
     @Mapping(source = "attendedExamId", target = "attendedExam")
-    @Mapping(target = "removeQuestion", ignore = true)
     Exam toEntity(ExamDTO examDTO);
 
     default Exam fromId(Long id) {

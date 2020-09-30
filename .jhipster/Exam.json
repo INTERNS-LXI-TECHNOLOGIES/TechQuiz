@@ -20,14 +20,6 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "attendedExam",
       "otherEntityRelationshipName": "exam"
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "question",
-      "otherEntityRelationshipName": "exam",
-      "relationshipName": "question",
-      "otherEntityField": "id",
-      "ownerSide": true
     }
   ],
   "changelogDate": "20200829144517",

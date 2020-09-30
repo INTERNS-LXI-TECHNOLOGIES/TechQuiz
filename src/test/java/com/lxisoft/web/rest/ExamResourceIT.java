@@ -9,26 +9,19 @@ import com.lxisoft.service.mapper.ExamMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,7 +30,6 @@ import com.lxisoft.domain.enumeration.ExamLevel;
  * Integration tests for the {@link ExamResource} REST controller.
  */
 @SpringBootTest(classes = TechQuizApp.class)
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class ExamResourceIT {
@@ -54,14 +46,8 @@ public class ExamResourceIT {
     @Autowired
     private ExamRepository examRepository;
 
-    @Mock
-    private ExamRepository examRepositoryMock;
-
     @Autowired
     private ExamMapper examMapper;
-
-    @Mock
-    private ExamService examServiceMock;
 
     @Autowired
     private ExamService examService;
@@ -163,26 +149,6 @@ public class ExamResourceIT {
             .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.toString())));
     }
     
-    @SuppressWarnings({"unchecked"})
-    public void getAllExamsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(examServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restExamMockMvc.perform(get("/api/exams?eagerload=true"))
-            .andExpect(status().isOk());
-
-        verify(examServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public void getAllExamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(examServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restExamMockMvc.perform(get("/api/exams?eagerload=true"))
-            .andExpect(status().isOk());
-
-        verify(examServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
     @Test
     @Transactional
     public void getExam() throws Exception {

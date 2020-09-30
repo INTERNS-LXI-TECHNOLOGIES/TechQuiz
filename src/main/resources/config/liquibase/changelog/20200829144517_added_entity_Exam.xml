@@ -30,21 +30,12 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-    </changeSet>
+  </changeSet>      
+        
+  
 
     <changeSet id="20200829144517-1-relations" author="jhipster">
 
-        <createTable tableName="exam_question">
-            <column name="question_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="exam_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="exam_id, question_id" tableName="exam_question"/>
-        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 

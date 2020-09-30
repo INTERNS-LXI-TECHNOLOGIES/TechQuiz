@@ -1,10 +1,8 @@
 package com.lxisoft.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
-
-import com.lxisoft.service.mapper.impl.ExamMapperImpl;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExamMapperTest {
@@ -13,7 +11,7 @@ public class ExamMapperTest {
 
     @BeforeEach
     public void setUp() {
-        examMapper = new ExamMapperImpl();
+        //examMapper = new ExamMapperImpl();
     }
 
     @Test

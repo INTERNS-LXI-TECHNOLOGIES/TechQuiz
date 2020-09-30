@@ -7,8 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.lxisoft.domain.enumeration.ExamLevel;
 
@@ -21,19 +19,6 @@ import com.lxisoft.domain.enumeration.ExamLevel;
 public class Exam implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public Exam() {
-		// this empty constructor is required
-	}
-	
-	public Exam(Long id,Integer count,String name,ExamLevel level)
-	{
-		this.id = id;
-		this.count= count;
-		this.name = name;
-		this.level = level;
-		
-		
-	}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,13 +37,6 @@ public class Exam implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "exams", allowSetters = true)
     private AttendedExam attendedExam;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(name = "exam_question",
-               joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
-    private Set<Question> questions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -119,31 +97,6 @@ public class Exam implements Serializable {
 
     public void setAttendedExam(AttendedExam attendedExam) {
         this.attendedExam = attendedExam;
-    }
-
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public Exam questions(Set<Question> questions) {
-        this.questions = questions;
-        return this;
-    }
-
-    public Exam addQuestion(Question question) {
-        this.questions.add(question);
-        question.getExams().add(this);
-        return this;
-    }
-
-    public Exam removeQuestion(Question question) {
-        this.questions.remove(question);
-        question.getExams().remove(this);
-        return this;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
