@@ -73,7 +73,6 @@ public class QuestionServiceImpl implements QuestionService {
     
     public List<Question> getAll()
     {
-
         return  questionRepository.findAll();
     }
     public long deleteById(long id)
@@ -89,6 +88,7 @@ public class QuestionServiceImpl implements QuestionService {
     {
     	questionRepository.save(question);
     }
+
    
     
        

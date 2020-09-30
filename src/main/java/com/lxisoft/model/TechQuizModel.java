@@ -3,6 +3,7 @@ package com.lxisoft.model;
 import com.lxisoft.domain.Answer;
 
 
+
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.enumeration.QuestionLevel;
 import com.lxisoft.domain.*;
@@ -17,6 +18,7 @@ public class TechQuizModel {
 	 private String option3;
 	 private String option4;
 	 private QuestionLevel questionlevel;
+	 private String selectedOption;
 	 
 	 public long getId() {
 		return id;
@@ -67,5 +69,11 @@ public class TechQuizModel {
 		this.questionlevel = questionlevel;
 	}
 	
+	 public String getSelectedOption() {
+			return selectedOption;
+		}
+		public void setSelectedOption(String selectedOption) {
+			this.selectedOption = selectedOption;
+		}
 
 }

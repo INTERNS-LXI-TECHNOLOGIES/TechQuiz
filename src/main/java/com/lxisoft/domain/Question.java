@@ -1,6 +1,7 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.lxisoft.domain.enumeration.QuestionLevel;
 
@@ -38,11 +39,9 @@ public class Question implements Serializable {
     private Answer answer;
 
 
-
-
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<QnOption> qnOptions = new HashSet<>();
+    private List<QnOption> qnOptions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "questions",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -97,11 +96,11 @@ public class Question implements Serializable {
         this.answer = answer;
     }
 
-    public Set<QnOption> getQnOptions() {
+    public List<QnOption> getQnOptions() {
         return qnOptions;
     }
 
-    public Question qnOptions(Set<QnOption> qnOptions) {
+    public Question qnOptions(List<QnOption> qnOptions) {
         this.qnOptions = qnOptions;
         return this;
     }
@@ -118,7 +117,7 @@ public class Question implements Serializable {
         return this;
     }
 
-    public void setQnOptions(Set<QnOption> qnOptions) {
+    public void setQnOptions(List<QnOption> qnOptions) {
         this.qnOptions = qnOptions;
     }
 

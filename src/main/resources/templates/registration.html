@@ -38,36 +38,32 @@
 
 				<h1>Registration</h1>
 
-				<form th:action="@{/registration}" method="post" th:object = "${user}">
+				<form action="#"  th:object="${user}" th:action="@{/registration}" method="GET">
 					<div class="form-group">
-						<label class="control-label" for="firstName">
-							First Name
-						</label>
-						<input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus"/>
-					</div>
 
-					<div class="form-group">
-						<label class="control-label" for="lastName">
-							Last Name
-						</label>
-						<input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus"/>
-					</div>
+						
 
-					<div class="form-group">
-						<label class="control-label" for="email">
-							Email
-						</label>
-						<input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus"/>
-					</div>
+						<label> First Name</label>
+		                <input type="text" id="firstName" th:field="*{firstName}" class="form-control"
+		                placeholder="First Name">
 
-					<div class="form-group">
-						<label class="control-label" for="password">
-							Password
-						</label>
-						<input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus"/>
-					</div>
+						<label> Last Name</label>
+		                <input type="text" id="lastName" th:field="*{lastName}" class="form-control"
+		                placeholder="Last Name">
 
-					<div class="form-group">
+
+						<label> Email</label>
+		                <input type="text" id="email" th:field="*{email}" class="form-control"
+		                placeholder="Email">
+					
+		                <label> Password</label>
+		                <input type="text" id="password" th:field="*{password}" class="form-control"
+		                placeholder="Password">
+
+		                <label> UserName</label>
+		                <input type="text" id="login" th:field="*{login}" class="form-control"
+		                placeholder="User Name">
+					
 						<button type="submit" class="btn btn-success">Register</button>
 						<span>Already registered? <a href="/" th:herf="@{/login}">Login </a></span>						
 					</div>

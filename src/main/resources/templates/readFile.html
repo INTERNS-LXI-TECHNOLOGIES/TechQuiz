@@ -45,7 +45,7 @@
 <div class="header">
         <h1>TECHQUIZ</h1>
         <h3>
-        <a href="createxam"><input type="submit" class="button" value="ADD"/></a>
+        <a href="createFile"><input type="submit" class="button" value="ADD"/></a>
         </h3>
 		</div>
 		<br>
@@ -61,12 +61,7 @@
                 <td th:text="${list.count}"></td>
                  <td th:text="${list.level}"></td>
                  <td><a th:href="@{/dlt/{id}(id=${list.id})}">Delete</a></td>
-                 <td>
-                                    <a th:href="@{/edit/{id}(id=${list.id})}"
-                                             class="btn btn-primary">Edit
-                                        <i class="fas fa-user-edit ml-2"></i>
-                                    </a>
-                                </td>
+                 <td><a th:href="@{/edt/{id}(id=${list.id})}">Edit</a></td>
                 
                        
             </tr>   

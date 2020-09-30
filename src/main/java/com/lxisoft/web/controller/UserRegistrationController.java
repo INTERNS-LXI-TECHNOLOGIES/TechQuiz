@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.lxisoft.service.UserService;
 //import com.lxisoft.service.dto.UserRegistrationDto;
 @Controller
-@RequestMapping("/registration")
+@RequestMapping("/userRegistration")
 public class UserRegistrationController {
 	private UserService userService;
 

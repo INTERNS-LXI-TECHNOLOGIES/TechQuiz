@@ -1,8 +1,10 @@
 package com.lxisoft.service.impl;
 
 import com.lxisoft.service.ExamService;
+
+
+
 import com.lxisoft.domain.*;
-import com.lxisoft.domain.enumeration.ExamLevel;
 import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QuestionRepository;
 import com.lxisoft.service.dto.ExamDTO;
@@ -16,6 +18,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,9 +39,15 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	QuestionServiceImpl questionServiceImpl;
 	 @Autowired
-	    private ExamRepository examRepo;
-	     
-	   
+	  private ExamRepository examRepo;
+	 
+	 File file=new File("D:\\TechQuizRepository\\TechQuiz\\src\\main\\java\\com\\lxisoft\\repository\\Text.csv");
+//		FileWriter fw=null;
+//		FileWriter f=null;
+//		BufferedWriter bw=null;
+		static  int id=0;
+		List<Exam>examList=new ArrayList<>();
+	 
 
     private final Logger log = LoggerFactory.getLogger(ExamServiceImpl.class);
 
@@ -94,6 +108,9 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findAllWithEagerRelationships(pageable).map(examMapper::toDto);
     }
 
+
+    
+
     @Transactional(readOnly = true)
     public Exam getOne(long id)
     {
@@ -106,6 +123,7 @@ public class ExamServiceImpl implements ExamService {
     	examRepository.save(exam);
     }
     
+
     @Override
     @Transactional(readOnly = true)
     public Optional<ExamDTO> findOne(Long id) {
@@ -122,4 +140,115 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> listAll() {
         return examRepo.findAll();
     }
-}
+
+    
+    public Exam createOrUpdateExam(Exam exam) 
+    {
+        if(exam.getId()  == null) 
+        {
+        	exam = examRepo.save(exam);
+             
+            return exam;
+        } 
+        else
+        {
+            Optional<Exam> exams = examRepo.findById(exam.getId());
+             
+            if(exams.isPresent()) 
+            {
+            	Exam newEntity = exams.get();
+                newEntity.setName(exam.getName());
+                newEntity.setCount(exam.getCount());
+                newEntity.setLevel(exam.getLevel());
+ 
+                newEntity = examRepo.save(newEntity);
+                 
+                return newEntity;
+            } else {
+                exam = examRepo.save(exam);
+                 
+                return exam;
+            }
+        }
+    } 
+
+
+//    public ExamDTO saveFile(ExamDTO examDTO) {
+//		
+//        log.debug("Request to save Exam : {}", examDTO);
+//        Exam exam = examMapper.toEntity(examDTO);
+//        exam = examRepository.save(exam);
+//        return examMapper.toDto(exam);
+//    }
+   
+   
+    	
+//    public File createFile()
+//	{
+//		File file = new File("/home/user/exam.csv");
+//		return file;
+//	
+//	}
+//	
+//		
+//	public boolean fileExist(File file)
+//	{
+//		boolean isCheck=file.exists();
+//		return isCheck;
+//	}
+//		 
+//   
+//    	public void writeToFile(List<ExamDTO> examDto,File file)
+//    	{
+//    		//File file = new File("/home/user/exam.csv");
+//    		try
+//    		{
+//    			FileWriter fw = new FileWriter(file,false);
+//    			BufferedWriter bw = new BufferedWriter(fw);
+//    		
+//    			for(int i=0; i<examDto.size(); i++)
+//    			{
+//    				bw.write(examDto.get(i).getId()+","+examDto.get(i).getCount()+","+examDto.get(i).getName()+","+examDto.get(i).getLevel());  
+//    				bw.newLine();		
+//    			}
+//    			bw.flush();
+//    			bw.close();
+//    		}
+//    		catch(Exception e)
+//    		{
+//    			System.out.println(e);
+//    			e.printStackTrace();
+//    		}
+//    	}
+//    	public List<Exam> listAllFile() {
+//            return examRepo.findAll();
+//        }
+    	
+    	public List<Exam> create(Exam e)
+    	{
+    		e=new Exam();
+    		try
+    		{
+    			FileWriter fw = new FileWriter(file);
+    			BufferedWriter bw = new BufferedWriter(fw);
+//    			BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+//    			fw=new FileWriter(file,true);
+
+    			bw.write(id+","+e.getName()+","+e.getCount()+","+e.getLevel()+"\n");
+    			bw.flush();
+    		}
+    		catch(IOException i)
+    		{
+    			System.out.println("an error occured");
+    		}
+    		return examList;	
+    	}
+   
+    		@Override
+		public ExamDTO saveFile(ExamDTO examDTO) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+    	
+    }
+    

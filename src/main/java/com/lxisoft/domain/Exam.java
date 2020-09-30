@@ -21,6 +21,19 @@ import com.lxisoft.domain.enumeration.ExamLevel;
 public class Exam implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public Exam() {
+		// this empty constructor is required
+	}
+	
+	public Exam(Long id,Integer count,String name,ExamLevel level)
+	{
+		this.id = id;
+		this.count= count;
+		this.name = name;
+		this.level = level;
+		
+		
+	}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

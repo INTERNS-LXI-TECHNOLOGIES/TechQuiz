@@ -31,6 +31,34 @@
 		<div style = "padding-left: 100px;">
     		<h1 align="center">Total Mark : <a th:text = "${mark}"></a> </h1>
     	</div> 
+    	
+    	<center><table align=center border=1px>
+ 			<tr>
+ 			<th>ID</th>
+            <th>Question</th>
+            <th>QuestionLevel</th>
+            <th>Option1</th>
+            <th>Option2</th>
+            <th>Option3</th>
+            <th>Option4</th>
+            <th>Answer</th>
+            <th>SelectedOption</th>
+            </tr>
+ 
+            <tr th:each="list,iterationStatus : ${listQuestion}">
+                	<td th:text=${iterationStatus.count}></td>
+                    <td th:text="${list.question}"></td>
+                    <td th:text="${list.questionlevel}"></td>
+                    <td th:text="${list.option1}"></td>
+                    <td th:text="${list.option2}"></td>
+                    <td th:text="${list.option3}"></td>
+                    <td th:text="${list.option4}"></td>
+                    <td th:text="${list.answer}"></td>
+                    <td th:text="${list.selectedOption}"></td>
+                    
+                </tr>
+            </th:each>
+        </table></center><br>
         <center><a href="/userview"><input type="submit" class="button" value=Back></a></center>
 </body>
 </html>
