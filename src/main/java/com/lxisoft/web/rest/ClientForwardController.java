@@ -192,7 +192,7 @@ public class ClientForwardController {
     	return "selectexam";
     }	
 	
-    */
+  */ 
 	@GetMapping(value="/viewQuestion")
     public String viewQuestions(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
@@ -384,16 +384,16 @@ public class ClientForwardController {
          qnOptions.add(option2);
          qnOptions.add(option3);
          qnOptions.add(option4);
-        // question.setQnOptions(qnOptions);
-         //questionServiceImpl.saveQuestionWithEnity(question);
+         question.setQnOptions(qnOptions);
+         questionServiceImpl.saveQuestionWithEnity(question);
          return "redirect:/viewAllQn";
          }
   
 
     @GetMapping(value = "/viewAllQn")
     public ModelAndView listQuestion(ModelAndView model) throws IOException {
-        //List<Question> listExam = questionServiceImpl.getAll();
-       // model.addObject("listExam", listExam);
+        List<Question> listExam = questionServiceImpl.getAll();
+        model.addObject("listExam", listExam);
 
         model.setViewName("view");
         return model;
@@ -409,7 +409,7 @@ public class ClientForwardController {
         return model;
     }    
     
-    /*@GetMapping(value = "/delete")
+    @GetMapping(value = "/delete")
     public ModelAndView deleteQuest(@PathVariable("id") int id,ModelAndView model) {
     	long examId = (long)id;
     	questionServiceImpl.deleteById(id);
@@ -417,7 +417,7 @@ public class ClientForwardController {
     	model.addObject("listExam", listExam);
         model.setViewName("view");
         return model;  
-  }  */
+  } 
     @GetMapping(value = "/update/{id}")
     public ModelAndView updateQuestion(@PathVariable("id") long id)
     {
@@ -429,10 +429,10 @@ public class ClientForwardController {
         question.setQuestion(quest);
         exam.setQuestion(question);
         exam.setAnswer(question.getAnswer());
-     /*   exam.setOption1(question.getQnOptions().get(0).getOption());
+        exam.setOption1(question.getQnOptions().get(0).getOption());
         exam.setOption2(question.getQnOptions().get(1).getOption());
         exam.setOption3(question.getQnOptions().get(2).getOption());
-        exam.setOption4(question.getQnOptions().get(3).getOption());*/
+        exam.setOption4(question.getQnOptions().get(3).getOption());
 
         modelAndView.addObject("updateQ",exam);
         modelAndView.setViewName("update");
@@ -443,13 +443,13 @@ public class ClientForwardController {
     public String updateQuestion(@ModelAttribute ExamModel exam)
     {
     	
-    	Answer answer = answerServiceImpl.get(93l);
+    /*	Answer answer = answerServiceImpl.get(93l);
     	answer.setAnswer("testtttt");
     	answer.getQuestion().setQuestion("test question");
     	answerServiceImpl.saveAnswer(answer);
-    	
+    	*/
        
-       /*   Question question = questionServiceImpl.get(exam.getId());
+        Question question = questionServiceImpl.get(exam.getId());
         Question q = exam.getQuestion();
         question.setQuestion(q.getQuestion());
         question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
@@ -457,7 +457,7 @@ public class ClientForwardController {
         question.getQnOptions().get(1).setOption(exam.getOption2());
         question.getQnOptions().get(2).setOption(exam.getOption3());
         question.getQnOptions().get(3).setOption(exam.getOption4());
-        questionServiceImpl.saveQuestion(question);*/
+        questionServiceImpl.saveQuestion(question);
         return "success";
     }     
     
