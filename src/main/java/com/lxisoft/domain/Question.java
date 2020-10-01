@@ -31,7 +31,7 @@ public class Question implements Serializable {
     @Column(name = "questionlevel")
     private QuestionLevel questionlevel;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private Answer answer;
 

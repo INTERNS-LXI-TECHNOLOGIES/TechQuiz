@@ -383,8 +383,8 @@ public class ClientForwardController {
          qnOptions.add(option2);
          qnOptions.add(option3);
          qnOptions.add(option4);
-        // question.setQnOptions(qnOptions);
-         //questionServiceImpl.saveQuestionWithEnity(question);
+         question.setQnOptions(qnOptions);
+         questionServiceImpl.saveQuestionWithEnity(question);
          return "redirect:/viewAllQn";
          }
   
