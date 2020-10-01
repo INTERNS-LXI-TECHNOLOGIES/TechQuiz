@@ -80,11 +80,10 @@ public class ExamResource {
     /**
      * {@code GET  /exams} : get all the exams.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of exams in body.
      */
     @GetMapping("/exams")
-    public List<ExamDTO> getAllExams(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<ExamDTO> getAllExams() {
         log.debug("REST request to get all Exams");
         return examService.findAll();
     }

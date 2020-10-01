@@ -2,11 +2,13 @@ package com.lxisoft.service.impl;
 
 import com.lxisoft.service.AnswerService;
 
+
 import com.lxisoft.domain.Answer;
 import com.lxisoft.domain.Question;
 import com.lxisoft.repository.AnswerRepository;
 import com.lxisoft.service.dto.AnswerDTO;
 import com.lxisoft.service.mapper.AnswerMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +57,6 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
 
-
     /**
      *  Get all the answers where Question is {@code null}.
      *  @return the list of entities.
@@ -78,6 +79,8 @@ public class AnswerServiceImpl implements AnswerService {
             .map(answerMapper::toDto);
     }
 
+    
+    
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Answer : {}", id);

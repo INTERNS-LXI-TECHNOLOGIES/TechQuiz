@@ -27,7 +27,6 @@
                     <th scope="col" ><span jhiTranslate="techQuizApp.exam.name">Name</span></th>
                     <th scope="col" ><span jhiTranslate="techQuizApp.exam.level">Level</span></th>
                     <th scope="col" ><span jhiTranslate="techQuizApp.exam.attendedExam">Attended Exam</span></th>
-                    <th scope="col" ><span jhiTranslate="techQuizApp.exam.question">Question</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -41,11 +40,6 @@
                         <div *ngIf="exam.attendedExamId">
                             <a [routerLink]="['/attended-exam', exam.attendedExamId , 'view']" >{{ exam.attendedExamId }}</a>
                         </div>
-                    </td>
-                    <td>
-                        <span *ngFor="let question of exam.questions; let last = last">
-                            <a class="form-control-static" [routerLink]="['/question', question?.id, 'view']">{{ question.id }}</a>{{ last ? '' : ', ' }}
-                        </span>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

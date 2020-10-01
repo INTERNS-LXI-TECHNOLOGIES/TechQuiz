@@ -65,31 +65,17 @@ public class QuestionServiceImpl implements QuestionService {
         log.debug("Request to delete Question : {}", id);
         questionRepository.deleteById(id);
     }
-    
-    public void saveQuestionWithEnity(Question question) {
-    	log.debug("Request to save question with entity : {}", question);
-    	questionRepository.save(question);
-    }
-    
-    public List<Question> getAll()
+    public Question get(long id)
     {
-        return  questionRepository.findAll();
+        return questionRepository.getOne(id);
     }
     public long deleteById(long id)
     {
     	questionRepository.deleteById(id);
     	return id;
     }
-    public Question get(long id)
-    {
-        return questionRepository.getOne(id);
+     public void saveQuestionWithEnity(Question question) {
+        log.debug("Request to save question with entity : {}", question);
+        questionRepository.save(question);
     }
-    public void saveQuestion(Question question)
-    {
-    	questionRepository.save(question);
-    }
-
-   
-    
-       
 }

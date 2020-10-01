@@ -19,8 +19,7 @@
       "question": "Question",
       "questionlevel": "Questionlevel",
       "answer": "Answer",
-      "qnOption": "Qn Option",
-      "exam": "Exam"
+      "qnOption": "Qn Option"
     }
   }
 }

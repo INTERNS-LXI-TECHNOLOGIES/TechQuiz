@@ -2,6 +2,7 @@ package com.lxisoft.service.impl;
 
 import com.lxisoft.service.QnOptionService;
 import com.lxisoft.domain.QnOption;
+import com.lxisoft.domain.Question;
 import com.lxisoft.repository.QnOptionRepository;
 import com.lxisoft.service.dto.QnOptionDTO;
 import com.lxisoft.service.mapper.QnOptionMapper;
@@ -64,5 +65,9 @@ public class QnOptionServiceImpl implements QnOptionService {
     public void delete(Long id) {
         log.debug("Request to delete QnOption : {}", id);
         qnOptionRepository.deleteById(id);
+    }
+    public QnOption get(long id)
+    {
+        return qnOptionRepository.getOne(id);
     }
 }

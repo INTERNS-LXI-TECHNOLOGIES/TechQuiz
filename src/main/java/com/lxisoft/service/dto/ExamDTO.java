@@ -1,8 +1,6 @@
 package com.lxisoft.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import com.lxisoft.domain.enumeration.ExamLevel;
 
 /**
@@ -20,7 +18,6 @@ public class ExamDTO implements Serializable {
 
 
     private Long attendedExamId;
-    private Set<QuestionDTO> questions = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -62,14 +59,6 @@ public class ExamDTO implements Serializable {
         this.attendedExamId = attendedExamId;
     }
 
-    public Set<QuestionDTO> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<QuestionDTO> questions) {
-        this.questions = questions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -96,7 +85,6 @@ public class ExamDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", level='" + getLevel() + "'" +
             ", attendedExamId=" + getAttendedExamId() +
-            ", questions='" + getQuestions() + "'" +
             "}";
     }
 }

@@ -25,14 +25,6 @@
       "otherEntityName": "qnOption",
       "otherEntityRelationshipName": "question",
       "relationshipName": "qnOption"
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "exam",
-      "otherEntityRelationshipName": "question",
-      "relationshipName": "exam",
-      "otherEntityField": "id",
-      "ownerSide": false
     }
   ],
   "changelogDate": "20200829144117",

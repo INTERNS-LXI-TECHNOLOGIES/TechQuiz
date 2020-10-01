@@ -19,8 +19,7 @@
       "count": "Count",
       "name": "Name",
       "level": "Level",
-      "attendedExam": "Attended Exam",
-      "question": "Question"
+      "attendedExam": "Attended Exam"
     }
   }
 }
