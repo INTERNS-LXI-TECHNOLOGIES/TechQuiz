@@ -6,8 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.lxisoft.domain.enumeration.QuestionLevel;
 
@@ -36,9 +35,9 @@ public class Question implements Serializable {
     @JoinColumn(unique = true)
     private Answer answer;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL, fetch= FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<QnOption> qnOptions = new HashSet<>();
+    private List<QnOption> qnOptions = new ArrayList<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -88,11 +87,11 @@ public class Question implements Serializable {
         this.answer = answer;
     }
 
-    public Set<QnOption> getQnOptions() {
+    public List<QnOption> getQnOptions() {
         return qnOptions;
     }
 
-    public Question qnOptions(Set<QnOption> qnOptions) {
+    public Question qnOptions(List<QnOption> qnOptions) {
         this.qnOptions = qnOptions;
         return this;
     }
@@ -109,7 +108,7 @@ public class Question implements Serializable {
         return this;
     }
 
-    public void setQnOptions(Set<QnOption> qnOptions) {
+    public void setQnOptions(List<QnOption> qnOptions) {
         this.qnOptions = qnOptions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

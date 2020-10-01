@@ -74,4 +74,9 @@ public class QuestionServiceImpl implements QuestionService {
     	questionRepository.deleteById(id);
     	return id;
     }
+    
+    public List<Question> getAll()
+    {
+        return  questionRepository.findAll();
+    }
 }
