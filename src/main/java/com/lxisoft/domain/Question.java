@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.*;
 
 import com.lxisoft.domain.enumeration.QuestionLevel;
 
@@ -34,9 +35,10 @@ public class Question implements Serializable {
     @Column(name = "questionlevel")
     private QuestionLevel questionlevel;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private Answer answer;
+
 
   @OneToMany(mappedBy = "question")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

@@ -78,13 +78,14 @@ public class QuestionServiceImpl implements QuestionService {
     {
         return  questionRepository.findAll();
     }
+
     public void saveQuestion(Question question)
     {
     	questionRepository.save(question);
     }
+
     public void saveQuestionWithEnity(Question question) {
     	log.debug("Request to save question with entity : {}", question);
     	questionRepository.save(question);
     }
-   
 }

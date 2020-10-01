@@ -138,8 +138,7 @@ public class ClientForwardController {
         model.setViewName("read");
         return model;  
   }  
-    
-    
+       
     
     @RequestMapping(path = "/createExm", method = RequestMethod.POST)
     public String createOrUpdateExam(Exam exam) 
@@ -163,7 +162,7 @@ public class ClientForwardController {
     }
 	
 	
-/*	@GetMapping(value="/viewQuest")
+	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
     	List<Question> listQuestion = questionServiceImpl.getAll();
 //    	List<QnOptionDTO> listOptions =optService.findAll();
@@ -192,7 +191,7 @@ public class ClientForwardController {
     	return "selectexam";
     }	
 	
-  */ 
+
 	@GetMapping(value="/viewQuestion")
     public String viewQuestions(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
