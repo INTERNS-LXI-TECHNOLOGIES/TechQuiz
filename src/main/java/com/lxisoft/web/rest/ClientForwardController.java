@@ -385,7 +385,7 @@ public class ClientForwardController {
          question.setAnswer(answer);
          question.setQuestionlevel(questionlevel);
          
-         Set<QnOption> qnOptions = new HashSet<>();
+         List<QnOption> qnOptions = new ArrayList<>();
          
          QnOption option1 = new QnOption();
          QnOption option2 = new QnOption();
@@ -502,8 +502,9 @@ public class ClientForwardController {
          question.setAnswer(answer);
          question.setQuestionlevel(questionlevel);
          
-         Set<QnOption> qnOptions = new HashSet<>();
-         
+         //Set<QnOption> qnOptions = new HashSet<>();
+        List<QnOption> qnOptions = new ArrayList<>();
+
          QnOption option1 = new QnOption();
          
          /*if(techModel.getOption1()=="True")
