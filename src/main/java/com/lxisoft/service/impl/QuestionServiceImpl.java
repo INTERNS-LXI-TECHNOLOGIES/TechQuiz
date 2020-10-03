@@ -74,7 +74,14 @@ public class QuestionServiceImpl implements QuestionService {
     	questionRepository.deleteById(id);
     	return id;
     }
+
      
+
+    public void saveQuestionWithEnity(Question question) {
+        log.debug("Request to save question with entity : {}", question);
+        questionRepository.save(question);
+    }
+
     public List<Question> getAll()
     {
         return  questionRepository.findAll();
@@ -85,8 +92,8 @@ public class QuestionServiceImpl implements QuestionService {
     	questionRepository.save(question);
     }
 
-    public void saveQuestionWithEnity(Question question) {
+    /*public void saveQuestionWithEnity(Question question) {
     	log.debug("Request to save question with entity : {}", question);
     	questionRepository.save(question);
-    }
+    }*/
 }
