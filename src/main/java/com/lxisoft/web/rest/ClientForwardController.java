@@ -647,6 +647,24 @@ public class ClientForwardController {
         model.setViewName("readFile");
         return model;
    }
+   
+   @RequestMapping(value = "/createFile", method = RequestMethod.GET)
+   public String newExam(Model model) {
+
+  	ExamDTO examDto=new ExamDTO();
+ //  examServiceImpl.createFile();   	
+  	model.addAttribute("examDto",examDto);
+	return "createfile";
+	}
+
+   @RequestMapping (value ="/savexam")
+   public String saveExm(Exam examDto,Model model)
+	{
+   	//FileController fileRepo = new FileController();
+   	examServiceImpl.create(examDto);
+		return "readFile";
+
+	}
   
 }
 
