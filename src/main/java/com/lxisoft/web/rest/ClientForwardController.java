@@ -168,13 +168,6 @@ public class ClientForwardController {
         return "examUpdate";
     }
 	
-	
-
-	/*@GetMapping(value="/viewQuest")
-
-/*	@GetMapping(value="/viewQuest")
-
-
 	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
     	List<Question> listQuestion = questionServiceImpl.getAll();
@@ -202,7 +195,7 @@ public class ClientForwardController {
     	}
     	session.setAttribute("listQuestion", listExam); 
     	return "selectexam";
-    }	*/
+    }	
 	
     
 
@@ -219,7 +212,7 @@ public class ClientForwardController {
     	}
     	 
     	List<TechQuizModel> listQuestion = (List<TechQuizModel>) session.getAttribute("listQuestion");
-    	//System.out.println("size="+listQuestion.size());
+//    	System.out.println("size="+listQuestion.size());
     	
     	List<TechQuizModel> easyQuestion = new ArrayList<>();
     	List<TechQuizModel> mediumQuestion = new ArrayList<>();

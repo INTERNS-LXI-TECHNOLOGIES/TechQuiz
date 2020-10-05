@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ExamServiceImpl implements ExamService {
 
+	
 	static  int id=0;
     private final Logger log = LoggerFactory.getLogger(ExamServiceImpl.class);
 
@@ -117,7 +118,8 @@ public class ExamServiceImpl implements ExamService {
     
     public List<Exam> create(Exam e)
 	{
-    	File file=new File("/home/user/git jhipster/TechQuiz/src/main/java/com/lxisoft/repository/Text.csv");
+
+   	 File file=new File("D:\\TechQuizRepository\\TechQuiz\\src\\main\\java\\com\\lxisoft\\repository\\Text.csv");
     	List<Exam>examList=new ArrayList<>();
 		e=new Exam();
 		try
