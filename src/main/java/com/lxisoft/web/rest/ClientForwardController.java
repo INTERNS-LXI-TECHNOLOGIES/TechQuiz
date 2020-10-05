@@ -172,7 +172,7 @@ public class ClientForwardController {
 
 	/*@GetMapping(value="/viewQuest")
 
-/*	@GetMapping(value="/viewQuest")
+	@GetMapping(value="/viewQuest")*/
 
 
 	@GetMapping(value="/viewQuest")
@@ -202,8 +202,7 @@ public class ClientForwardController {
     	}
     	session.setAttribute("listQuestion", listExam); 
     	return "selectexam";
-    }	*/
-	
+    }		
     
 
 
@@ -457,20 +456,21 @@ public class ClientForwardController {
        question.setQuestion(quest);
        exam.setQuestion(question);
        exam.setAnswer(question.getAnswer());
-      /* exam.setOption1(question.getOptions().get(0).getAOption());
-       exam.setOption2(question.getOptions().get(1).getAOption());
-       exam.setOption3(question.getOptions().get(2).getAOption());
-       exam.setOption4(question.getOptions().get(3).getAOption());*/
+       exam.setOption1(question.getQnOptions().get(0).getOption());
+       exam.setOption2(question.getQnOptions().get(1).getOption());
+       exam.setOption3(question.getQnOptions().get(2).getOption());
+       exam.setOption4(question.getQnOptions().get(3).getOption());
        modelAndView.addObject("updateQ",exam);
        modelAndView.setViewName("update");                    
-        return modelAndView;    
-        //database ? open answer table 
+       return modelAndView;    
+        
     }    
-   /*@GetMapping(value = "/updateQ")
+   @GetMapping(value = "/updateQ")
    public String updateQuestion(@ModelAttribute ExamModel exam)
    {
 	   Question question = questionServiceImpl.get(exam.getId());
-       //question = questionServiceImpl.get(exam.getId());
+	   questionServiceImpl.saveQuestion(question);
+	   //question = questionServiceImpl.get(exam.getId());
       //Question q = exam.getQuestion();
      //question.setQuestion(q.getQuestion());
     //question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
@@ -478,9 +478,10 @@ public class ClientForwardController {
        question.getOptions().get(1).setAOption(exam.getOption2());
        question.getOptions().get(2).setAOption(exam.getOption3());
        question.getOptions().get(3).setAOption(exam.getOption4());
-       questionServiceImpl.saveQuestion(question);
+       questionServiceImpl.saveQuestion(question);*/
        return "view";
-   }   */
+   
+   }
 
 
    @RequestMapping(value = "/newquestion2", method = RequestMethod.GET)
