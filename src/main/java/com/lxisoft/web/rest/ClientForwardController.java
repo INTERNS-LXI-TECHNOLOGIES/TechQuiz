@@ -168,6 +168,7 @@ public class ClientForwardController {
         return "examUpdate";
     }
 	
+
 	@GetMapping(value="/viewQuest")
     public String viewQuest(HttpServletRequest request) {
     	List<Question> listQuestion = questionServiceImpl.getAll();
@@ -195,9 +196,7 @@ public class ClientForwardController {
     	}
     	session.setAttribute("listQuestion", listExam); 
     	return "selectexam";
-    }	
-	
-    
+	}
 
 
 	@GetMapping(value="/viewQuestion")
@@ -381,7 +380,7 @@ public class ClientForwardController {
 
          List<QnOption> qnOptions = new ArrayList();
 
-//         List<QnOption> qnOptions = new ArrayList<>();
+
 
          
          QnOption option1 = new QnOption();
@@ -437,44 +436,6 @@ public class ClientForwardController {
         model.setViewName("view");
         return model;  
   } 
-    @GetMapping(value = "/update/{id}")
-    public ModelAndView updateQuestion(@PathVariable("id") long id)
-    {
-	      
-	   ModelAndView modelAndView = new ModelAndView();
-	   ExamModel exam = new ExamModel();
-	   Question question =new Question();
-       question = questionServiceImpl.get(id);
-       exam.setId(question.getId());
-       String quest = question.getQuestion();
-       question.setQuestion(quest);
-       exam.setQuestion(question);
-       exam.setAnswer(question.getAnswer());
-      /* exam.setOption1(question.getOptions().get(0).getAOption());
-       exam.setOption2(question.getOptions().get(1).getAOption());
-       exam.setOption3(question.getOptions().get(2).getAOption());
-       exam.setOption4(question.getOptions().get(3).getAOption());*/
-       modelAndView.addObject("updateQ",exam);
-       modelAndView.setViewName("update");                    
-        return modelAndView;    
-        //database ? open answer table 
-    }    
-   /*@GetMapping(value = "/updateQ")
-   public String updateQuestion(@ModelAttribute ExamModel exam)
-   {
-	   Question question = questionServiceImpl.get(exam.getId());
-       //question = questionServiceImpl.get(exam.getId());
-      //Question q = exam.getQuestion();
-     //question.setQuestion(q.getQuestion());
-    //question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
-    /*  question.getOptions().get(0).setAOption(exam.getOption1());
-       question.getOptions().get(1).setAOption(exam.getOption2());
-       question.getOptions().get(2).setAOption(exam.getOption3());
-       question.getOptions().get(3).setAOption(exam.getOption4());
-       questionServiceImpl.saveQuestion(question);
-       return "view";
-   }   */
-
 
    @RequestMapping(value = "/newquestion2", method = RequestMethod.GET)
     public ModelAndView newQuestion2(ModelAndView model) {
@@ -560,6 +521,47 @@ public class ClientForwardController {
         return new ModelAndView("redirect:/reg");
 
     }
+    @GetMapping(value = "/update/{id}")
+    public ModelAndView updateQuestion(@PathVariable("id") long id)
+    {
+	      
+	   ModelAndView modelAndView = new ModelAndView();
+	   ExamModel exam = new ExamModel();
+	   Question question =new Question();
+       question = questionServiceImpl.get(id);
+       exam.setId(question.getId());
+       String quest = question.getQuestion();
+       question.setQuestion(quest);
+       exam.setQuestion(question);
+       exam.setAnswer(question.getAnswer());
+       exam.setOption1(question.getQnOptions().get(0).getOption());
+       exam.setOption2(question.getQnOptions().get(1).getOption());
+       exam.setOption3(question.getQnOptions().get(2).getOption());
+       exam.setOption4(question.getQnOptions().get(3).getOption());
+       modelAndView.addObject("updateQ",exam);
+       modelAndView.setViewName("update");                    
+       return modelAndView;    
+        
+    }    
+   @GetMapping(value = "/updateQ")
+   public String updateQuestion(@ModelAttribute ExamModel exam)
+   {
+	   Question question = questionServiceImpl.get(exam.getId());
+	   questionServiceImpl.saveQuestion(question);
+	   //question = questionServiceImpl.get(exam.getId());
+      //Question q = exam.getQuestion();
+     //question.setQuestion(q.getQuestion());
+    //question.getAnswer().setAnswer(exam.getAnswer().getAnswer());
+    /*  question.getOptions().get(0).setAOption(exam.getOption1());
+       question.getOptions().get(1).setAOption(exam.getOption2());
+       question.getOptions().get(2).setAOption(exam.getOption3());
+       question.getOptions().get(3).setAOption(exam.getOption4());
+       questionServiceImpl.saveQuestion(question);*/
+       return "view";
+   
+   }
+
+
    /* @GetMapping(value = "/update")
     public String updateQues(@ModelAttribute ExamModel exam)
     {
@@ -658,7 +660,7 @@ public class ClientForwardController {
 	}
 
    @RequestMapping (value ="/savexam")
-   public String saveExm(Exam examDto,Model model)
+   public String saveExam(Exam examDto,Model model)
 	{
    	//FileController fileRepo = new FileController();
    	examServiceImpl.create(examDto);

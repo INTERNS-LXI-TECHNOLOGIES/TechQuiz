@@ -40,14 +40,20 @@ public class Question implements Serializable {
     private Answer answer;
 
 
+
 //  @OneToMany(mappedBy = "question")
 //    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //        private List<QnOption> qnOptions = new ArrayList<>();
 
-    
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<QnOption> qnOptions = new ArrayList<>();
+        private List<QnOption> qnOptions = new ArrayList<>();
+
+
+    
+//    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    private List<QnOption> qnOptions = new ArrayList<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
