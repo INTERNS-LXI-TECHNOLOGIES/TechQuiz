@@ -13,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,6 +29,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class ExamServiceImpl implements ExamService {
 
+	
+	static  int id=0;
     private final Logger log = LoggerFactory.getLogger(ExamServiceImpl.class);
 
     private final ExamRepository examRepository;
@@ -109,5 +115,28 @@ public class ExamServiceImpl implements ExamService {
     {
         return examRepository.getOne(id);
     }
+    
+    public List<Exam> create(Exam e)
+	{
+
+   	 File file=new File("D:\\TechQuizRepository\\TechQuiz\\src\\main\\java\\com\\lxisoft\\repository\\Text.csv");
+    	List<Exam>examList=new ArrayList<>();
+		e=new Exam();
+		try
+		{
+			FileWriter fw = new FileWriter(file,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+//			fw=new FileWriter(file,true);
+
+			bw.write(id+","+e.getName()+","+e.getCount()+","+e.getLevel()+"\n");
+			bw.flush();
+		}
+		catch(IOException i)
+		{
+			System.out.println("an error occured");
+		}
+		return examList;	
+	}
     
     }

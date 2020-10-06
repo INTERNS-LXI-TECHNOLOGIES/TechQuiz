@@ -13,16 +13,16 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #ff0080;
+  background-color: #212B5C;
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
 }
 
-.button:hover {background-color: #ff0040}
+.button:hover {background-color: #212B5C}
 
 .button:active {
-  background-color: #ff0040;
+  background-color: #7F8082;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
@@ -30,21 +30,80 @@
 	{
 		padding-top: 40px;
 		padding-right: 30px;
-		padding-left: 80px;
+		padding-left: 30px;
 		padding-bottom: 20px;
 	}
-
-	.header {
-  background-color: #ff0080;
-  padding: 20px;
-  text-align: center;
+	
+	#wrap {
+	background: #212B5C url(bg.jpg) repeat-x 0 0; 
+	margin: 20px auto 0 auto;	
+	text-align: left;		
+  	border-color: #444;
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;	
+}	
+#wrap, #footer-wrap {
+	width: 90%;
 }
+	
+	#header {
+	position: relative;
+	height: 110px;	
+	background: #7F8082 url(header-bg.jpg) repeat-x 0% 100%;
+	border-bottom: 5px solid #444;		
+}
+#header h1#logo {
+	position: absolute;
+	top: 5px; left: 20px;
+	margin: 0; padding: 0;
+	font: bolder 50px 'Trebuchet MS', Arial, Sans-serif;
+	letter-spacing: -2px;	
+}
+#header h2#slogan {
+	position: absolute;
+	top: 50px; left: 65px;
+	color: #FFF;
+	text-indent: 0px;
+	font: bold 12px Tahoma, 'Trebuchet MS', Sans-serif; 
+	text-transform: none;	
+}
+
+.box {
+	margin: 1px 15px;			
+	border: 1px solid #0A1646;	 	
+	background-color: #1B2455;	
+}
+
+.float-left  { float: left; }
+.float-right {	float: right; }
+.align-left  {	text-align: left; }
+.align-right {	text-align: right; }
+
+/* additional classes */
+.clear {	clear: both; }
+.gray  {	color: #A0A0A0; }
+.comments { 
+	text-align: right; 
+	padding: 7px 15px;
+	margin: 20px 15px 15px 15px;
+	background: #0A1646;	 
+}
+.box {
+	margin: 10px 15px;			
+	border: 1px solid #0A1646;	 	
+	background-color: #1B2455;	
+}
+
+	
   </style>
 </head>
 <body>
-<div class="header">
-    <h1 align="center">TECHQUIZ</h1>
-    <h2 align="center">Instructions</h2>
+<div id="wrap">
+  <div id="header">
+  <h1 id="logo">TECHQUIZ<span class="gray">app</span></h1><br>
+   <br> <h1 align="center"><u>Instructions</u></h1>
+   
+
 </div>
 <div>
     <h4>1.Please read and understand the Test instructions so that you will be able to easily navigate through the Test</h4>

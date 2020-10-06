@@ -13,16 +13,16 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #ff0080;
+  background-color: #212B5C;
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
 }
 
-.button:hover {background-color: #ff0040}
+.button:hover {background-color: #212B5C}
 
 .button:active {
-  background-color: #ff0040;
+  background-color: #7F8082;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
@@ -30,35 +30,84 @@
 	{
 		padding-top: 40px;
 		padding-right: 30px;
-		padding-left: 80px;
+		padding-left: 30px;
 		padding-bottom: 20px;
 	}
-
-	.header {
-  background-color: #ff0080;
-  padding: 20px;
-  text-align: center;
+	
+	#wrap {
+	background: #212B5C url(bg.jpg) repeat-x 0 0; 
+	margin: 20px auto 0 auto;	
+	text-align: left;		
+  	border-color: #444;
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;	
+}	
+#wrap, #footer-wrap {
+	width: 90%;
 }
+	
+	#header {
+	position: relative;
+	height: 110px;	
+	background: #7F8082 url(header-bg.jpg) repeat-x 0% 100%;
+	border-bottom: 5px solid #444;		
+}
+#header h1#logo {
+	position: absolute;
+	top: 5px; left: 20px;
+	margin: 0; padding: 0;
+	font: bolder 50px 'Trebuchet MS', Arial, Sans-serif;
+	letter-spacing: -2px;	
+}
+
+
+.clear {	clear: both; }
+.gray  {	color: #A0A0A0; }
+
+#header ul {
+	position: absolute;
+	top: 20px; right: 20px;
+	margin:0; padding: 0;
+   list-style:none;
+	font: bold 1.3em  'Trebuchet MS', Tahoma, verdana,  sans-serif;	
+	height: 2.3em;
+}
+#header li {
+   display:inline;
+   margin:0; padding:0;
+}
+#header a {
+	float: left;
+   margin:0;
+   padding:3px 10px 2px 10px;
+   text-decoration:none;	
+	color: #CCC;
+}
+#header a:hover {
+	border-top: 5px solid #CCC;	
+}
+#header #current a {
+   color: #FFF;
+	border-top: 5px solid #FFF;
+}
+
+	
   </style>
 </head>
 <body>
-<div class="header">
-    <h1>TECHQUIZ</h1>
-   <h3 align="right"><a href="viewAll"><input type="submit" class="button" value="Create Exam"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
-    
-      &nbsp;&nbsp;&nbsp;&nbsp; <a href="viewAllQn"><input type="submit" class="button" value="View Question"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-    
-      &nbsp;&nbsp;&nbsp;&nbsp; <a href="createquestion"><input type="submit" class="button" value="create Question"/></a>
-
-
-       &nbsp;&nbsp;&nbsp;&nbsp;    <a href="createFile"><input type="submit" class="button" value="ADD File"/></a></h3>
-     </h3>
-
-    
-       
-    </h3>
+<div id="wrap">
+  <div id="header">
+  <h1 id="logo">TECHQUIZ<span class="gray">app</span></h1><br>
+  <div id="menu">
+      <ul>
+      <br><br><br><br>
+        <li><a href="viewAll">Create Exam</a></li>
+        <li><a href="viewAllQn">View Question</a></li>
+        <li><a href="createquestion">Create Question</a></li>
+        <li><a href="createFile">ADD File</a></li>
+      </ul>
+    </div>
+  </div>                
 </div>
 <br>
 <br>

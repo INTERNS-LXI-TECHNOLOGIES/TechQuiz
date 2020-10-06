@@ -74,10 +74,14 @@ public class QuestionServiceImpl implements QuestionService {
     	questionRepository.deleteById(id);
     	return id;
     }
+
+     
+
     public void saveQuestionWithEnity(Question question) {
         log.debug("Request to save question with entity : {}", question);
         questionRepository.save(question);
     }
+
     public List<Question> getAll()
     {
         return  questionRepository.findAll();
